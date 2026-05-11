@@ -8,6 +8,11 @@ package org.example;
  *
  * @author anton
  */
-public class TipoNombreFase {
-    
+public enum TipoNombreFase {
+    Grupos,
+    Dieciseisavos,
+    Octavos,
+    Cuartos,
+    Semifinal,
+    Final
 }

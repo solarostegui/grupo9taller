@@ -8,6 +8,13 @@ package org.example;
  *
  * @author anton
  */
-public class TipoRol {
-    
+public enum TipoRol {
+    AyudanteCampo,
+    PreparadorFisico,
+    Medico,
+    Kinesiologo,
+    EntrenadorArqueros,
+    AnalistaVideos,
+    Nutricionista,
+    Psicologo
 }
