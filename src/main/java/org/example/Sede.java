@@ -51,6 +51,15 @@ public class Sede {
     public void setZonaHoraria(String zonaHoraria) {
         this.zonaHoraria = zonaHoraria;
     }
+
+    @Override
+    public String toString() {
+        return "------Sede------" + 
+                "\nCiudad: " + this.ciudad + 
+                "\nAlturanivel del mar: " + this.alturaNivelMar + 
+                "\nClima: " + this.clima + 
+                "\nZona Horaria: " + this.zonaHoraria;
+    }
     
     
 }

@@ -9,5 +9,5 @@ package org.example;
  * @author mardalorso
  */
 public enum TipoPosicion{
-    Arquero,Defensor,Mediocampista,Delantera
+    Arquero,Defensor,Mediocampista,Delantero
 }

@@ -30,6 +30,14 @@ public class Estadio {
     public void setCapacidad(Integer capacidad) {
         this.capacidad = capacidad;
     }
+
+    @Override
+    public String toString() {
+        return "----Estadio------ "+
+                "Nombre: " + this.nombre + 
+                "\nCapacidad: " + this.capacidad;
+    }
+    
     
     
 }

@@ -13,8 +13,18 @@ public class DirectorTecnico extends Persona{
     public DirectorTecnico (){
     }
 
-    //Get
+    //Get y setter
     public int getFechaNombramiento() {
         return fechaNombramiento;
     }
+    public void setFechaNombramiento(int fechaNombramiento) {
+        this.fechaNombramiento = fechaNombramiento;
+    }
+
+    @Override
+    public String toString() {
+        return "-----DirectorTecnico-----"+
+                "\nFecha de nombramiento: " + this.fechaNombramiento;
+    }
+    
 }
