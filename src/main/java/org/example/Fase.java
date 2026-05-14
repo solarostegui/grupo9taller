@@ -10,5 +10,20 @@ public class Fase {
     
     public Fase(){
     }
+
+    public TipoNombreFase getNombreFase() {
+        return nombreFase;
+    }
+
+    public void setNombreFase(TipoNombreFase nombreFase) {
+        this.nombreFase = nombreFase;
+    }
+
+    @Override
+    public String toString() {
+        return "\nFase: "  + this.nombreFase;
+    }
+    
+    
     
 }
