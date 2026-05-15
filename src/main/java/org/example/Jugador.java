@@ -36,4 +36,30 @@ public class Jugador extends Persona{
     public float getAltura() {
         return altura;
     }
+
+    public void setDorsal(int dorsal) {
+        this.dorsal = dorsal;
+    }
+
+    public void setPosicion(TipoPosicion posicion) {
+        this.posicion = posicion;
+    }
+
+    public void setPeso(float peso) {
+        this.peso = peso;
+    }
+
+    public void setAltura(float altura) {
+        this.altura = altura;
+    }
+
+    @Override
+    public String toString() {
+        return "-------Jugador-------"
+                + "\nDorsal: " + this.dorsal +  
+                "\nPosicion: " + this.posicion + "\nPeso: " + this.peso + 
+                "\nAltura: " + this.altura;
+    }
+    
+    
 }

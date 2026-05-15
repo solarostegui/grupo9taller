@@ -28,7 +28,7 @@ public class Sede {
         this.estadios = new ArrayList<Estadio>();
         this.paises = new ArrayList<Pais>();
     }
-
+    //Get
     public String getCiudad() {
         return ciudad;
     }
@@ -44,6 +44,7 @@ public class Sede {
     public String getZonaHoraria() {
         return zonaHoraria;
     }
+    //Set
 
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
@@ -61,11 +62,24 @@ public class Sede {
         this.zonaHoraria = zonaHoraria;
     }
 
+
     public void setEstadios (List<Estadio> estadios) {this.estadios = estadios;}
 
     public void setPaises (List<Pais> paises) {this.paises = paises;}
-
+    //Métodos
     public void agregarEstadio (Estadio e) {this.estadios.add (e); }
     public void agregarPais (Pais p){this.paises.add (p);}
+
+    @Override
+    public String toString() {
+        return "------Sede------" + 
+                "\nCiudad: " + this.ciudad + 
+                "\nAlturanivel del mar: " + this.alturaNivelMar + 
+                "\nClima: " + this.clima + 
+                "\nZona Horaria: " + this.zonaHoraria;
+    }
+    
+    
+
 }
 

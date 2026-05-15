@@ -20,4 +20,20 @@ public class Pais {
     public String getBandera() {
         return bandera;
     }
+    //Set
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setBandera(String bandera) {
+        this.bandera = bandera;
+    }
+
+    @Override
+    public String toString() {
+        return "------Pais------- " + 
+                "\nNombre: " + this.nombre + 
+                "\nBandera: " + this.bandera;
+    }
+    
 }

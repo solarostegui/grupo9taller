@@ -14,8 +14,15 @@ public class Persona {
     //Constructor por defecto
     public Persona(){
     }
+    
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     //Get
+    public void setFecNacimiento(int fecNacimiento) {    
+        this.fecNacimiento = fecNacimiento;
+    }
 
     public String getNombre() {
         return nombre;
@@ -24,4 +31,11 @@ public class Persona {
     public int getFecNacimiento() {
         return fecNacimiento;
     }
+
+    @Override
+    public String toString() {
+        return "\nNombre: " + this.nombre +
+                "fecha de nacimiento: " + this.fecNacimiento;
+    }
+    
 }
