@@ -9,15 +9,16 @@ public class Sede {
     private String clima;
     private String zonaHoraria;
     private List<Estadio> estadios;
-    private List<Pais> paises;
+    private Pais pais;
 
-    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, List<Estadio> estadios, List<Pais> paises) {
+
+    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, List<Estadio> estadios, Pais pais) {
         this.ciudad = ciudad;
         this.alturaNivelMar = alturaNivelMar;
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
         this.estadios = estadios;
-        this.paises = paises;
+        this.pais = pais;
     }
     
     public Sede(){
@@ -26,7 +27,7 @@ public class Sede {
         this.clima = "";
         this.zonaHoraria = "";
         this.estadios = new ArrayList<Estadio>();
-        this.paises = new ArrayList<Pais>();
+
     }
     //Get
     public String getCiudad() {
@@ -65,10 +66,10 @@ public class Sede {
 
     public void setEstadios (List<Estadio> estadios) {this.estadios = estadios;}
 
-    public void setPaises (List<Pais> paises) {this.paises = paises;}
+    public void setPaises (Pais pais) {this.pais = pais;}
     //Métodos
     public void agregarEstadio (Estadio e) {this.estadios.add (e); }
-    public void agregarPais (Pais p){this.paises.add (p);}
+
 
     @Override
     public String toString() {
