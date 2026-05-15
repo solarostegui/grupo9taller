@@ -3,21 +3,20 @@ package org.example;
 public class Pais {
     private String nombre;
     private String bandera;
+    private Pais pais;
 
     //Constructor con parámetros
-    public Pais (String nombre, String bandera){
+    public Pais (String nombre, String bandera, Pais pais){
         this.nombre = nombre;
         this.bandera = bandera;
+        this.pais = pais;
     }
 
     //Constructor por defecto
-    public Pais (){
-    }
+    public Pais (){}
     //Get
-    public String getNombre() {
-        return nombre;
-    }
-
+    public String getNombre() {return nombre;}
+    public Pais getPais (){return pais;}
     public String getBandera() {
         return bandera;
     }
