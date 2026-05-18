@@ -15,15 +15,18 @@ public class Partido {
     private Clock horario;
     private int duracion;
     private int tiempoadicional;
+    //bidireccional con estadio
+    private Estadio estadio;
     
     //contructor por defecto
     public Partido(){}
 
-    public Partido(Date fecha, Clock horario, int duracion, int tiempoadicional) {
+    public Partido(Date fecha, Clock horario, int duracion, int tiempoadicional,Estadio estadio) {
         this.fecha = fecha;
         this.horario = horario;
         this.duracion = duracion;
         this.tiempoadicional = tiempoadicional;
+        this.estadio=estadio;
     }
     //getter y setter
     public Date getFecha() {
