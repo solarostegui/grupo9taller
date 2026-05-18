@@ -4,6 +4,7 @@ package org.example;
 public class Grupo {
     private String identificacion;
     private String descripcion;
+    private int num;
 
     public Grupo(String identificacion, String descripcion) {
         this.identificacion = identificacion;
@@ -33,6 +34,6 @@ public class Grupo {
     
    //Completar método de ObtenerPuntos 
     public int obtenerPuntos(Seleccion s){
-        return 
+        return 3;
     }
 }
