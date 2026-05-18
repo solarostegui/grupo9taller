@@ -5,6 +5,8 @@
 package org.example;
 import java.time.Clock;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 /**
  *
  * @author mardalorso
@@ -22,9 +24,13 @@ public class Partido {
     //bidireccional con seleccion
     private Seleccion seleccion1;
     private Seleccion seleccion2;
+    //composicion con evento
+    private List<Evento> eventos;
     
     //contructor por defecto
-    public Partido(){}
+    public Partido(){
+    this.eventos=new ArrayList<Evento>();
+    }
 
     public Partido(Date fecha, Clock horario, int duracion, int tiempoadicional,Estadio estadio,Fase fase,Seleccion seleccion1,Seleccion seleccion2) {
         this.fecha = fecha;
@@ -35,6 +41,10 @@ public class Partido {
         this.fase=fase;
         this.seleccion1=seleccion1;
         this.seleccion2=seleccion2;
+        this.eventos=new ArrayList<Evento>();
+    }
+    public void agregarEvento(TipoEvento evento,int minuto){
+        this.eventos.add (new Evento(evento,minuto));
     }
     //getter y setter
     public Date getFecha() {
