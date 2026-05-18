@@ -19,17 +19,22 @@ public class Partido {
     private Estadio estadio;
     //bidireccional con fase
     private Fase fase;
+    //bidireccional con seleccion
+    private Seleccion seleccion1;
+    private Seleccion seleccion2;
     
     //contructor por defecto
     public Partido(){}
 
-    public Partido(Date fecha, Clock horario, int duracion, int tiempoadicional,Estadio estadio,Fase fase) {
+    public Partido(Date fecha, Clock horario, int duracion, int tiempoadicional,Estadio estadio,Fase fase,Seleccion seleccion1,Seleccion seleccion2) {
         this.fecha = fecha;
         this.horario = horario;
         this.duracion = duracion;
         this.tiempoadicional = tiempoadicional;
         this.estadio=estadio;
         this.fase=fase;
+        this.seleccion1=seleccion1;
+        this.seleccion2=seleccion2;
     }
     //getter y setter
     public Date getFecha() {

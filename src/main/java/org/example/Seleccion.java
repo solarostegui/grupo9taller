@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.example;
-
+import java.util.List;
+import java.util.ArrayList;
 /**
  *
  * @author mardalorso
@@ -15,22 +16,21 @@ public class Seleccion {
     private String camisetaSecundaria;
     private boolean cabezagrupo;
     private int rankingFIFA;
+    //biddireccional con partido
+    private List<Partido> partidos;
     
     //constructor parametrizado
-    public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezagrupo, int rankingFIFA) {
+    public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezagrupo, int rankingFIFA,List<Partido> partidos) {
         this.nombreFederacion = nombreFederacion;
         this.camisetaPrincipal = camisetaPrincipal;
         this.camisetaSecundaria = camisetaSecundaria;
         this.cabezagrupo = cabezagrupo;
         this.rankingFIFA = rankingFIFA;
+        this.partidos=partidos;
     }
     //constructor por defecto
     public Seleccion(){
-        this.nombreFederacion ="";
-        this.camisetaPrincipal ="";
-        this.camisetaSecundaria ="";
-        this.cabezagrupo =false;
-        this.rankingFIFA =0;
+        this.partidos= new ArrayList<Partido>();
     }
     //Setter y getter
     public String getNombreFederacion() {
