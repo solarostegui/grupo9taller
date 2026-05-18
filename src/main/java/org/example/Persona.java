@@ -2,8 +2,8 @@ package org.example;
 
 //Definición clase persona -> atributos: nombre(str), fecnacimiento (int)
 public class Persona {
-    private String nombre;
-    private int fecNacimiento;
+    protected String nombre;
+    protected int fecNacimiento;
 
     //Constructor con parámetros
     public Persona (String nombre, int fecNacimiento){

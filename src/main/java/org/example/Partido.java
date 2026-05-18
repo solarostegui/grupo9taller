@@ -17,16 +17,19 @@ public class Partido {
     private int tiempoadicional;
     //bidireccional con estadio
     private Estadio estadio;
+    //bidireccional con fase
+    private Fase fase;
     
     //contructor por defecto
     public Partido(){}
 
-    public Partido(Date fecha, Clock horario, int duracion, int tiempoadicional,Estadio estadio) {
+    public Partido(Date fecha, Clock horario, int duracion, int tiempoadicional,Estadio estadio,Fase fase) {
         this.fecha = fecha;
         this.horario = horario;
         this.duracion = duracion;
         this.tiempoadicional = tiempoadicional;
         this.estadio=estadio;
+        this.fase=fase;
     }
     //getter y setter
     public Date getFecha() {
