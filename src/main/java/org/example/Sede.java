@@ -1,16 +1,24 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Sede {
     private String ciudad;
     private float alturaNivelMar;
     private String clima;
     private String zonaHoraria;
+    private List<Estadio> estadios;
+    private Pais pais;
 
-    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria) {
+
+    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, List<Estadio> estadios, Pais pais) {
         this.ciudad = ciudad;
         this.alturaNivelMar = alturaNivelMar;
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
+        this.estadios = estadios;
+        this.pais = pais;
     }
     
     public Sede(){
@@ -18,8 +26,10 @@ public class Sede {
         this.alturaNivelMar = 0.0F;
         this.clima = "";
         this.zonaHoraria = "";
-    }
+        this.estadios = new ArrayList<Estadio>();
 
+    }
+    //Get
     public String getCiudad() {
         return ciudad;
     }
@@ -35,6 +45,7 @@ public class Sede {
     public String getZonaHoraria() {
         return zonaHoraria;
     }
+    //Set
 
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
@@ -52,6 +63,14 @@ public class Sede {
         this.zonaHoraria = zonaHoraria;
     }
 
+
+    public void setEstadios (List<Estadio> estadios) {this.estadios = estadios;}
+
+    public void setPaises (Pais pais) {this.pais = pais;}
+    //Métodos
+    public void agregarEstadio (Estadio e) {this.estadios.add (e); }
+
+
     @Override
     public String toString() {
         return "------Sede------" + 
@@ -62,5 +81,6 @@ public class Sede {
     }
     
     
+
 }
 

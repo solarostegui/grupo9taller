@@ -34,6 +34,6 @@ public class Grupo {
     
    //Completar método de ObtenerPuntos 
     public int obtenerPuntos(Seleccion s){
-        return 3;
+        return 0;
     }
 }
