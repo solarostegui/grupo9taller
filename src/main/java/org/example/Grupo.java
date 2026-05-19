@@ -1,19 +1,24 @@
 
 package org.example;
+import java.util.*;
 
 public class Grupo {
     private String identificacion;
     private String descripcion;
     private int num;
+    //bidireccional con seleccion
+    private List<Seleccion> seleccion;
 
-    public Grupo(String identificacion, String descripcion) {
+    public Grupo(String identificacion, String descripcion, List<Seleccion> seleccion) {
         this.identificacion = identificacion;
         this.descripcion = descripcion;
+        this.seleccion = seleccion;
     }
     
     public Grupo(){
         this.identificacion = "";
         this.descripcion = "";
+        this.seleccion = new ArrayList<Seleccion>();
     }
 
     public String getIdentificacion() {
@@ -36,4 +41,6 @@ public class Grupo {
     public int obtenerPuntos(Seleccion s){
         return 0;
     }
+    
+  
 }

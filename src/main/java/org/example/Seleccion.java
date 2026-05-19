@@ -16,17 +16,23 @@ public class Seleccion {
     private String camisetaSecundaria;
     private boolean cabezagrupo;
     private int rankingFIFA;
-    //biddireccional con partido
+    //bidireccional con partido
     private List<Partido> partidos;
+    //bidireccional con pais
+    private Pais pais;
+    //bidireccional con grupo
+    private Grupo grupo;
     
     //constructor parametrizado
-    public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezagrupo, int rankingFIFA,List<Partido> partidos) {
+    public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezagrupo, int rankingFIFA,List<Partido> partidos, Pais pais, Grupo grupo) {
         this.nombreFederacion = nombreFederacion;
         this.camisetaPrincipal = camisetaPrincipal;
         this.camisetaSecundaria = camisetaSecundaria;
         this.cabezagrupo = cabezagrupo;
         this.rankingFIFA = rankingFIFA;
         this.partidos=partidos;
+        this.pais = pais;
+        this.grupo = grupo;
     }
     //constructor por defecto
     public Seleccion(){
@@ -73,6 +79,14 @@ public class Seleccion {
         this.rankingFIFA = rankingFIFA;
     }
 
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+    
     @Override
     public String toString() {
         return "--------Seleccion----------" +

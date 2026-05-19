@@ -9,14 +9,16 @@ public class Pais {
     private String bandera;
     private List<Sede> sedes;
     private List<Arbitro> arbitros;
+    private Seleccion representa;
 
 
     //Constructor con parámetros
-    public Pais (String nombre, String bandera, List<Sede> sedes, List<Arbitro> arbitros){
+    public Pais (String nombre, String bandera, List<Sede> sedes, List<Arbitro> arbitros, Seleccion representa){
         this.nombre = nombre;
         this.bandera = bandera;
         this.sedes = sedes;
         this.arbitros = arbitros;
+        this.representa = representa;
     }
 
     //Constructor por defecto
@@ -30,11 +32,20 @@ public class Pais {
     public String getBandera() {
         return bandera;
     }
+
+    public Seleccion getRepresenta() {
+        return representa;
+    }
     public List<Arbitro> getArbitros() {return arbitros;}
+
     //Set
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public void setRepresenta(Seleccion representa) {
+        this.representa = representa;
+    } 
 
     public void setBandera(String bandera) {
         this.bandera = bandera;
