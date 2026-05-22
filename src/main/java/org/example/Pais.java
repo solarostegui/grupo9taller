@@ -7,7 +7,9 @@ import java.util.List;
 public class Pais {
     private String nombre;
     private String bandera;
+    //bidireccional con sede
     private List<Sede> sedes;
+    //bidireccional con arbitro
     private List<Arbitro> arbitros;
     private Seleccion representa;
 
@@ -16,8 +18,8 @@ public class Pais {
     public Pais (String nombre, String bandera, List<Sede> sedes, List<Arbitro> arbitros, Seleccion representa){
         this.nombre = nombre;
         this.bandera = bandera;
-        this.sedes = sedes;
-        this.arbitros = arbitros;
+        this.sedes = new ArrayList<Sede>();
+        this.arbitros = new ArrayList<Arbitro>();
         this.representa = representa;
     }
 
@@ -50,6 +52,15 @@ public class Pais {
     public void setBandera(String bandera) {
         this.bandera = bandera;
     }
+
+    public void setSedes(ArrayList<Sede> sedes) {
+        this.sedes = sedes;
+    }
+
+    public void setArbitros(ArrayList<Arbitro> arbitros) {
+        this.arbitros = arbitros;
+    }
+    
 
     //Métodos
     public void agregarArbitro (Arbitro a){this.arbitros.add (a);}

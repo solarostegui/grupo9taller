@@ -24,13 +24,13 @@ public class Seleccion {
     private Grupo grupo;
     
     //constructor parametrizado
-    public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezagrupo, int rankingFIFA,List<Partido> partidos, Pais pais, Grupo grupo) {
+    public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezagrupo, int rankingFIFA,Pais pais, Grupo grupo) {
         this.nombreFederacion = nombreFederacion;
         this.camisetaPrincipal = camisetaPrincipal;
         this.camisetaSecundaria = camisetaSecundaria;
         this.cabezagrupo = cabezagrupo;
         this.rankingFIFA = rankingFIFA;
-        this.partidos=partidos;
+        this.partidos=new ArrayList<Partido>();
         this.pais = pais;
         this.grupo = grupo;
     }
@@ -85,6 +85,12 @@ public class Seleccion {
 
     public void setPais(Pais pais) {
         this.pais = pais;
+    }
+    public void setPartidos(ArrayList<Partido> partidos) {
+        this.partidos = partidos;
+    }
+    public void agregarPartido(Partido p){
+        this.partidos.add(p);
     }
     
     @Override

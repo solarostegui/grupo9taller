@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Estadio {
     private String nombre;
-    private Integer capacidad;
+    private int capacidad;
     private Sede sede;
     //bidireccional con partido
     private List<Partido> partidos;
@@ -14,11 +14,11 @@ public class Estadio {
         this.partidos=new ArrayList<Partido>();
     }
     
-    public Estadio(String nombre, Integer capacidad, Sede sede,List<Partido> partidos) {
+    public Estadio(String nombre, int capacidad, Sede sede) {
         this.nombre = nombre;
         this.capacidad = capacidad;
         this.sede = sede;
-        this.partidos=partidos;
+        this.partidos=new ArrayList<Partido>();
     }
     
     //Get
@@ -26,7 +26,7 @@ public class Estadio {
         return nombre;
     }
 
-    public Integer getCapacidad() {
+    public int getCapacidad() {
         return capacidad;
     }
 
@@ -44,8 +44,12 @@ public class Estadio {
         return partidos;
     }
 
-    public void setPartidos(List<Partido> partidos) {
+    
+    public void setPartidos(ArrayList<Partido> partidos) {
         this.partidos = partidos;
+    }
+    public void agregarPartido(Partido p){
+        this.partidos.add(p);
     }
     
     //Método

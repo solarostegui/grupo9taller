@@ -21,7 +21,6 @@ public class Evento {
         this.minuto = minuto;
     }
     //getter y setter
-
     public TipoEvento getEvento() {
         return evento;
     }

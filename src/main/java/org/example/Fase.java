@@ -9,9 +9,9 @@ public class Fase {
     private List<Partido> partidos;
     
 
-    public Fase(TipoNombreFase nombreFase,List<Partido> partidos) {
+    public Fase(TipoNombreFase nombreFase) {
         this.nombreFase = nombreFase;
-        this.partidos=partidos;
+        this.partidos=new ArrayList<Partido>();
     }
     
     public Fase(){
@@ -25,6 +25,17 @@ public class Fase {
     public void setNombreFase(TipoNombreFase nombreFase) {
         this.nombreFase = nombreFase;
     }
+
+    public List<Partido> getPartidos() {
+        return partidos;
+    }
+    public void setPartidos(ArrayList<Partido> partidos) {
+        this.partidos = partidos;
+    }
+    public void agregarPartido(Partido p){
+        this.partidos.add(p);
+    }
+    
 
     @Override
     public String toString() {
