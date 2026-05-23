@@ -7,18 +7,21 @@ public class Grupo {
     private String descripcion;
     private int num;
     //bidireccional con seleccion
-    private List<Seleccion> seleccion;
+    private List<Seleccion> selecciones;
+    
 
-    public Grupo(String identificacion, String descripcion, List<Seleccion> seleccion) {
+    public Grupo(String identificacion, String descripcion) {
         this.identificacion = identificacion;
         this.descripcion = descripcion;
-        this.seleccion = seleccion;
+        this.selecciones = new ArrayList<Seleccion>();
+        
     }
     
     public Grupo(){
         this.identificacion = "";
         this.descripcion = "";
-        this.seleccion = new ArrayList<Seleccion>();
+        this.selecciones = new ArrayList<Seleccion>();
+        
     }
 
     public String getIdentificacion() {
@@ -36,7 +39,15 @@ public class Grupo {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public void setSeleccion(List<Seleccion> seleccion) {
+        this.selecciones = seleccion;
+    }
     
+    //metodo para agregar a la lista las selecciones 
+    public void agregarSelecciones(Seleccion s){
+        this.selecciones.add(s);
+    }
    //Completar método de ObtenerPuntos 
     public int obtenerPuntos(Seleccion s){
         return 0;

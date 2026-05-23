@@ -22,6 +22,12 @@ public class Seleccion {
     private Pais pais;
     //bidireccional con grupo
     private Grupo grupo;
+    //Agregacion de jugador
+    private List<Jugador> jugadores;
+    //Agregacion Director Tecnico
+    private List<DirectorTecnico> directoresTecnicos;
+    //Agregacion con Cuerpo Tecnico
+    private List<CuerpoTecnico> cuerposTecnicos;
     
     //constructor parametrizado
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezagrupo, int rankingFIFA,Pais pais, Grupo grupo) {
@@ -33,10 +39,16 @@ public class Seleccion {
         this.partidos=new ArrayList<Partido>();
         this.pais = pais;
         this.grupo = grupo;
+        this.jugadores = new ArrayList<Jugador>();
+        this.directoresTecnicos = new ArrayList<DirectorTecnico>();
+        this.cuerposTecnicos = new ArrayList<CuerpoTecnico>();
     }
     //constructor por defecto
     public Seleccion(){
         this.partidos= new ArrayList<Partido>();
+        this.jugadores = new ArrayList<Jugador>();
+        this.directoresTecnicos = new ArrayList<DirectorTecnico>();
+        this.cuerposTecnicos = new ArrayList<CuerpoTecnico>();
     }
     //Setter y getter
     public String getNombreFederacion() {
@@ -86,9 +98,43 @@ public class Seleccion {
     public void setPais(Pais pais) {
         this.pais = pais;
     }
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
+    public void setDirectoresTecnicos(List<DirectorTecnico> directoresTecnicos) {
+        this.directoresTecnicos = directoresTecnicos;
+    }
+    
     public void setPartidos(ArrayList<Partido> partidos) {
         this.partidos = partidos;
     }
+
+    public void setJugadores(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public void setCuerposTecnicos(List<CuerpoTecnico> cuerposTecnicos) {
+        this.cuerposTecnicos = cuerposTecnicos;
+    }
+    
+    //Metodos para las listas
+    public void agregarcuerposTecnicos(CuerpoTecnico ct){
+        this.cuerposTecnicos.add(ct);
+    }
+    public void agregardirectoresTecnicos(DirectorTecnico dt){
+        this.directoresTecnicos.add(dt);
+    }
+    
+    public void agregarjugadores(Jugador j){
+        this.jugadores.add(j);
+    }
+    
     public void agregarPartido(Partido p){
         this.partidos.add(p);
     }
