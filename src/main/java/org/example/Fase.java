@@ -7,11 +7,14 @@ public class Fase {
     private TipoNombreFase nombreFase;
     //bidireccional con partido
     private List<Partido> partidos;
+    //bidireccional con grupo
+    private List<Grupo> grupos;
     
 
     public Fase(TipoNombreFase nombreFase) {
         this.nombreFase = nombreFase;
         this.partidos=new ArrayList<Partido>();
+        this.grupos=new ArrayList<Grupo>();
     }
     
     public Fase(){

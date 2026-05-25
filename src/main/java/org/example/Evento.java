@@ -4,6 +4,8 @@
  */
 package org.example;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author mardalorso
@@ -12,6 +14,8 @@ public class Evento {
     //variables miembro de onjeto
     private TipoEvento evento;
     private int minuto;
+    //bidireccional con jugador
+    private ArrayList<Jugador> jugador;
     
     //constructor por defecto
     public Evento(){}
@@ -19,6 +23,7 @@ public class Evento {
     public Evento(TipoEvento evento, int minuto) {
         this.evento = evento;
         this.minuto = minuto;
+        this.jugador = new ArrayList<Jugador>();
     }
     //getter y setter
     public TipoEvento getEvento() {

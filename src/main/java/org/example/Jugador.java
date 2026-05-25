@@ -6,14 +6,17 @@ public class Jugador extends Persona{
     private TipoPosicion posicion;
     private float peso;
     private float altura;
+    //bidireccional con evento
+    private Evento evento;
 
     //Constructor con parámetros
-    public Jugador (String nombre, int fecNacimiento, int dorsal, TipoPosicion posicion, float peso, float altura){
+    public Jugador (String nombre, int fecNacimiento, int dorsal, TipoPosicion posicion, float peso, float altura,Evento evento){
         super (nombre, fecNacimiento);
         this.dorsal = dorsal;
         this.posicion = posicion;
         this.peso = peso;
         this.altura = altura;
+        this.evento = evento;
     }
 
     //Constructor por defecto

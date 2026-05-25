@@ -8,13 +8,15 @@ public class Grupo {
     private int num;
     //bidireccional con seleccion
     private List<Seleccion> selecciones;
+    //bidireccional con fase
+    private Fase fase;
     
 
-    public Grupo(String identificacion, String descripcion) {
+    public Grupo(String identificacion, String descripcion,Fase fase) {
         this.identificacion = identificacion;
         this.descripcion = descripcion;
         this.selecciones = new ArrayList<Seleccion>();
-        
+        this.fase = fase;
     }
     
     public Grupo(){

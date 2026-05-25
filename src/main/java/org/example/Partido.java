@@ -26,6 +26,8 @@ public class Partido {
     private Seleccion seleccion2;
     //composicion con evento
     private List<Evento> eventos;
+    //Clase asociacion arbitraje
+    private List<Arbitraje> Arbitraje;
     
     //contructor por defecto
     public Partido(){
@@ -42,6 +44,7 @@ public class Partido {
         this.seleccion1=seleccion1;
         this.seleccion2=seleccion2;
         this.eventos=new ArrayList<Evento>();
+        this.Arbitraje=new ArrayList<Arbitraje>();
     }
     public void agregarEvento(TipoEvento evento,int minuto){
         this.eventos.add (new Evento(evento,minuto));

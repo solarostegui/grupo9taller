@@ -1,14 +1,20 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Arbitro extends Persona {
     private int aniosExperiencia;
     private Pais pais;
+    //Clase asociacion arbitraje
+    private List<Arbitraje> Arbitraje;
 
     //Constructor con parámetros
     public Arbitro (String nombre, int fecNacimiento, int aniosExperiencia, Pais pais){
         super(nombre, fecNacimiento);
         this.aniosExperiencia = aniosExperiencia;
         this.pais = pais;
+        this.Arbitraje=new ArrayList<Arbitraje>();
     }
 
     //Constructor por defecto
