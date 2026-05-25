@@ -1,7 +1,7 @@
 package org.example;
 
 //Definición clase persona -> atributos: nombre(str), fecnacimiento (int)
-public class Persona {
+public abstract class Persona {
     protected String nombre;
     protected int fecNacimiento;
 
