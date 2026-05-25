@@ -9,6 +9,7 @@ public class Sede {
     private String clima;
     private String zonaHoraria;
     private List<Estadio> estadios;
+    //Bidireccional con pais
     private Pais pais;
 
 

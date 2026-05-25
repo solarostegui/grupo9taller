@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Estadio {
     private String nombre;
     private int capacidad;
+    //Bidireccional con sede
     private Sede sede;
     //bidireccional con partido
     private List<Partido> partidos;

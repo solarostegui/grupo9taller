@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Arbitro extends Persona {
     private int aniosExperiencia;
+    //Bidireccional con pais
     private Pais pais;
     //Clase asociacion arbitraje
     private List<Arbitraje> Arbitraje;
