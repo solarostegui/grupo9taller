@@ -11,6 +11,8 @@ public class Arbitraje {
         this.arbitro = arbitro;
         this.partido = partido;
     }
+    
+    
 
 }
 
