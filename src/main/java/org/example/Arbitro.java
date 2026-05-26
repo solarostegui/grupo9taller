@@ -8,18 +8,24 @@ public class Arbitro extends Persona {
     //Bidireccional con pais
     private Pais pais;
     //Clase asociacion arbitraje
-    private List<Arbitraje> Arbitraje;
+    private List<Arbitraje> Arbitrajes;
 
     //Constructor con parámetros
     public Arbitro (String nombre, int fecNacimiento, int aniosExperiencia, Pais pais){
         super(nombre, fecNacimiento);
         this.aniosExperiencia = aniosExperiencia;
         this.pais = pais;
-        this.Arbitraje=new ArrayList<Arbitraje>();
+        this.Arbitrajes=new ArrayList<Arbitraje>();
     }
-
+    //agregar lista
+    public void agregarArbitraje(Arbitraje a){
+        this.Arbitrajes.add(a);
+    }
+    
     //Constructor por defecto
-    public Arbitro (){}
+    public Arbitro (){
+      this.Arbitrajes=new ArrayList<Arbitraje>();
+    }
 
     // getter y setter
     public int getAniosExperiencia() {
@@ -31,4 +37,29 @@ public class Arbitro extends Persona {
         this.aniosExperiencia = aniosExperiencia;
     }
     public void setPais(Pais pais){this.pais = pais;}
+
+    public List<Arbitraje> getArbitrajes() {
+        return Arbitrajes;
+    }
+
+    public void setArbitrajes(List<Arbitraje> Arbitrajes) {
+        this.Arbitrajes = Arbitrajes;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getFecNacimiento() {
+        return fecNacimiento;
+    }
+
+    public void setFecNacimiento(int fecNacimiento) {
+        this.fecNacimiento = fecNacimiento;
+    }
+    
 }

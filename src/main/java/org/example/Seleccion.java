@@ -16,8 +16,8 @@ public class Seleccion {
     private String camisetaSecundaria;
     private boolean cabezagrupo;
     private int rankingFIFA;
-    //bidireccional con partido
-    private List<Partido> partidos;
+    //clase asociacion con participacion
+    private List<Participacion> participaciones;
     //bidireccional con pais
     private Pais pais;
     //bidireccional con grupo
@@ -29,6 +29,9 @@ public class Seleccion {
     //Agregacion con Cuerpo Tecnico
     private List<CuerpoTecnico> cuerposTecnicos;
     
+    public void Partido(){
+        this.participaciones=new ArrayList<Participacion>();
+    }
     //constructor parametrizado
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezagrupo, int rankingFIFA,Pais pais, Grupo grupo) {
         this.nombreFederacion = nombreFederacion;
@@ -36,7 +39,7 @@ public class Seleccion {
         this.camisetaSecundaria = camisetaSecundaria;
         this.cabezagrupo = cabezagrupo;
         this.rankingFIFA = rankingFIFA;
-        this.partidos=new ArrayList<Partido>();
+        this.participaciones=new ArrayList<Participacion>();
         this.pais = pais;
         this.grupo = grupo;
         this.jugadores = new ArrayList<Jugador>();
@@ -45,7 +48,6 @@ public class Seleccion {
     }
     //constructor por defecto
     public Seleccion(){
-        this.partidos= new ArrayList<Partido>();
         this.jugadores = new ArrayList<Jugador>();
         this.directoresTecnicos = new ArrayList<DirectorTecnico>();
         this.cuerposTecnicos = new ArrayList<CuerpoTecnico>();
@@ -111,9 +113,6 @@ public class Seleccion {
         this.directoresTecnicos = directoresTecnicos;
     }
     
-    public void setPartidos(ArrayList<Partido> partidos) {
-        this.partidos = partidos;
-    }
 
     public void setJugadores(List<Jugador> jugadores) {
         this.jugadores = jugadores;
@@ -130,14 +129,22 @@ public class Seleccion {
     public void agregardirectoresTecnicos(DirectorTecnico dt){
         this.directoresTecnicos.add(dt);
     }
-    
+    public void agregarParticipacion(Participacion p){
+       this.participaciones.add(p);
+   }
     public void agregarjugadores(Jugador j){
         this.jugadores.add(j);
     }
-    
-    public void agregarPartido(Partido p){
-        this.partidos.add(p);
+
+    public List<Participacion> getParticipaciones() {
+        return participaciones;
     }
+
+    public void setParticipaciones(List<Participacion> participaciones) {
+        this.participaciones = participaciones;
+    }
+    
+   
     
     @Override
     public String toString() {

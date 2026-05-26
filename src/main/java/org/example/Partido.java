@@ -21,20 +21,21 @@ public class Partido {
     private Estadio estadio;
     //bidireccional con fase
     private Fase fase;
-    //bidireccional con seleccion
-    private Seleccion seleccion1;
-    private Seleccion seleccion2;
+   //clase asocicion con Participacion
+    private Participacion seleccion1;
+    private Participacion seleccion2;
     //composicion con evento
     private List<Evento> eventos;
     //Clase asociacion arbitraje
-    private List<Arbitraje> Arbitraje;
+    private List<Arbitraje> Arbitrajes;
     
     //contructor por defecto
     public Partido(){
     this.eventos=new ArrayList<Evento>();
+    this.Arbitrajes=new ArrayList<Arbitraje>();
     }
-
-    public Partido(Date fecha, Clock horario, int duracion, int tiempoadicional,Estadio estadio,Fase fase,Seleccion seleccion1,Seleccion seleccion2) {
+    
+    public Partido(Date fecha, Clock horario, int duracion, int tiempoadicional,Estadio estadio,Fase fase,Participacion seleccion1,Participacion seleccion2) {
         this.fecha = fecha;
         this.horario = horario;
         this.duracion = duracion;
@@ -44,10 +45,14 @@ public class Partido {
         this.seleccion1=seleccion1;
         this.seleccion2=seleccion2;
         this.eventos=new ArrayList<Evento>();
-        this.Arbitraje=new ArrayList<Arbitraje>();
+        this.Arbitrajes=new ArrayList<Arbitraje>();
     }
+    //agregar para las listas
     public void agregarEvento(TipoEvento evento,int minuto){
         this.eventos.add (new Evento(evento,minuto));
+    }
+    public void agregarArbitraje(Arbitraje a){
+        this.Arbitrajes.add(a);
     }
     //getter y setter
     public Date getFecha() {
@@ -81,6 +86,55 @@ public class Partido {
     public void setTiempoadicional(int tiempoadicional) {
         this.tiempoadicional = tiempoadicional;
     }
+
+    public Estadio getEstadio() {
+        return estadio;
+    }
+
+    public void setEstadio(Estadio estadio) {
+        this.estadio = estadio;
+    }
+
+    public Fase getFase() {
+        return fase;
+    }
+
+    public void setFase(Fase fase) {
+        this.fase = fase;
+    }
+
+    public Participacion getSeleccion1() {
+        return seleccion1;
+    }
+
+    public void setSeleccion1(Participacion seleccion1) {
+        this.seleccion1 = seleccion1;
+    }
+
+    public Participacion getSeleccion2() {
+        return seleccion2;
+    }
+
+    public void setSeleccion2(Participacion seleccion2) {
+        this.seleccion2 = seleccion2;
+    }
+
+    public List<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<Evento> eventos) {
+        this.eventos = eventos;
+    }
+
+    public List<Arbitraje> getArbitraje() {
+        return Arbitrajes;
+    }
+
+    public void setArbitraje(List<Arbitraje> Arbitrajes) {
+        this.Arbitrajes = Arbitrajes;
+    }
+    
 
     @Override
     public String toString() {
