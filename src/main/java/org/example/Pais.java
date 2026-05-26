@@ -15,12 +15,13 @@ public class Pais {
 
 
     //Constructor con parámetros
-    public Pais (String nombre, String bandera, List<Sede> sedes, List<Arbitro> arbitros, Seleccion representa){
+    public Pais (String nombre, String bandera, Seleccion representa){
         this.nombre = nombre;
         this.bandera = bandera;
         this.sedes = new ArrayList<Sede>();
         this.arbitros = new ArrayList<Arbitro>();
         this.representa = representa;
+        this.sedes = new ArrayList<Sede>();
     }
 
     //Constructor por defecto
