@@ -8,15 +8,18 @@ public class Jugador extends Persona{
     private float altura;
     //bidireccional con evento
     private Evento evento;
+    //agregacion con seleccion
+    private Seleccion seleccion;
 
     //Constructor con parámetros
-    public Jugador (String nombre, int fecNacimiento, int dorsal, TipoPosicion posicion, float peso, float altura,Evento evento){
+    public Jugador (String nombre, int fecNacimiento, int dorsal, TipoPosicion posicion, float peso, float altura,Evento evento, Seleccion seleccion){
         super (nombre, fecNacimiento);
         this.dorsal = dorsal;
         this.posicion = posicion;
         this.peso = peso;
         this.altura = altura;
         this.evento = evento;
+        this.seleccion = seleccion;
     }
 
     //Constructor por defecto
@@ -26,6 +29,10 @@ public class Jugador extends Persona{
     //Get
     public int getDorsal() {
         return dorsal;
+    }
+
+    public Seleccion getSeleccion() {
+        return seleccion;
     }
 
     public TipoPosicion getPosicion() {
@@ -38,6 +45,10 @@ public class Jugador extends Persona{
 
     public float getAltura() {
         return altura;
+    }
+
+    public void setSeleccion(Seleccion seleccion) {
+        this.seleccion = seleccion;
     }
 
     public void setDorsal(int dorsal) {

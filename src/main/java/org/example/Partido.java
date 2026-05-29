@@ -51,8 +51,13 @@ public class Partido {
     public void agregarEvento(TipoEvento evento,int minuto){
         this.eventos.add (new Evento(evento,minuto));
     }
+    
+    //Validamos que no este vacio arbitraje
     public void agregarArbitraje(Arbitraje a){
+        if(a.getPartido() != null) {
         this.Arbitrajes.add(a);
+        a.setPartido(this);   
+        }
     }
     //getter y setter
     public Date getFecha() {
@@ -135,6 +140,10 @@ public class Partido {
         this.Arbitrajes = Arbitrajes;
     }
     
+    //Validamos que partido tenga un arbitraje valido
+    public void validarArbitraje(){
+       
+    }
 
     @Override
     public String toString() {

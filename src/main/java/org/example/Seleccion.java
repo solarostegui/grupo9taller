@@ -23,7 +23,7 @@ public class Seleccion {
     //bidireccional con grupo
     private Grupo grupo;
     //Agregacion de jugador
-    private List<Jugador> jugadores;
+    private List<Jugador> jugador;
     //Agregacion Director Tecnico
     private List<DirectorTecnico> directoresTecnicos;
     //Agregacion con Cuerpo Tecnico
@@ -42,13 +42,13 @@ public class Seleccion {
         this.participaciones=new ArrayList<Participacion>();
         this.pais = pais;
         this.grupo = grupo;
-        this.jugadores = new ArrayList<Jugador>();
+        this.jugador = new ArrayList<Jugador>();
         this.directoresTecnicos = new ArrayList<DirectorTecnico>();
         this.cuerposTecnicos = new ArrayList<CuerpoTecnico>();
     }
     //constructor por defecto
     public Seleccion(){
-        this.jugadores = new ArrayList<Jugador>();
+        this.jugador = new ArrayList<Jugador>();
         this.directoresTecnicos = new ArrayList<DirectorTecnico>();
         this.cuerposTecnicos = new ArrayList<CuerpoTecnico>();
     }
@@ -105,6 +105,14 @@ public class Seleccion {
         return grupo;
     }
 
+    public List<Jugador> getJugador() {
+        return jugador;
+    }
+
+    public void setJugador(List<Jugador> jugador) {
+        this.jugador = jugador;
+    }
+
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
     }
@@ -114,8 +122,8 @@ public class Seleccion {
     }
     
 
-    public void setJugadores(List<Jugador> jugadores) {
-        this.jugadores = jugadores;
+    public void setJugadores(List<Jugador> jugador) {
+        this.jugador = jugador;
     }
 
     public void setCuerposTecnicos(List<CuerpoTecnico> cuerposTecnicos) {
@@ -123,17 +131,25 @@ public class Seleccion {
     }
     
     //Metodos para las listas
-    public void agregarcuerposTecnicos(CuerpoTecnico ct){
+    public void agregarCuerposTecnicos(CuerpoTecnico ct){
         this.cuerposTecnicos.add(ct);
     }
-    public void agregardirectoresTecnicos(DirectorTecnico dt){
+    public void agregarDirectoresTecnicos(DirectorTecnico dt){
         this.directoresTecnicos.add(dt);
     }
     public void agregarParticipacion(Participacion p){
        this.participaciones.add(p);
    }
-    public void agregarjugadores(Jugador j){
-        this.jugadores.add(j);
+    //Validación para que un jugador este en una sola seleccion
+    public void agregarJugador(Jugador j){
+        if(j.getSeleccion() == null) {
+        this.jugador.add(j);
+        j.setSeleccion(this);
+    }else {
+           System.out.println("El jugador ya pertenece a una selección");
+            }
+        
+       
     }
 
     public List<Participacion> getParticipaciones() {
