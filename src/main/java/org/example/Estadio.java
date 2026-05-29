@@ -31,24 +31,31 @@ public class Estadio {
         return capacidad;
     }
 
-    public Sede getSede() {return sede;}
+    public Sede getSede() {
+        return sede;
+    }
+    
+    public List<Partido> getPartidos() {
+        return partidos;
+    }
+    
     //Set
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    public void setSede(Sede sede) {
+        this.sede = sede;
+    }
+
     public void setCapacidad(Integer capacidad) {
         this.capacidad = capacidad;
     }
-
-    public List<Partido> getPartidos() {
-        return partidos;
-    }
-
     
     public void setPartidos(ArrayList<Partido> partidos) {
         this.partidos = partidos;
     }
+    
     public void agregarPartido(Partido p){
         this.partidos.add(p);
     }
@@ -61,7 +68,5 @@ public class Estadio {
                 "\nCapacidad: " + this.capacidad;
 
     }
-    
-    
     
 }
