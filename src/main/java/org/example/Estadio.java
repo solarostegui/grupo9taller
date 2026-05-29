@@ -31,6 +31,11 @@ public class Estadio {
         return capacidad;
     }
 
+    public List<Partido> getPartidos() {
+        return partidos;
+    }
+    
+
     public Sede getSede() {return sede;}
     //Set
     public void setNombre(String nombre) {
@@ -41,10 +46,17 @@ public class Estadio {
         this.capacidad = capacidad;
     }
 
-    public List<Partido> getPartidos() {
-        return partidos;
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
     }
 
+    public void setSede(Sede sede) {
+        this.sede = sede;
+    }
+
+    public void setPartidos(List<Partido> partidos) {
+        this.partidos = partidos;
+    }
     
     public void setPartidos(ArrayList<Partido> partidos) {
         this.partidos = partidos;

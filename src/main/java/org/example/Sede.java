@@ -13,12 +13,12 @@ public class Sede {
     private Pais pais;
 
 
-    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, List<Estadio> estadios, Pais pais) {
+    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Pais pais) {
         this.ciudad = ciudad;
         this.alturaNivelMar = alturaNivelMar;
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
-        this.estadios = estadios;
+        this.estadios = new ArrayList<Estadio>();
         this.pais = pais;
     }
     
@@ -34,42 +34,51 @@ public class Sede {
     public String getCiudad() {
         return ciudad;
     }
-
     public float getAlturaNivelMar() {
         return alturaNivelMar;
     }
-
     public String getClima() {
         return clima;
     }
-
     public String getZonaHoraria() {
         return zonaHoraria;
     }
-    //Set
+    public List<Estadio> getEstadios() {
+        return estadios;
+    }
+    public Pais getPais() {
+        return pais;
+    }
 
+    
+    
+    //Set
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
-
     public void setAlturaNivelMar(float alturaNivelMar) {
         this.alturaNivelMar = alturaNivelMar;
     }
-
     public void setClima(String clima) {
         this.clima = clima;
     }
-
     public void setZonaHoraria(String zonaHoraria) {
         this.zonaHoraria = zonaHoraria;
     }
-
-
-    public void setEstadios (List<Estadio> estadios) {this.estadios = estadios;}
-
-    public void setPaises (Pais pais) {this.pais = pais;}
+    public void setEstadios (List<Estadio> estadios) {
+        this.estadios = estadios;
+    }
+    public void setPaises (Pais pais) {
+        this.pais = pais;
+    }
+    
     //Métodos
-    public void agregarEstadio (Estadio e) {this.estadios.add (e); }
+    public void agregarEstadio (Estadio e) {
+        this.estadios.add (e); 
+    }
 
 
     @Override
