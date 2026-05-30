@@ -49,7 +49,7 @@ public class Partido {
     }
     //agregar para las listas
     public void agregarEvento(TipoEvento evento,int minuto, Jugador jugador){
-        this.eventos.add (new Evento(evento,minuto,jugador));
+        this.eventos.add (new Evento(evento,minuto));
     }
     
     //Validamos que no este vacio arbitraje
