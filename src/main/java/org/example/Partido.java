@@ -140,10 +140,12 @@ public class Partido {
         this.Arbitrajes = Arbitrajes;
     }
     
-    //Validamos que partido tenga un arbitraje valido
-    public void validarArbitraje(){
-       
+    //metodo para actualizar los resultados de partido y el grupo
+    public static int cargarResultados(){
+        return 0;
     }
+    
+    
 
     @Override
     public String toString() {

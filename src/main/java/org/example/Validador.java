@@ -11,11 +11,8 @@ public class Validador {
     }
     
     //necesitamos partido, jugadores de participacion (usamos get y ses de participacion)
-    public static void Evento(Partido p, Jugador j){
+    public static void validarEvento(Partido p, Jugador j){
         
     }
     
-    public static int resultados(){
-        
-    }
 }
