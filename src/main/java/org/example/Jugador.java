@@ -10,18 +10,18 @@ public class Jugador extends Persona{
     private float peso;
     private float altura;
     //bidireccional con evento
-    private ArrayList<Evento> eventos;
+    private Evento evento;
     //agregacion con seleccion
     private Seleccion seleccion;
 
     //Constructor con parámetros
-    public Jugador (String nombre, int fecNacimiento, int dorsal, TipoPosicion posicion, float peso, float altura, Seleccion seleccion){
+    public Jugador (String nombre, int fecNacimiento, int dorsal, TipoPosicion posicion, float peso, float altura, Seleccion seleccion, Evento evento){
         super (nombre, fecNacimiento);
         this.dorsal = dorsal;
         this.posicion = posicion;
         this.peso = peso;
         this.altura = altura;
-        this.eventos = new ArrayList<Evento>();
+        this.evento = evento;
         this.seleccion = seleccion;
     }
 
@@ -45,9 +45,10 @@ public class Jugador extends Persona{
     public float getAltura() {
         return altura;
     }
-    public ArrayList<Evento> getEventos() {
-        return eventos;
+    public Evento getEvento() {
+        return evento;
     }
+
     //Set
     public void setSeleccion(Seleccion seleccion) {
         this.seleccion = seleccion;
@@ -64,14 +65,10 @@ public class Jugador extends Persona{
     public void setAltura(float altura) {
         this.altura = altura;
     }
-    public void setEventos(ArrayList<Evento> eventos) {
-        this.eventos = eventos;
+    public void setEvento(Evento evento) {
+        this.evento = evento;
     }
 
-    //Método para agregar eventos
-    public void agregarEvento(Evento e){
-        this.eventos.add(e);
-    }
 
     @Override
     public String toString() {
