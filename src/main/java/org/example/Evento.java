@@ -15,16 +15,17 @@ public class Evento {
     private TipoEvento evento;
     private int minuto;
     //bidireccional con jugador
-    private ArrayList<Jugador> jugador;
+    private Jugador jugador;
+
 
     
     //constructor por defecto
     public Evento(){}
     //constructor parametrizado
-    public Evento(TipoEvento evento, int minuto) {            //ARREGLAR
+    public Evento(TipoEvento evento, int minuto, Jugador jugador) {            //ARREGLAR
         this.evento = evento;
         this.minuto = minuto;
-        this.jugador = new ArrayList<Jugador>();
+        this.jugador = jugador;
     }
     //getter y setter
     public TipoEvento getEvento() {
@@ -41,14 +42,13 @@ public class Evento {
         this.minuto = minuto;
     }
 
-    public void setJugador(ArrayList<Jugador> jugador) {
+    public Jugador getJugador() {
+        return jugador;
+    }
+    public void setJugador() {
         this.jugador = jugador;
     }
 
-    //Método para agregar eventos
-    public void agregarJugador(Jugador j){
-        this.jugador.add(j);
-    }
 
     @Override
     public String toString() {
