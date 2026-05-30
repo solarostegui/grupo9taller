@@ -46,7 +46,6 @@ public class Jugador extends Persona{
         return evento;
     }
 
-
     public void setDorsal(int dorsal) {
         this.dorsal = dorsal;
     }
@@ -67,6 +66,7 @@ public class Jugador extends Persona{
     public void agregarEvento(Evento e){
         this.evento.add(e);
     }
+
     @Override
     public String toString() {
         return "-------Jugador-------"
@@ -75,5 +75,16 @@ public class Jugador extends Persona{
                 "\nAltura: " + this.altura;
     }
     
-    
+    //comparamos en memoria si dos jugadores son iguales.
+    @Override
+    public boolean equals(Object o){
+        if (this == o) 
+            return true;
+        if ((o == null) || getClass() != o.getClass())
+            return false;
+        //Casteo
+        Jugador j = (Jugador) o;
+        //comparamos por dorsal que es un identificador unico de cada jugador
+        return this.dorsal == j.dorsal;
+    }
 }

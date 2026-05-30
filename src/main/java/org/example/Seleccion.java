@@ -143,16 +143,13 @@ public class Seleccion {
        this.participaciones.add(p);
    }
 
-   //Validación para que un jugador esté en una sola selección
+   //Chequeamos que un jugador esté en una sola selección. Contains contiene equals y utiliza el de clase jugador para comparar
     public void agregarJugador(Jugador j){
-        if(j.getSeleccion() == null) {
-        this.jugador.add(j);
-        j.setSeleccion(this);
-    }else {
+        if (this.jugador.contains(j)){
            System.out.println("El jugador ya pertenece a una selección");
-            }
-        
-       
+        } else{
+            this.jugador.add(j);
+        }
     }
     
     @Override
