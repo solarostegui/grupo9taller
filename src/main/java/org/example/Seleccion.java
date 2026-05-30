@@ -143,15 +143,19 @@ public class Seleccion {
        this.participaciones.add(p);
    }
 
-   //Chequeamos que un jugador esté en una sola selección. Contains contiene equals y utiliza el de clase jugador para comparar
-    public void agregarJugador(Jugador j){
-        if (this.jugador.contains(j)){
-           System.out.println("El jugador ya pertenece a una selección");
-        } else{
+//Chequeamos que un jugador esté en una sola selección. Contains contiene equals y utiliza el de clase jugadorpara comparar
+    public void agregarJugador (Jugador j){
+        if(j==null){
+            System.out.println("El jugador no es válido.");
+            return;
+        }
+        if(!this.jugador.contains(j)){
             this.jugador.add(j);
+        }else{
+            System.out.println("El jugador ya está agregado en esta selección.");
+
         }
     }
-    
     @Override
     public String toString() {
         return "--------Seleccion----------" +
