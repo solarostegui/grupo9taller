@@ -14,20 +14,19 @@ public abstract class Persona {
     //Constructor por defecto
     public Persona(){
     }
-    
+    //Set
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    //Get
-    public void setFecNacimiento(int fecNacimiento) {    
+    public void setFecNacimiento(int fecNacimiento) {
         this.fecNacimiento = fecNacimiento;
     }
 
+
+    //Get
     public String getNombre() {
         return nombre;
     }
-
     public int getFecNacimiento() {
         return fecNacimiento;
     }

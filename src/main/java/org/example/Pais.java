@@ -11,17 +11,16 @@ public class Pais {
     private List<Sede> sedes;
     //bidireccional con arbitro
     private List<Arbitro> arbitros;
-    private Seleccion representa;
+    private Seleccion seleccion;
 
 
     //Constructor con parámetros
-    public Pais (String nombre, String bandera, Seleccion representa){
+    public Pais (String nombre, String bandera, Seleccion seleccion){
         this.nombre = nombre;
         this.bandera = bandera;
         this.sedes = new ArrayList<Sede>();
         this.arbitros = new ArrayList<Arbitro>();
-        this.representa = representa;
-        this.sedes = new ArrayList<Sede>();
+        this.seleccion = seleccion;
     }
 
     //Constructor por defecto
@@ -35,9 +34,8 @@ public class Pais {
     public String getBandera() {
         return bandera;
     }
-
-    public Seleccion getRepresenta() {
-        return representa;
+    public Seleccion getSeleccion() {
+        return seleccion;
     }
     public List<Arbitro> getArbitros() {return arbitros;}
 
@@ -45,19 +43,15 @@ public class Pais {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public void setRepresenta(Seleccion representa) {
-        this.representa = representa;
+    public void setSeleccion(Seleccion seleccion) {
+        this.seleccion = seleccion;
     } 
-
     public void setBandera(String bandera) {
         this.bandera = bandera;
     }
-
     public void setSedes(ArrayList<Sede> sedes) {
         this.sedes = sedes;
     }
-
     public void setArbitros(ArrayList<Arbitro> arbitros) {
         this.arbitros = arbitros;
     }

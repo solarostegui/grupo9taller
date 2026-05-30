@@ -22,11 +22,23 @@ public class CuerpoTecnico extends Persona{
     public TipoRol getRol() {
         return rol;
     }
-
     public void setRol(TipoRol rol) {
         this.rol = rol;
     }
-    
+
+    public String getNombre() {
+        return nombre;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getFecNacimiento() {
+        return fecNacimiento;
+    }
+    public void setFecNacimiento(int fecNacimiento) {
+        this.fecNacimiento = fecNacimiento;
+    }
     
     public String toString() {
         return "------CuerpoTecnico----" + 

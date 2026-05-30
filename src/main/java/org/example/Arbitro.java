@@ -42,8 +42,8 @@ public class Arbitro extends Persona {
         return Arbitrajes;
     }
 
-    public void setArbitrajes(List<Arbitraje> Arbitrajes) {
-        this.Arbitrajes = Arbitrajes;
+    public void setArbitrajes(List<Arbitraje> arbitrajes) {
+        this.Arbitrajes = arbitrajes;
     }
 
     public String getNombre() {

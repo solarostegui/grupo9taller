@@ -10,11 +10,11 @@ import java.util.ArrayList;
  * @author mardalorso
  */
 public class Seleccion {
-    //variables miembro de objeto
+    //variable miembro de objeto
     private String nombreFederacion;
     private String camisetaPrincipal;
     private String camisetaSecundaria;
-    private boolean cabezagrupo;
+    private boolean cabezaGrupo;
     private int rankingFIFA;
     //clase asociacion con participacion
     private List<Participacion> participaciones;
@@ -29,15 +29,16 @@ public class Seleccion {
     //Agregacion con Cuerpo Tecnico
     private List<CuerpoTecnico> cuerposTecnicos;
     
-    public void Partido(){
-        this.participaciones=new ArrayList<Participacion>();
-    }
+//    public void Partido(){
+//        this.participaciones=new ArrayList<Participacion>();
+//    } //???????????????????????????????
+
     //constructor parametrizado
-    public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezagrupo, int rankingFIFA,Pais pais, Grupo grupo) {
+    public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo, int rankingFIFA,Pais pais, Grupo grupo) {
         this.nombreFederacion = nombreFederacion;
         this.camisetaPrincipal = camisetaPrincipal;
         this.camisetaSecundaria = camisetaSecundaria;
-        this.cabezagrupo = cabezagrupo;
+        this.cabezaGrupo = cabezaGrupo;
         this.rankingFIFA = rankingFIFA;
         this.participaciones=new ArrayList<Participacion>();
         this.pais = pais;
@@ -51,12 +52,12 @@ public class Seleccion {
         this.jugador = new ArrayList<Jugador>();
         this.directoresTecnicos = new ArrayList<DirectorTecnico>();
         this.cuerposTecnicos = new ArrayList<CuerpoTecnico>();
+        this.participaciones=new ArrayList<Participacion>();
     }
     //Setter y getter
     public String getNombreFederacion() {
         return nombreFederacion;
     }
-
     public void setNombreFederacion(String nombreFederacion) {
         this.nombreFederacion = nombreFederacion;
     }
@@ -64,7 +65,6 @@ public class Seleccion {
     public String getCamisetaPrincipal() {
         return camisetaPrincipal;
     }
-
     public void setCamisetaPrincipal(String camisetaPrincipal) {
         this.camisetaPrincipal = camisetaPrincipal;
     }
@@ -72,23 +72,20 @@ public class Seleccion {
     public String getCamisetaSecundaria() {
         return camisetaSecundaria;
     }
-
     public void setCamisetaSecundaria(String camisetaSecundaria) {
         this.camisetaSecundaria = camisetaSecundaria;
     }
 
-    public boolean isCabezagrupo() {
-        return cabezagrupo;
+    public boolean getCabezaGrupo() {
+        return cabezaGrupo;
     }
-
-    public void setCabezagrupo(boolean cabezagrupo) {
-        this.cabezagrupo = cabezagrupo;
+    public void setCabezaGrupo(boolean cabezaGrupo) {
+        this.cabezaGrupo = cabezaGrupo;
     }
 
     public int getRankingFIFA() {
         return rankingFIFA;
     }
-
     public void setRankingFIFA(int rankingFIFA) {
         this.rankingFIFA = rankingFIFA;
     }
@@ -96,7 +93,6 @@ public class Seleccion {
     public Pais getPais() {
         return pais;
     }
-
     public void setPais(Pais pais) {
         this.pais = pais;
     }
@@ -104,30 +100,36 @@ public class Seleccion {
     public Grupo getGrupo() {
         return grupo;
     }
-
-    public List<Jugador> getJugador() {
-        return jugador;
-    }
-
-    public void setJugador(List<Jugador> jugador) {
-        this.jugador = jugador;
-    }
-
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
     }
 
-    public void setDirectoresTecnicos(List<DirectorTecnico> directoresTecnicos) {
-        this.directoresTecnicos = directoresTecnicos;
+    public List<Jugador> getJugador() {
+        return jugador;
     }
-    
-
-    public void setJugadores(List<Jugador> jugador) {
+    public void setJugador(List<Jugador> jugador) {
         this.jugador = jugador;
     }
 
+    public List<DirectorTecnico> getDirectoresTecnicos() {
+        return directoresTecnicos;
+    }
+    public void setDirectoresTecnicos(List<DirectorTecnico> directoresTecnicos) {
+        this.directoresTecnicos = directoresTecnicos;
+    }
+
+    public List<CuerpoTecnico> getCuerposTecnicos() {
+        return cuerposTecnicos;
+    }
     public void setCuerposTecnicos(List<CuerpoTecnico> cuerposTecnicos) {
         this.cuerposTecnicos = cuerposTecnicos;
+    }
+
+    public List<Participacion> getParticipaciones() {
+        return participaciones;
+    }
+    public void setParticipaciones(List<Participacion> participaciones) {
+        this.participaciones = participaciones;
     }
     
     //Metodos para las listas
@@ -140,7 +142,8 @@ public class Seleccion {
     public void agregarParticipacion(Participacion p){
        this.participaciones.add(p);
    }
-    //Validación para que un jugador este en una sola seleccion
+
+   //Validación para que un jugador esté en una sola selección
     public void agregarJugador(Jugador j){
         if(j.getSeleccion() == null) {
         this.jugador.add(j);
@@ -151,16 +154,6 @@ public class Seleccion {
         
        
     }
-
-    public List<Participacion> getParticipaciones() {
-        return participaciones;
-    }
-
-    public void setParticipaciones(List<Participacion> participaciones) {
-        this.participaciones = participaciones;
-    }
-    
-   
     
     @Override
     public String toString() {
@@ -168,7 +161,7 @@ public class Seleccion {
                "\nNombreFederacion: " + this.nombreFederacion + ""
                 + "\nCamisetaPrincipal: " + this.camisetaPrincipal + ""
                 + "\nCamisetaSecundaria:" + this.camisetaSecundaria + ""
-                + "\nCabezagrupo: " + this.cabezagrupo 
+                + "\nCabezagrupo: " + this.cabezaGrupo
                 + "\nRankingFIFA: " + this.rankingFIFA;
     }
     

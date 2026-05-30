@@ -21,10 +21,10 @@ public class Fase {
         this.partidos=new ArrayList<Partido>();
     }
 
+    //Getters y setters
     public TipoNombreFase getNombreFase() {
         return nombreFase;
     }
-
     public void setNombreFase(TipoNombreFase nombreFase) {
         this.nombreFase = nombreFase;
     }
@@ -35,8 +35,15 @@ public class Fase {
     public void setPartidos(ArrayList<Partido> partidos) {
         this.partidos = partidos;
     }
+
+    public List<Grupo> getGrupos() {return grupos;}
+    public void setGrupos(List<Grupo> grupos) {this.grupos = grupos;}
+
     public void agregarPartido(Partido p){
         this.partidos.add(p);
+    }
+    public void agregarGrupos(Grupo g){
+        this.grupos.add(g);
     }
     
 
