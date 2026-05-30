@@ -144,7 +144,7 @@ public class Seleccion {
    }
 
    //Validación para que un jugador esté en una sola selección
-    public void agregarJugador(Jugador j){
+   public void agregarJugador(Jugador j){
         if(j.getSeleccion() == null) {
         this.jugador.add(j);
         j.setSeleccion(this);

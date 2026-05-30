@@ -1,83 +1,83 @@
 package org.example;
+import java.util.*;
+/**
+ *
+ * @author mardalorso
+ */
 
 public class Main {
     public static void main(String[] args) {
-
+ 
         // 1. MUNDIAL
         Mundial mundial = Ingreso.ingresarMundial();
-
-        // 2. PAIS (sede del mundial)
-        Pais pais = Ingreso.ingresarPais();
-
-        // 3. SEDE (depende de Pais)
-        Sede sede = Ingreso.ingresarSede(pais);
-        mundial.agregarSede(sede);
-
-        // 4. ESTADIO (depende de Sede)
-        Estadio estadio = Ingreso.ingresarEstadio(sede);
-        sede.agregarEstadio(estadio);
-
-        // 5. FASE
+ 
+        // 2. PAIS sede + SEDE + ESTADIOS
+        Pais paisSede = Ingreso.ingresarPais();
+        List<Sede> sedes = Ingreso.ingresarSedes(paisSede, mundial);
+ 
+        // Por cada sede se ingresan sus estadios
+        for (Sede sede : sedes) {
+            Ingreso.ingresarEstadios(sede);
+        }
+ 
+        // 3. FASE + GRUPOS + SELECCIONES
         Fase fase = Ingreso.ingresarFase();
-
-        // 6. GRUPO (depende de Fase)
-        Grupo grupo = Ingreso.ingresarGrupo(fase);
-
-        // 7. SELECCION 1 (depende de Pais y Grupo)
-        Pais paisSel1 = Ingreso.ingresarPais();
-        Seleccion seleccion1 = Ingreso.ingresarSeleccion(paisSel1, grupo);
-        grupo.agregarSelecciones(seleccion1);
-
-        // 8. SELECCION 2
-        Pais paisSel2 = Ingreso.ingresarPais();
-        Seleccion seleccion2 = Ingreso.ingresarSeleccion(paisSel2, grupo);
-        grupo.agregarSelecciones(seleccion2);
-
-        // 9. JUGADOR (depende de Seleccion)
-        Jugador jugador = Ingreso.ingresarJugador(seleccion1);
-        seleccion1.agregarJugador(jugador);
-
-        // 10. DIRECTOR TECNICO
-        DirectorTecnico dt = Ingreso.ingresarDirectorTecnico();
-        seleccion1.agregarDirectoresTecnicos(dt);
-
-        // 11. CUERPO TECNICO
-        CuerpoTecnico ct = Ingreso.ingresarCuerpoTecnico();
-        seleccion1.agregarCuerposTecnicos(ct);
-
-        // 12. ARBITRO (depende de Pais)
-        Pais paisArbitro = Ingreso.ingresarPais();
-        Arbitro arbitro = Ingreso.ingresarArbitro(paisArbitro);
-
-        // 13. PARTIDO (depende de Estadio y Fase)
-        //     Las participaciones se crean con null de partido primero,
-        //     luego se asignan al partido creado
-        Partido partido = Ingreso.ingresarPartido(estadio, fase);
-        fase.agregarPartido(partido);
-        estadio.agregarPartido(partido);
-
-        // 14. PARTICIPACION (depende de Seleccion y Partido)
-        Participacion part1 = Ingreso.ingresarParticipacion(seleccion1, partido);
-        Participacion part2 = Ingreso.ingresarParticipacion(seleccion2, partido);
-        partido.setSeleccion1(part1);
-        partido.setSeleccion2(part2);
-
-        // 15. EVENTO (se agrega al partido)
-        Evento evento = Ingreso.ingresarEvento();
-        partido.getEventos().add(evento);
-
-        // 16. ARBITRAJE (depende de Arbitro y Partido)
-        Arbitraje arbitraje = Ingreso.ingresarArbitraje(arbitro, partido);
-        partido.agregarArbitraje(arbitraje);
-        arbitro.agregarArbitraje(arbitraje);
-
-        // --- Mostrar resultados ---
-        System.out.println("\n========== RESUMEN ==========");
-        System.out.println(partido);
-        System.out.println(seleccion1);
-        System.out.println(seleccion2);
-        System.out.println(jugador);
-        System.out.println(estadio);
-        System.out.println(fase);
+        List<Grupo> grupos = Ingreso.ingresarGrupos(fase);
+ 
+        for (Grupo grupo : grupos) {
+            // Por cada grupo se ingresan sus selecciones
+            List<Seleccion> selecciones = Ingreso.ingresarSelecciones(grupo);
+ 
+            for (Seleccion seleccion : selecciones) {
+                // Por cada selección: jugadores, DT y cuerpo técnico
+                Ingreso.ingresarJugadores(seleccion);
+                Ingreso.ingresarDirectoresTecnicos(seleccion);
+                Ingreso.ingresarCuerposTecnicos(seleccion);
+            }
+        }
+ 
+        // 4. ARBITROS (asociados a un país)
+        Pais paisArbitros = Ingreso.ingresarPais();
+        List<Arbitro> arbitros = Ingreso.ingresarArbitros(paisArbitros);
+ 
+        // 5. PARTIDOS (usando primera sede y primer estadio como ejemplo)
+        Sede primeraS  = sedes.get(0);
+        Estadio primerE = primeraS.getEstadios() != null && !primeraS.getEstadios().isEmpty()
+                ? primeraS.getEstadios().get(0) : Ingreso.ingresarEstadio(primeraS);
+ 
+        List<Partido> partidos = Ingreso.ingresarPartidos(primerE, fase);
+ 
+        for (Partido partido : partidos) {
+            // Participaciones: se eligen 2 selecciones del primer grupo
+            List<Seleccion> sel = grupos.get(0).getSelecciones();
+            if (sel.size() >= 2) {
+                Participacion p1 = Ingreso.ingresarParticipacion(sel.get(0), partido);
+                Participacion p2 = Ingreso.ingresarParticipacion(sel.get(1), partido);
+                partido.setSeleccion1(p1);
+                partido.setSeleccion2(p2);
+                sel.get(0).agregarParticipacion(p1);
+                sel.get(1).agregarParticipacion(p2);
+ 
+                // Lista combinada de jugadores de ambas selecciones para los eventos
+                List<Jugador> jugadoresPartido = new ArrayList<>();
+                jugadoresPartido.addAll(sel.get(0).getJugador());
+                jugadoresPartido.addAll(sel.get(1).getJugador());
+                Ingreso.ingresarEventos(partido, jugadoresPartido);
+            } else {
+                System.out.println("  [!] No hay suficientes selecciones para registrar eventos.");
+            }
+ 
+            // Árbitros del partido
+            if (!arbitros.isEmpty()) {
+                Ingreso.ingresarArbitrajes(arbitros, partido);
+            }
+        }
+ 
+        // --- Resumen final ---
+        System.out.println("\n========== RESUMEN MUNDIAL ==========");
+        System.out.println("Sedes registradas   : " + sedes.size());
+        System.out.println("Grupos registrados  : " + grupos.size());
+        System.out.println("Partidos registrados: " + partidos.size());
+        System.out.println("Árbitros registrados: " + arbitros.size());
     }
 }

@@ -1,7 +1,10 @@
 
 package org.example;
 import java.util.*;
-
+/**
+ *
+ * @author mardalorso
+ */
 public class Grupo {
     private String identificacion;
     private String descripcion;
