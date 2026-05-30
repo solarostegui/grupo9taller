@@ -8,6 +8,7 @@ public class Sede {
     private float alturaNivelMar;
     private String clima;
     private String zonaHoraria;
+    //Bidireccional con estadio
     private List<Estadio> estadios;
     //Bidireccional con pais
     private Pais pais;
@@ -43,19 +44,14 @@ public class Sede {
     public String getZonaHoraria() {
         return zonaHoraria;
     }
-    public List<Estadio> getEstadios() {
-        return estadios;
-    }
     public Pais getPais() {
         return pais;
     }
-
-    
-    
-    //Set
-    public void setPais(Pais pais) {
-        this.pais = pais;
+    public List<Estadio> getEstadios() {
+        return estadios;
     }
+
+    //Set
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
@@ -76,10 +72,26 @@ public class Sede {
     }
     
     //Métodos
-    public void agregarEstadio (Estadio e) {
-        this.estadios.add (e); 
+    //Chequeamos que cada estadio que se ingrese pertenezca a una sede.
+    public void agregarEstadio (Estadio estadio) {
+        //usamos una bandera
+        boolean existe = false;
+        
+        for (Estadio e: this.estadios){
+            //Comparamos por el nombre si ya existe el estadio
+            if(e.getNombre().equalsIgnoreCase(estadio.getNombre())){
+                existe = true;
+                break;
+            }
+        }
+        if (existe){
+            this.estadios.add(estadio);
+            //agregamos estadio a su sede
+            estadio.setSede(this);
+        }else {
+            System.out.println ("El estadio ya existe en esta Sede");
+        }
     }
-
 
     @Override
     public String toString() {

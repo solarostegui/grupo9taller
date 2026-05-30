@@ -1,4 +1,7 @@
 package org.example;
+
+import java.util.ArrayList;
+
 //Definición clase jugador -> atributos: dorsal (int), posicion (de TipoPosicion -enum), peso (float), altura (float)
 public class Jugador extends Persona{
 
@@ -7,18 +10,18 @@ public class Jugador extends Persona{
     private float peso;
     private float altura;
     //bidireccional con evento
-    private Evento evento;
+    private ArrayList<Evento> eventos;
     //agregacion con seleccion
     private Seleccion seleccion;
 
     //Constructor con parámetros
-    public Jugador (String nombre, int fecNacimiento, int dorsal, TipoPosicion posicion, float peso, float altura,Evento evento, Seleccion seleccion){
+    public Jugador (String nombre, int fecNacimiento, int dorsal, TipoPosicion posicion, float peso, float altura, Seleccion seleccion){
         super (nombre, fecNacimiento);
         this.dorsal = dorsal;
         this.posicion = posicion;
         this.peso = peso;
         this.altura = altura;
-        this.evento = evento;
+        this.eventos = new ArrayList<Evento>();
         this.seleccion = seleccion;
     }
 
@@ -30,41 +33,44 @@ public class Jugador extends Persona{
     public int getDorsal() {
         return dorsal;
     }
-
     public Seleccion getSeleccion() {
         return seleccion;
     }
-
     public TipoPosicion getPosicion() {
         return posicion;
     }
-
     public float getPeso() {
         return peso;
     }
-
     public float getAltura() {
         return altura;
     }
-
+    public ArrayList<Evento> getEventos() {
+        return eventos;
+    }
+    //Set
     public void setSeleccion(Seleccion seleccion) {
         this.seleccion = seleccion;
     }
-
     public void setDorsal(int dorsal) {
         this.dorsal = dorsal;
     }
-
     public void setPosicion(TipoPosicion posicion) {
         this.posicion = posicion;
     }
-
     public void setPeso(float peso) {
         this.peso = peso;
     }
-
     public void setAltura(float altura) {
         this.altura = altura;
+    }
+    public void setEventos(ArrayList<Evento> eventos) {
+        this.eventos = eventos;
+    }
+
+    //Método para agregar eventos
+    public void agregarEvento(Evento e){
+        this.eventos.add(e);
     }
 
     @Override

@@ -20,10 +20,10 @@ public class Participacion {
         this.seleccion=seleccion;
     }
 
-    public boolean isEslocal() {
+    //Getters y setters
+    public boolean getEslocal() {
         return eslocal;
     }
-
     public void setEslocal(boolean eslocal) {
         this.eslocal = eslocal;
     }
@@ -31,7 +31,6 @@ public class Participacion {
     public int getCantidadGoles() {
         return cantidadGoles;
     }
-
     public void setCantidadGoles(int cantidadGoles) {
         this.cantidadGoles = cantidadGoles;
     }
@@ -39,7 +38,6 @@ public class Participacion {
     public int getCantidadTarjAmarillas() {
         return cantidadTarjAmarillas;
     }
-
     public void setCantidadTarjAmarillas(int cantidadTarjAmarillas) {
         this.cantidadTarjAmarillas = cantidadTarjAmarillas;
     }
@@ -47,7 +45,6 @@ public class Participacion {
     public int getCantidadTarjRojas() {
         return cantidadTarjRojas;
     }
-
     public void setCantidadTarjRojas(int cantidadTarjRojas) {
         this.cantidadTarjRojas = cantidadTarjRojas;
     }
@@ -55,7 +52,6 @@ public class Participacion {
     public Seleccion getSeleccion() {
         return seleccion;
     }
-
     public void setSeleccion(Seleccion seleccion) {
         this.seleccion = seleccion;
     }
@@ -63,7 +59,6 @@ public class Participacion {
     public Partido getPartido() {
         return partido;
     }
-
     public void setPartido(Partido partido) {
         this.partido = partido;
     }

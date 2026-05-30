@@ -21,6 +21,20 @@ public class DirectorTecnico extends Persona{
         this.fechaNombramiento = fechaNombramiento;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getFecNacimiento() {
+        return fecNacimiento;
+    }
+    public void setFecNacimiento(int fecNacimiento) {
+        this.fecNacimiento = fecNacimiento;
+    }
+
     @Override
     public String toString() {
         return "-----DirectorTecnico-----"+

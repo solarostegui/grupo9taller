@@ -48,8 +48,8 @@ public class Partido {
         this.Arbitrajes=new ArrayList<Arbitraje>();
     }
     //agregar para las listas
-    public void agregarEvento(TipoEvento evento,int minuto){
-        this.eventos.add (new Evento(evento,minuto));
+    public void agregarEvento(TipoEvento evento,int minuto, Jugador jugador){
+        this.eventos.add (new Evento(evento,minuto,jugador));
     }
     
     //Validamos que no este vacio arbitraje
@@ -63,7 +63,6 @@ public class Partido {
     public Date getFecha() {
         return fecha;
     }
-
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
@@ -71,7 +70,6 @@ public class Partido {
     public Clock getHorario() {
         return horario;
     }
-
     public void setHorario(Clock horario) {
         this.horario = horario;
     }
@@ -79,7 +77,6 @@ public class Partido {
     public int getDuracion() {
         return duracion;
     }
-
     public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
@@ -87,7 +84,6 @@ public class Partido {
     public int getTiempoadicional() {
         return tiempoadicional;
     }
-
     public void setTiempoadicional(int tiempoadicional) {
         this.tiempoadicional = tiempoadicional;
     }
@@ -95,7 +91,6 @@ public class Partido {
     public Estadio getEstadio() {
         return estadio;
     }
-
     public void setEstadio(Estadio estadio) {
         this.estadio = estadio;
     }
@@ -103,7 +98,6 @@ public class Partido {
     public Fase getFase() {
         return fase;
     }
-
     public void setFase(Fase fase) {
         this.fase = fase;
     }
@@ -111,7 +105,6 @@ public class Partido {
     public Participacion getSeleccion1() {
         return seleccion1;
     }
-
     public void setSeleccion1(Participacion seleccion1) {
         this.seleccion1 = seleccion1;
     }
@@ -119,7 +112,6 @@ public class Partido {
     public Participacion getSeleccion2() {
         return seleccion2;
     }
-
     public void setSeleccion2(Participacion seleccion2) {
         this.seleccion2 = seleccion2;
     }
@@ -127,7 +119,6 @@ public class Partido {
     public List<Evento> getEventos() {
         return eventos;
     }
-
     public void setEventos(List<Evento> eventos) {
         this.eventos = eventos;
     }
@@ -135,7 +126,6 @@ public class Partido {
     public List<Arbitraje> getArbitraje() {
         return Arbitrajes;
     }
-
     public void setArbitraje(List<Arbitraje> Arbitrajes) {
         this.Arbitrajes = Arbitrajes;
     }
