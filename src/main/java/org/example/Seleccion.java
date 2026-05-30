@@ -144,17 +144,27 @@ public class Seleccion {
    }
 
    //Validación para que un jugador esté en una sola selección
-    public void agregarJugador(Jugador j){
-        if(j.getSeleccion() == null) {
-        this.jugador.add(j);
-        j.setSeleccion(this);
-    }else {
-           System.out.println("El jugador ya pertenece a una selección");
-            }
-        
-       
+//    public void agregarJugador(Jugador j){
+//        if(j.getSeleccion() == null) {
+//        this.jugador.add(j);
+//        j.setSeleccion(this);
+//    }else {
+//           System.out.println("El jugador ya pertenece a una selección");
+//            }
+//    }
+//
+
+    public void agregarJugador (Jugador j){
+        if(j==null){
+            System.out.println("El jugador no es válido.");
+            return;
+        }
+        if(!this.jugador.contains(j)){
+            this.jugador.add(j);
+        }else{
+            System.out.println("El jugador ya está agregado en esta selección.");
+        }
     }
-    
     @Override
     public String toString() {
         return "--------Seleccion----------" +
