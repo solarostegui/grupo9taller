@@ -26,15 +26,12 @@ public class Estadio {
     public String getNombre() {
         return nombre;
     }
-
     public int getCapacidad() {
         return capacidad;
     }
-
     public Sede getSede() {
         return sede;
     }
-    
     public List<Partido> getPartidos() {
         return partidos;
     }
@@ -43,15 +40,12 @@ public class Estadio {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public void setSede(Sede sede) {
         this.sede = sede;
     }
-
     public void setCapacidad(Integer capacidad) {
         this.capacidad = capacidad;
     }
-    
     public void setPartidos(ArrayList<Partido> partidos) {
         this.partidos = partidos;
     }

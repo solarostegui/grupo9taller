@@ -11,25 +11,25 @@ import java.util.ArrayList;
  * @author mardalorso
  */
 public class Evento {
-    //variables miembro de onjeto
+    //variables miembro de objeto
     private TipoEvento evento;
     private int minuto;
     //bidireccional con jugador
-    private ArrayList<Jugador> jugador;
+    private Jugador jugador;
+
     
     //constructor por defecto
     public Evento(){}
     //constructor parametrizado
-    public Evento(TipoEvento evento, int minuto) {
+    public Evento(TipoEvento evento, int minuto, Jugador jugador) {            //ARREGLAR
         this.evento = evento;
         this.minuto = minuto;
-        this.jugador = new ArrayList<Jugador>();
+        this.jugador = jugador;
     }
     //getter y setter
     public TipoEvento getEvento() {
         return evento;
     }
-
     public void setEvento(TipoEvento evento) {
         this.evento = evento;
     }
@@ -37,9 +37,15 @@ public class Evento {
     public int getMinuto() {
         return minuto;
     }
-
     public void setMinuto(int minuto) {
         this.minuto = minuto;
+    }
+
+    public Jugador getJugador() {
+        return jugador;
+    }
+    public void setJugador(Jugador jugador) {
+        this.jugador = jugador;
     }
 
     @Override
