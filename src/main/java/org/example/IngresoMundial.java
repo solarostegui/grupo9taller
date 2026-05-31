@@ -20,7 +20,7 @@ public class IngresoMundial {
     //-------------------------
     
     // Este método se encarga de que el input sea SIEMPRE entero
-    private static int pedirEntero(){
+    public static int pedirEntero(){
         while(true){
             try{
                 int num = sc.nextInt();
@@ -33,7 +33,7 @@ public class IngresoMundial {
         }
     }
     //este metodo se encarga de que el input sea un numero
-    private static float pedirFloat(){
+    public static float pedirFloat(){
         while(true){
             try{
                 float num = sc.nextFloat();
@@ -47,16 +47,16 @@ public class IngresoMundial {
     }
     //este metodo se encarga de que el input de string no sea solo espacios
     public static String pedirStringsinespacios(){
-    while(true){
-        String texto = sc.nextLine().trim();//saca todos los espacios del principio y del final
-        //valida que no se vacio -> cubre el caso de solo espacion
-        if(!texto.isEmpty()){
-            return texto;
-        }else{
-            System.out.print("Dato inválido. Ingresá algo que no sea solo espacios: ");
+      while(true){
+             String texto = sc.nextLine().trim();//saca todos los espacios del principio y del final
+             //valida que no se vacio -> cubre el caso de solo espacion
+            if(!texto.isEmpty()){
+              return texto;
+            }else{
+              System.out.print("Dato inválido. Ingresá algo que no sea solo espacios: ");
+            }
         }
     }
-}
     
     //(1) Ingreso de la clase mundial
     public static Mundial ingresarMundial(){
@@ -239,7 +239,10 @@ public class IngresoMundial {
 
         return p;
     }
-}
+    
+    public static Seleccion ingresarSeleccion(){
+        
+    }
 
 
 }
