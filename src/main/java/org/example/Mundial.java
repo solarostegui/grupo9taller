@@ -56,8 +56,12 @@ public class Mundial {
     public List<Sede> getSedes() {
         return sedes;
     }
-    public void setSedes (List<Sede> sedes){this.sedes=sedes;}
+    public void setSedes (List<Sede> sedes){
+        this.sedes=sedes;
+    }
 
-    public void agregarSede (Sede a){this.sedes.add(a);}
+    public void agregarSede (Sede a){
+        this.sedes.add(a);
+    }
 
 }
