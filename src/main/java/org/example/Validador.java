@@ -2,9 +2,10 @@
 package org.example;
 import java.util.*;
 /**
- Clase para controlas las validaciones solicitadas en el trabajo
+ Clase para controlar las validaciones solicitadas en el trabajo
  */
 public class Validador {
+    //Valida si el equipo de arbitraje está completo y es válido
     //necesitamos get y set de partido para entrar a la lista de arbitros de ese partido
     public static boolean validarArbitraje(List <Arbitraje> arbitrajes){
         //La lista tiene que tener algo para que sea válida
@@ -33,10 +34,32 @@ public class Validador {
         //Si se cumplen las condiciones es verdadero
         return tienePrincipal && tieneAsistente1 && tieneAsistente2;
     }
-    
+
+    //Valida si un jugador pertenece a cualquiera de las dos selecciones que están jugando
     //necesitamos partido, jugadores de participacion (usamos get y ses de participacion)
-    public static void validarEvento(Partido p, Jugador j){
-        
+    public static boolean validarEvento(Partido p, Jugador j){
+        if (p == null || j == null){
+            return false;
+        }
+        //Obtenemos clases asociación "Participación" desde partido
+        Participacion part1 = p.getSeleccion1();
+        Participacion part2 = p.getSeleccion2();
+        if (part1 == null || part2 == null){
+            return false;
+        }
+        //Obtenemos la Seleccion de cada participacion
+        Seleccion local = part1.getSeleccion();
+        Seleccion visitante = part2.getSeleccion();
+        boolean estaEnLocal = false;
+        //Uso el get de mi lista "jugador" en Seleccion
+        if(local != null && local.getJugador()!=null){
+            estaEnLocal = local.getJugador().contains(j);
+        }
+        boolean estaEnVisitante = false;
+        if(visitante!=null&&visitante.getJugador()!=null){
+            estaEnVisitante=visitante.getJugador().contains(j);
+        }
+        return estaEnLocal || estaEnVisitante;
     }
     
 }
