@@ -49,7 +49,7 @@ public class IngresoMundial {
     public static String pedirStringsinespacios(){
       while(true){
              String texto = sc.nextLine().trim();//saca todos los espacios del principio y del final
-             //valida que no se vacio -> cubre el caso de solo espacion
+             //valida que no se vacio -> cubre el caso de solo espacio
             if(!texto.isEmpty()){
               return texto;
             }else{
@@ -57,8 +57,77 @@ public class IngresoMundial {
             }
         }
     }
+    //este metodo se encarga de que el input de boolean sea correcto
+    public static boolean pedirBooleano() {
     
-    //(1) Ingreso de la clase mundial
+    while (true) {
+        System.out.print(" (true/false): ");
+        String entrada = sc.nextLine().trim().toLowerCase();
+        if (entrada.equals("true") || entrada.equals("false")) {
+            return Boolean.parseBoolean(entrada);
+        }
+        System.out.println("Valor inválido. Ingrese true o false.");
+    }
+   }
+    
+    /*Metodos de ingreso de enums*/
+    public static TipoNombreFase pedirTipoNombreFase() {
+      System.out.println(" Seleccione el nombre de la fase:");
+      TipoNombreFase[] tipos = TipoNombreFase.values();
+      for (int i = 0; i < tipos.length; i++) {
+        System.out.println(" " + i + ". " + tipos[i]);
+      }
+      System.out.print(" Opción: ");
+      int opcion = pedirEntero();
+      return tipos[opcion];
+    }
+
+    public static TipoCategoriaArbitro pedirTipoCategoriaArbitro() {
+      System.out.println(" Seleccione la categoría del árbitro:");
+      TipoCategoriaArbitro[] tipos = TipoCategoriaArbitro.values();
+      for (int i = 0; i < tipos.length; i++) {
+        System.out.println(" " + i + ". " + tipos[i]);
+      }
+      System.out.print(" Opción: ");
+      int opcion = pedirEntero();
+      return tipos[opcion];
+   }
+
+    public static TipoEvento pedirTipoEvento() {
+      System.out.println(" Seleccione el tipo de evento:");
+      TipoEvento[] tipos = TipoEvento.values();
+      for (int i = 0; i < tipos.length; i++) {
+        System.out.println(" " + i + ". " + tipos[i]);
+      }
+      System.out.print(" Opción: ");
+      int opcion = pedirEntero();
+      return tipos[opcion];
+    }
+
+    public static TipoPosicion pedirTipoPosicion() {
+      System.out.println(" Seleccione la posición:");
+      TipoPosicion[] tipos = TipoPosicion.values();
+      for (int i = 0; i < tipos.length; i++) {
+        System.out.println(" " + i + ". " + tipos[i]);
+      }
+      System.out.print(" Opción: ");
+      int opcion = pedirEntero();
+      return tipos[opcion];
+    }
+
+    public static TipoRol pedirTipoRol() {
+      System.out.println(" Seleccione el rol:");
+      TipoRol[] tipos = TipoRol.values();
+      for (int i = 0; i < tipos.length; i++) {
+        System.out.println(" " + i + ". " + tipos[i]);
+      }
+      System.out.print(" Opción: ");
+      int opcion = pedirEntero();
+      return tipos[opcion];
+    }
+    
+    
+     //(1) Ingreso de la clase mundial
     public static Mundial ingresarMundial(){
         System.out.println("\n=== Ingreso de Mundial ===");
         
@@ -84,7 +153,6 @@ public class IngresoMundial {
         }
         return mundial;
     }
-    
     
     //(2)Ingreso de la clase sedes y estadios
     public static Sede ingresarSede(){
@@ -149,11 +217,16 @@ public class IngresoMundial {
 
         System.out.print(" Bandera : ");
         String bandera = pedirStringsinespacios();
+        
+        Pais p = new Pais();
+        p.setNombre(nombre);
+        p.setBandera(bandera);
 
         System.out.println(" Ingresá la selección de este país:");
-        Seleccion seleccion = ingresarSeleccion();
+        Seleccion seleccion = ingresarSeleccion(p);
 
-        Pais p = new Pais(nombre, bandera, seleccion);
+        p.setSeleccion(seleccion);
+        
 
         // Ingreso de sedes del país
         System.out.print(" ¿Cuántas sedes tiene este país? : ");
@@ -167,7 +240,7 @@ public class IngresoMundial {
         int n=pedirEntero();
         for(int i = 1; i <=n; i++){
              System.out.println("\nArbitro " + i + " de " + n);
-             Arbitro a=ingresarArbitro();
+             Arbitro a=ingresarArbitro(p);
              p.agregarArbitro(a);
         }
         
@@ -240,9 +313,88 @@ public class IngresoMundial {
         return p;
     }
     
-    public static Seleccion ingresarSeleccion(){
-        
-    }
+    public static Seleccion ingresarSeleccion(Pais pais) {
+       System.out.println("\n=== Ingreso de Selección ===");
 
+       System.out.print(" Nombre de la federación: ");
+       String nombreFederacion = pedirStringsinespacios();
+
+       System.out.print(" Camiseta principal: ");
+       String camisetaPrincipal = pedirStringsinespacios();
+
+       System.out.print(" Camiseta secundaria: ");
+       String camisetaSecundaria = pedirStringsinespacios();
+
+       System.out.print(" Ranking FIFA: ");
+       int rankingFIFA = pedirEntero();
+
+       System.out.print(" ¿Es cabeza de grupo? s/n: ");
+       boolean cabezaGrupo = pedirBooleano();
+
+       Grupo grupo = ingresarGrupo();
+
+       Seleccion s = new Seleccion(nombreFederacion, camisetaPrincipal, camisetaSecundaria, cabezaGrupo, rankingFIFA, pais, grupo);
+
+       // Ingreso de Jugadores
+       System.out.println("\n--- Ingreso de Jugadores ---");
+       String resp = "s";
+       while (resp.equalsIgnoreCase("s")) {
+        Jugador j = ingresarJugador();
+        s.agregarJugador(j);
+        System.out.print("¿Agregar otro jugador? (s/n): ");
+        resp = pedirStringsinespacios();
+       }
+
+       // Ingreso de Directores Técnicos
+       System.out.println("\n--- Ingreso de Directores Técnicos ---");
+       resp = "s";
+       while (resp.equalsIgnoreCase("s")) {
+          DirectorTecnico dt = ingresarDirectorTecnico();
+          s.agregarDirectoresTecnicos(dt);
+          System.out.print("¿Agregar otro director técnico? (s/n): ");
+          resp = pedirStringsinespacios();
+       }
+
+       // Ingreso de Cuerpo Técnico
+       System.out.println("\n--- Ingreso de Cuerpo Técnico ---");
+       resp = "s";
+       while (resp.equalsIgnoreCase("s")) {
+        CuerpoTecnico ct = ingresarCuerpoTecnico();
+        s.agregarCuerposTecnicos(ct);
+        System.out.print("¿Agregar otro integrante del cuerpo técnico? (s/n): ");
+        resp = pedirStringsinespacios();
+       }
+
+      return s;
+    }
+    
+    public static Arbitro ingresarArbitro(Pais pais) {
+       System.out.println("\n=== Ingreso de Árbitro ===");
+
+       System.out.print(" Nombre: ");
+       String nombre = pedirStringsinespacios();
+
+       System.out.print(" Fecha de nacimiento (año): ");
+       int fecNacimiento = pedirEntero();
+
+       System.out.print(" Años de experiencia: ");
+       int aniosExperiencia = pedirEntero();
+
+       Arbitro a = new Arbitro(nombre, fecNacimiento, aniosExperiencia, pais);
+
+       // Ingreso de Arbitrajes
+       System.out.println("\n--- Ingreso de Arbitrajes ---");
+       String resp = "s";
+       while (resp.equalsIgnoreCase("s")) {
+          Arbitraje arb = ingresarArbitraje();
+          a.agregarArbitraje(arb);
+          System.out.print("¿Agregar otro arbitraje? (s/n): ");
+          resp = pedirStringsinespacios();
+       }
+
+    return a;
+   }
+    
+   
 
 }
