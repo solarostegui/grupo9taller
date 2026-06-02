@@ -1,14 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package org.example;
 import java.util.List;
 import java.util.ArrayList;
-/**
- *
- * @author mardalorso
- */
+
 public class Seleccion {
     //variable miembro de objeto
     private String nombreFederacion;
@@ -28,10 +22,7 @@ public class Seleccion {
     private List<DirectorTecnico> directoresTecnicos;
     //Agregacion con Cuerpo Tecnico
     private List<CuerpoTecnico> cuerposTecnicos;
-    
-//    public void Partido(){
-//        this.participaciones=new ArrayList<Participacion>();
-//    } //???????????????????????????????
+
 
     //constructor parametrizado
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo, int rankingFIFA,Pais pais, Grupo grupo) {
