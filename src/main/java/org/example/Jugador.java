@@ -11,7 +11,6 @@ public class Jugador extends Persona{
     private float altura;
     //bidireccional con evento
     private ArrayList<Evento> evento;
-    //agregacion con seleccion
    
 
     //Constructor con parámetros

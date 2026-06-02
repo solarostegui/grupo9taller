@@ -21,7 +21,7 @@ public class Partido {
     private Estadio estadio;
     //bidireccional con fase
     private Fase fase;
-   //clase asocicion con Participacion
+    //clase asocicion con Participacion
     private Participacion seleccion1;
     private Participacion seleccion2;
     //composicion con evento
