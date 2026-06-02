@@ -152,7 +152,7 @@ public class Seleccion {
         if(!this.jugador.contains(j)){
             this.jugador.add(j);
         }else{
-            System.out.println("El jugador ya está agregado en esta selección.");
+            System.out.println("El jugador" + j.getNombre() + " ya está agregado en esta selección.");
 
         }
     }
