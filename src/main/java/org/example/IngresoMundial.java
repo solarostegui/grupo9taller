@@ -70,62 +70,6 @@ public class IngresoMundial {
     }
    }
     
-    /*Metodos de ingreso de enums*/
-    public static TipoNombreFase pedirTipoNombreFase() {
-      System.out.println(" Seleccione el nombre de la fase:");
-      TipoNombreFase[] tipos = TipoNombreFase.values();
-      for (int i = 0; i < tipos.length; i++) {
-        System.out.println(" " + i + ". " + tipos[i]);
-      }
-      System.out.print(" Opción: ");
-      int opcion = pedirEntero();
-      return tipos[opcion];
-    }
-
-    public static TipoCategoriaArbitro pedirTipoCategoriaArbitro() {
-      System.out.println(" Seleccione la categoría del árbitro:");
-      TipoCategoriaArbitro[] tipos = TipoCategoriaArbitro.values();
-      for (int i = 0; i < tipos.length; i++) {
-        System.out.println(" " + i + ". " + tipos[i]);
-      }
-      System.out.print(" Opción: ");
-      int opcion = pedirEntero();
-      return tipos[opcion];
-   }
-
-    public static TipoEvento pedirTipoEvento() {
-      System.out.println(" Seleccione el tipo de evento:");
-      TipoEvento[] tipos = TipoEvento.values();
-      for (int i = 0; i < tipos.length; i++) {
-        System.out.println(" " + i + ". " + tipos[i]);
-      }
-      System.out.print(" Opción: ");
-      int opcion = pedirEntero();
-      return tipos[opcion];
-    }
-
-    public static TipoPosicion pedirTipoPosicion() {
-      System.out.println(" Seleccione la posición:");
-      TipoPosicion[] tipos = TipoPosicion.values();
-      for (int i = 0; i < tipos.length; i++) {
-        System.out.println(" " + i + ". " + tipos[i]);
-      }
-      System.out.print(" Opción: ");
-      int opcion = pedirEntero();
-      return tipos[opcion];
-    }
-
-    public static TipoRol pedirTipoRol() {
-      System.out.println(" Seleccione el rol:");
-      TipoRol[] tipos = TipoRol.values();
-      for (int i = 0; i < tipos.length; i++) {
-        System.out.println(" " + i + ". " + tipos[i]);
-      }
-      System.out.print(" Opción: ");
-      int opcion = pedirEntero();
-      return tipos[opcion];
-    }
-    
     
      //(1) Ingreso de la clase mundial
     public static Mundial ingresarMundial(){
@@ -283,31 +227,52 @@ public class IngresoMundial {
 
         System.out.println(" Seleccioná la fase del partido:");
         Fase fase = ingresarFase();
+        
+        Partido p = new Partido();
+        p.setDuracion(duracion);
+        p.setFase(fase);
+        p.setFecha(fecha);
+        p.setEstadio(estadio);
+        p.setTiempoadicional(tiempoadicional);
+        
 
         System.out.println(" Ingresá la participación selección 1:");
-        Participacion seleccion1 = ingresarParticipacion();
+        Participacion seleccion1 = ingresarParticipacion(p,null);
 
         System.out.println(" Ingresá la participación selección 2:");
-        Participacion seleccion2 =ingresarParticipacion();
+        Participacion seleccion2 =ingresarParticipacion(p,null);
 
-        Partido p = new Partido(fecha, horario, duracion, tiempoadicional, estadio, fase, seleccion1, seleccion2);
+        p = new Partido(fecha, horario, duracion, tiempoadicional, estadio, fase, seleccion1, seleccion2);
 
         // Ingreso de eventos del partido
         System.out.print(" ¿Cuántos eventos tuvo el partido? : ");
         int cantEventos = pedirEntero();
         for(int i = 1; i <= cantEventos; i++){
             System.out.println("\nEvento " + i + " de " + cantEventos);
-            Evento e = ingresarEvento();
+            System.out.println("\n=== Ingreso de Evento ===");
+
+            TipoEvento evento = IngresoEnum.elegirTipoEvento();
+
+            System.out.print(" Minuto del evento: ");
+            int minuto = pedirEntero();
+        
+            Evento e=new Evento();
+            e.setEvento(evento);
+            e.setMinuto(minuto);
+        
+            Jugador j=ingresarJugador();
+        
+            e.setJugador(j);
             p.agregarEvento(e);
         }
 
         // Ingreso de arbitrajes del partido
         System.out.print(" ¿Cuántos arbitrajes tuvo el partido? : ");
-        int cantArbitrajes = Utilidades.pedirEntero();
+        int cantArbitrajes = pedirEntero();
         for(int i = 1; i <= cantArbitrajes; i++){
             System.out.println("\nArbitraje " + i + " de " + cantArbitrajes);
-            Arbitraje a = Arbitraje.ingresarArbitraje();
-            p.addArbitraje(a);
+            Arbitraje a = ingresarArbitraje();
+            p.agregarArbitraje(a);
         }
 
         return p;
@@ -369,32 +334,103 @@ public class IngresoMundial {
     }
     
     public static Arbitro ingresarArbitro(Pais pais) {
-       System.out.println("\n=== Ingreso de Árbitro ===");
+     System.out.println("\n=== Ingreso de Árbitro ===");
 
-       System.out.print(" Nombre: ");
-       String nombre = pedirStringsinespacios();
+     System.out.print(" Nombre: ");
+     String nombre = pedirStringsinespacios();
 
-       System.out.print(" Fecha de nacimiento (año): ");
-       int fecNacimiento = pedirEntero();
+     System.out.print(" Año de nacimiento: ");
+     int fecNacimiento = pedirEntero();
 
-       System.out.print(" Años de experiencia: ");
-       int aniosExperiencia = pedirEntero();
+     System.out.print(" Años de experiencia: ");
+     int aniosExperiencia = pedirEntero();
 
-       Arbitro a = new Arbitro(nombre, fecNacimiento, aniosExperiencia, pais);
+     Arbitro a = new Arbitro(nombre, fecNacimiento, aniosExperiencia, pais);
 
-       // Ingreso de Arbitrajes
-       System.out.println("\n--- Ingreso de Arbitrajes ---");
-       String resp = "s";
-       while (resp.equalsIgnoreCase("s")) {
-          Arbitraje arb = ingresarArbitraje();
-          a.agregarArbitraje(arb);
-          System.out.print("¿Agregar otro arbitraje? (s/n): ");
-          resp = pedirStringsinespacios();
-       }
+     // Ingreso de Arbitrajes
+     System.out.println("\n--- Ingreso de Arbitrajes ---");
+     String resp = "s";
+     while (resp.equalsIgnoreCase("s")) {
+        Arbitraje arb = ingresarArbitraje();
+        a.agregarArbitraje(arb);
+        System.out.print("¿Agregar otro arbitraje? (s/n): ");
+        resp = pedirStringsinespacios();
+     }
 
-    return a;
-   }
+     return a;
+    }
     
+   public static Fase ingresarFase() {
+    System.out.println("\n=== Ingreso de Fase ===");
+
+    TipoNombreFase nombreFase = IngresoEnum.elegirTipoNombreFase();
+
+    Fase f = new Fase(nombreFase);
+
+    // Ingreso de Partidos
+    System.out.println("\n--- Ingreso de Partidos ---");
+    String resp = "s";
+    while (resp.equalsIgnoreCase("s")) {
+        Partido p = ingresarPartido();
+        f.agregarPartido(p);
+        System.out.print("¿Agregar otro partido? (s/n): ");
+        resp = pedirStringsinespacios();
+    }
+
+    // Ingreso de Grupos
+    System.out.println("\n--- Ingreso de Grupos ---");
+    resp = "s";
+    while (resp.equalsIgnoreCase("s")) {
+        Grupo g = ingresarGrupo();
+        f.agregarGrupos(g);
+        System.out.print("¿Agregar otro grupo? (s/n): ");
+        resp = pedirStringsinespacios();
+    }
+
+    return f;
+   }
+   
+      public static Participacion ingresarParticipacion(Partido partido, Seleccion seleccion) {
+        System.out.println("\n=== Ingreso de Participación ===");
+
+        System.out.print(" ¿Es local? (s/n): ");
+        boolean eslocal = pedirBooleano();
+
+        System.out.print(" Cantidad de goles: ");
+        int cantidadGoles = pedirEntero();
+
+        System.out.print(" Cantidad de tarjetas amarillas: ");
+        int cantidadTarjAmarillas = pedirEntero();
+
+        System.out.print(" Cantidad de tarjetas rojas: ");
+        int cantidadTarjRojas = pedirEntero();
+
+        Participacion p = new Participacion(eslocal, cantidadGoles, cantidadTarjAmarillas, cantidadTarjRojas, partido, seleccion);
+
+        return p;
+      }
+      
+      public static Evento ingresarEvento() {
+        System.out.println("\n=== Ingreso de Evento ===");
+
+        TipoEvento evento = IngresoEnum.elegirTipoEvento();
+
+        System.out.print(" Minuto del evento: ");
+        int minuto = pedirEntero();
+        
+        Evento e=new Evento();
+        e.setEvento(evento);
+        e.setMinuto(minuto);
+        
+        Jugador j=ingresarJugador();
+        
+        e.setJugador(j);
+        
+        return e;
+        
+       }
+      
+      
    
 
 }
