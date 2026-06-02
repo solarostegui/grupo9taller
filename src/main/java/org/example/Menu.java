@@ -19,9 +19,9 @@ public class Menu{
         int opcion=-1;
         while (opcion != 0) {
             System.out.println("\n========== MENÚ MUNDIAL ==========");
-            System.out.println("1. Ingresar Mundial");
-            System.out.println("2. Ingresar País y Sedes");
-            System.out.println("3. Ingresar Fase y Grupos");
+            System.out.println("1. Ingresar Mundial,pais,sede y estadios");
+            System.out.println("2. Ingresar grupos,selecciones,fase,jugador partidos");
+            System.out.println("3. Ingresar nuevos eventos");
             System.out.println("4. Ingresar Selecciones (jugadores, DT, cuerpo técnico)");
             System.out.println("5. Ingresar Árbitros");
             System.out.println("6. Ingresar Partidos");

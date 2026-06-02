@@ -146,7 +146,7 @@ public class IngresoMundial {
         int n=pedirEntero();
         for(int i=0;i<n;i++){
            System.out.println("\nPartido " + (i+1) + " de " + n);
-           Partido partido=ingresarPartido();
+           Partido partido=ingresarPartido(estadio,null);
            estadio.agregarPartido(partido);
         }
 
@@ -207,8 +207,7 @@ public class IngresoMundial {
     System.out.print(" Tiempo adicional : ");
     int tiempoadicional = pedirEntero();
 
-    Partido p = new Partido(fecha, horario, duracion, tiempoadicional, estadio, fase);
-
+   
     // Ingreso de Participaciones
     System.out.println(" Ingresá la participación selección 1:");
     Participacion seleccion1 = ingresarParticipacion(p, null);
@@ -217,6 +216,8 @@ public class IngresoMundial {
     System.out.println(" Ingresá la participación selección 2:");
     Participacion seleccion2 = ingresarParticipacion(p, null);
     p.setParticipacion2(seleccion2);
+    
+    Partido p = new Partido(fecha, horario, duracion, tiempoadicional, estadio,fase,seleccion1,seleccion2);
 
     // Ingreso de Eventos
     System.out.print(" ¿Cuántos eventos tuvo el partido? : ");
