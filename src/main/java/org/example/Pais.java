@@ -15,12 +15,11 @@ public class Pais {
 
 
     //Constructor con parámetros
-    public Pais (String nombre, String bandera, Seleccion seleccion){
+    public Pais (String nombre, String bandera){ //Sin seleccion para poder inicializar desde país, dos clases no pueden depender entre sí
         this.nombre = nombre;
         this.bandera = bandera;
         this.sedes = new ArrayList<Sede>();
         this.arbitros = new ArrayList<Arbitro>();
-        this.seleccion = seleccion;
     }
 
     //Constructor por defecto

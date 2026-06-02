@@ -1,4 +1,3 @@
-
 package org.example;
 import java.util.*;
 /**
@@ -15,6 +14,9 @@ public class Validador {
         boolean tienePrincipal = false;
         boolean tieneAsistente1 = false;
         boolean tieneAsistente2 = false;
+        boolean tieneCuartoArbitro = false;
+        boolean tieneVarPrincipal = false;
+        boolean tieneVarAsistente = false;
 
         //Recorre lista
         for (Arbitraje arb : arbitrajes){
@@ -29,10 +31,16 @@ public class Validador {
                 tieneAsistente1 = true;
             }else if (arb.getRol() == TipoCategoriaArbitro.Asistente2){
                 tieneAsistente2 = true;
+            }else if (arb.getRol() == TipoCategoriaArbitro.CuartoArbitro){
+                tieneCuartoArbitro = true;
+            }else if (arb.getRol() == TipoCategoriaArbitro.VarPrincipal){
+                tieneVarPrincipal = true;
+            }else if (arb.getRol() == TipoCategoriaArbitro.VarAsistente){
+                tieneVarAsistente = true;
             }
         }
         //Si se cumplen las condiciones es verdadero
-        return tienePrincipal && tieneAsistente1 && tieneAsistente2;
+        return tienePrincipal && tieneAsistente1 && tieneAsistente2 && tieneCuartoArbitro && tieneVarPrincipal && tieneVarAsistente;
     }
 
     //Valida si un jugador pertenece a cualquiera de las dos selecciones que están jugando
@@ -48,52 +56,19 @@ public class Validador {
             return false;
         }
         //Obtenemos la Seleccion de cada participacion
-        Seleccion local = part1.getSeleccion();
-        Seleccion visitante = part2.getSeleccion();
-        boolean estaEnLocal = false;
+        Seleccion seleccion1 = part1.getSeleccion();
+        Seleccion seleccion2 = part2.getSeleccion();
         //Uso el get de mi lista "jugador" en Seleccion
-        if(local != null && local.getJugador()!=null){
-            estaEnLocal = local.getJugador().contains(j); //Evita anidar bucles o que se repitan datos
+        if(seleccion1 != null && seleccion1.getJugador()!=null){
+            if(seleccion1.getJugador().contains(j)) {
+                return true; //Evita anidar bucles o que se repitan datos
+            }
         }
-        boolean estaEnVisitante = false;
-        if(visitante!=null&&visitante.getJugador()!=null){
-            estaEnVisitante=visitante.getJugador().contains(j);
+        if(seleccion2!=null&& seleccion2.getJugador()!=null){
+            if (seleccion2.getJugador().contains(j)) {
+                return true;
+            }
         }
-        return estaEnLocal || estaEnVisitante;
+        return false;
     }
-    public static void validarEstadisticasGrupo(Partido p){
-        if (p==null){
-            System.out.println("El partido es nulo.");
-            return;
-        }
-        //Obtener participaciones del partido
-        Participacion local = p.getSeleccion1();
-        Participacion visitante = p.getSeleccion2();
-        //Si local y visitante están vacíos
-        if (local == null || visitante == null){
-            System.out.println("El partido no tiene participaciones cargadas.");
-            return;
-        }
-        //Obtener selecciones
-        Seleccion seleccionLocal = local.getSeleccion();
-        Seleccion seleccionVisitante = visitante.getSeleccion();
-        if (seleccionLocal == null || seleccionVisitante == null){
-            System.out.println("Las participaciones no tienen selecciones asignadas.");
-            return;
-        }
-        //Obtener el grupo al que pertenece la selección local
-        Grupo grupoDelPartido = seleccionLocal.getGrupo();
-        if (grupoDelPartido == null){
-            System.out.println("La selección local no está asignada a ningún grupo.");
-            return;
-        }
-        System.out.println("\n[VALIDADOR] Sincronizando estadísticas del "+ grupoDelPartido.getDescripcion()+".");
-        int ptsLocal = grupoDelPartido.obtenerPuntos(seleccionLocal);
-        int ptsVisitante = grupoDelPartido.obtenerPuntos(seleccionVisitante);
-        System.out.println("[RESULTADOS AUTOMÁTICOS]");
-        System.out.println("- "+seleccionLocal.getNombreFederacion()+": "+ptsLocal+" pts.");
-        System.out.println("- "+seleccionVisitante.getNombreFederacion()+": "+ptsVisitante+" pts.");
-
-    }
-    
 }
