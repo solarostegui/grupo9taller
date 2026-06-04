@@ -48,8 +48,14 @@ public class Partido {
         this.Arbitrajes=new ArrayList<Arbitraje>();
     }
     //agregar para las listas
+    //this indica que es para ese patido que esta jugando
     public void agregarEvento(TipoEvento evento,int minuto, Jugador jugador){
-        this.eventos.add (new Evento(evento,minuto, jugador));
+        if (Validador.validarEvento(this, jugador)){
+            this.eventos.add (new Evento(evento,minuto, jugador));
+            System.out.println("Evento registrado");
+        }else {
+            System.out.println("El jugador no pertenece a ninguna seleccion del parido");
+        }
     }
     
     //Validamos que no este vacio arbitraje
@@ -134,8 +140,6 @@ public class Partido {
     public static int cargarResultados(){
         return 0;
     }
-    
-    
 
     @Override
     public String toString() {

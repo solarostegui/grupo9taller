@@ -54,12 +54,19 @@ public class Grupo {
         this.fase = fase;
     }
 
-    //metodo para agregar a la lista las selecciones
-    public void agregarSeleccion(Seleccion s){
-        this.selecciones.add(s);
+    //metodo para agregar cada sleeccion al grupo A, B, C, etc.
+    public void agruparSeleccion(Seleccion s){
+       if (s.getGrupo() == null){
+          this.selecciones.add(s);
+          s.setGrupo(this);
+       } else {
+           System.out.println("La selecicon ya pertenece a un grupo");
+       }
+       
     }
    //Completar método de ObtenerPuntos 
     public int obtenerPuntos(Seleccion s){
+        
         return 0;
     }
     

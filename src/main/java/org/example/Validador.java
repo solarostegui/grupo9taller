@@ -5,7 +5,7 @@ import java.util.*;
  */
 public class Validador {
     //Valida si el equipo de arbitraje está completo y es válido
-    //necesitamos get y set de partido para entrar a la lista de arbitros de ese partido
+  
     public static boolean validarArbitraje(List <Arbitraje> arbitrajes){
         //La lista tiene que tener algo para que sea válida. Empty es lo mismo que arbitraje.size() == 0 (lista vacia)
         if (arbitrajes == null || arbitrajes.isEmpty()){ //Si usamos una excepcion tipo NullPointerException corremos el riesgo de que se craashee el código
@@ -71,4 +71,6 @@ public class Validador {
         }
         return false;
     }
+    
+    
 }

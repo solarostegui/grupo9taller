@@ -11,6 +11,7 @@ public class Mundial {
     private int fechahasta;
     //agregacion con sede
     private List<Sede> sedes;
+    
 
     //constructor con parametros
     public Mundial (int anio, String mascota, int fechadesde, int fechahasta){
