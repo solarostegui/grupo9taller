@@ -20,14 +20,14 @@ public class Grupo {
         this.descripcion = descripcion;
         this.selecciones = new ArrayList<Seleccion>();
         this.fase = fase;
-        this.tablaEstadisticas = new ArrayList<>(Estadisticas);
+        this.tablaEstadisticas = new ArrayList<Estadisticas>();
     }
     
     public Grupo(){
         this.identificacion = "";
         this.descripcion = "";
         this.selecciones = new ArrayList<Seleccion>();
-        this.tablaEstadisticas = new ArrayList<>(Estadisticas);
+        this.tablaEstadisticas = new ArrayList<Estadisticas>();
         
     }
     //Getters y setters
