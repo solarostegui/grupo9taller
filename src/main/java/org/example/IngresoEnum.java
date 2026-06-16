@@ -16,7 +16,7 @@ public class IngresoEnum {
         System.out.println("2 - Mediocampista");
         System.out.println("3 - Delantero");
         System.out.println("Seleccione posicion: ");
-        int opcion = IngresoMundial.pedirEntero();
+        int opcion = IngresoMundial.pedirEntero("Elija la posicion: ");
         return TipoPosicion.values()[opcion];
     }
  
@@ -31,7 +31,7 @@ public class IngresoEnum {
         System.out.println("6 - Nutricionista");
         System.out.println("7 - Psicologo");
         System.out.println("Seleccione rol: ");
-        int opcion = IngresoMundial.pedirEntero();
+        int opcion = IngresoMundial.pedirEntero("Elija el rol: ");
         return TipoRol.values()[opcion];
     }
  
@@ -47,7 +47,7 @@ public class IngresoEnum {
         System.out.println("7 - Sustitucion");
         System.out.println("8 - Lesion");
         System.out.println("Seleccione evento: ");
-        int opcion = IngresoMundial.pedirEntero();
+        int opcion = IngresoMundial.pedirEntero("Elija el evento: ");
         return TipoEvento.values()[opcion];
     }
  
@@ -60,7 +60,7 @@ public class IngresoEnum {
         System.out.println("4 - Semifinal");
         System.out.println("5 - Final");
         System.out.println("Seleccione fase: ");
-        int opcion = IngresoMundial.pedirEntero();
+        int opcion = IngresoMundial.pedirEntero("Elija la fase: ");
         return TipoNombreFase.values()[opcion];
     }
  
@@ -73,7 +73,7 @@ public class IngresoEnum {
         System.out.println("4 - VarPrincipal");
         System.out.println("5 - VarAsistente");
         System.out.println("Seleccione categoría: ");
-        int opcion = IngresoMundial.pedirEntero();
+        int opcion = IngresoMundial.pedirEntero("Elija la categoria: ");
         return TipoCategoriaArbitro.values()[opcion];
     }
 }

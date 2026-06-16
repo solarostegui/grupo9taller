@@ -64,7 +64,7 @@ public class Grupo {
     }
 
     //metodo para agregar cada sleeccion al grupo A, B, C, etc.
-    public void agruparSeleccion(Seleccion s){
+    public void agregarSeleccion(Seleccion s){
        if (s.getGrupo() == null){
           this.selecciones.add(s);
           s.setGrupo(this);
