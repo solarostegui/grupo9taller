@@ -23,6 +23,7 @@ public class Main {
     public static void main(String[] args) {
       Main app=new Main();
       app.ejecutar();
+      Mundial mundial = IngresoMundial.
     }  
     public void ejecutar(){
     

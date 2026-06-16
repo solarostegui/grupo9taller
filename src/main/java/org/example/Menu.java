@@ -49,13 +49,17 @@ public class Menu{
             System.out.println("3. Ingresar Arbitro");
             System.out.println("4. Ingresar Direcor Tecnico");
             System.out.println("5. Ingresar Cuerpo Tecnico");
-            System.out.println("7. Ingresar Director Técnico y Cuerpo Técnico");
-            System.out.println("8. Ingresar Arbitro para el Partido");
-            System.out.println("9. Ingresar Arbitraje");
-            System.out.println("10. Ingresar Fase");
-            System.out.println("11. Ingresar Participación");
-            System.out.println("12. Ingresar Jugador");
-            System.out.println("13. Ingresar Evento");
+            System.out.println("6. Crear Fases");
+            System.out.println("7. Ingresar Grupos");
+            System.out.println("8. Ingresar Jugador");
+            System.out.println("9. Ingresar Selección");
+            System.out.println("10. Ingresar Partido");
+            System.out.println("11. Ficha Técnica del Partido");
+            System.out.println("12. Tabla de posiciones");
+            System.out.println("13. Resultados de una Selección");
+            System.out.println("14. Ranking de Goleadores");
+            System.out.println("15. Informe Disciplinario");
+            System.out.println("16. Estadísticas por Sede ");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = sc.nextInt();
@@ -102,12 +106,23 @@ public class Menu{
                     System.out.println("Partido creado.");
                     break;
                 case 11:
-                    IngresoMundial.ingresarJugador();
-                    System.out.println("Jugador ingresado.");
+                    //Reportes.
                     break;
                 case 12:
-                    IngresoMundial.ingresarEvento(j);
-                    System.out.println("Evento ingresado.");
+                    //Reportes.mostrarTablaPosiciones(grupo);
+                    break;
+                case 13:
+                    //Reportes
+                    break;
+                case 14:
+                    //Reportes
+                    break;
+                case 15:
+                    //Reportes
+                    break;
+                case 16:
+                    //Reportes
+                    break;
                 case 0:
                     System.out.println("Saliendo del programa...");
                 default:
