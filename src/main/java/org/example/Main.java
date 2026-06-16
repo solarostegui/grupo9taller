@@ -1,5 +1,4 @@
 package org.example;
-import java.util.*;
 /**
  *
  * @author mardalorso
@@ -7,6 +6,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-     
-    }      
+    Mundial mundial = IngresoMundial.ingresarMundial();
+    Menu.Menu(mundial);
 }
+}      
+
