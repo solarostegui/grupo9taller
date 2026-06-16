@@ -35,16 +35,43 @@ public class Participacion {
     public void setPartido(Partido partido) {
         this.partido = partido;
     }
-    
-    public int cantidadGoles(){
-        return 0;
+    public int getCantidadGoles() {
+    if (partido == null || partido.getEventos() == null) return 0;
+    int goles = 0;
+    for (Evento e : partido.getEventos()) {
+        if (e.getEvento() == TipoEvento.Gol &&
+            e.getJugador() != null &&
+            perteneceASeleccion(e.getJugador())) {
+            goles++;
+        }
     }
-    
-    public int cantidadTarjAmarilla(){
-        return 0;
+    return goles;
     }
-    
-    public int cantidadTarjRojas(){
-        return 0;
+
+    public int getCantidadTarjAmarillas() {
+      if (partido == null || partido.getEventos() == null) return 0;
+      int amarillas = 0;
+    for (Evento e : partido.getEventos()) {
+        if (e.getEvento() == TipoEvento.TarjetaAmarilla &&
+            e.getJugador() != null &&
+            perteneceASeleccion(e.getJugador())) {
+            amarillas++;
+        }
+    }
+    return amarillas;
+    }
+
+   public int getCantidadTarjRojas() {
+    if (partido == null || partido.getEventos() == null) return 0;
+    int rojas = 0;
+    for (Evento e : partido.getEventos()) {
+        if ((e.getEvento() == TipoEvento.TarjetaRoja ||
+             e.getEvento() == TipoEvento.DobleAmarilla) &&
+            e.getJugador() != null &&
+            perteneceASeleccion(e.getJugador())) {
+            rojas++;
+        }
+    }
+    return rojas;
     }
 }
