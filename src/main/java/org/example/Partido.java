@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.example;
-import java.time.Clock;
-import java.util.Date;
+import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 /**
@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class Partido {
     //variables miembro de objeto
-    private Date fecha;
-    private Clock horario;
+    private LocalDate fecha;
+    private LocalTime horario;
     private int duracion;
     private int tiempoadicional;
     //bidireccional con estadio
@@ -35,7 +35,7 @@ public class Partido {
     this.Arbitrajes=new ArrayList<Arbitraje>();
     }
     
-    public Partido(Date fecha, Clock horario, int duracion, int tiempoadicional,Estadio estadio,Fase fase,Participacion seleccion1,Participacion seleccion2) {
+    public Partido(LocalDate fecha, LocalTime horario, int duracion, int tiempoadicional,Estadio estadio,Fase fase,Participacion seleccion1,Participacion seleccion2) {
         this.fecha = fecha;
         this.horario = horario;
         this.duracion = duracion;
@@ -65,17 +65,17 @@ public class Partido {
         }
     }
     //getter y setter
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
-    public Clock getHorario() {
+    public LocalTime getHorario() {
         return horario;
     }
-    public void setHorario(Clock horario) {
+    public void setHorario(LocalTime horario) {
         this.horario = horario;
     }
 

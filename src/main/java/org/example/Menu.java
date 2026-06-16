@@ -92,7 +92,6 @@ public class Menu{
                 case 7:
                     IngresoMundial.crearGrupo();
                     System.out.println("Grupo creado.");
-                    break;
                 case 8:
                     IngresoMundial.crearJugador();
                     System.out.println("Jugador ingresado.");
