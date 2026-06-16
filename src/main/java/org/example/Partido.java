@@ -50,19 +50,18 @@ public class Partido {
     //agregar para las listas
     //this indica que es para ese patido que esta jugando
     public void agregarEvento(TipoEvento evento,int minuto, Jugador jugador){
-        if (Validador.validarEvento(this, jugador)){
-            this.eventos.add (new Evento(evento,minuto, jugador));
-            System.out.println("Evento registrado");
-        }else {
-            System.out.println("El jugador no pertenece a ninguna seleccion del parido");
-        }
+            Evento e=new Evento(evento,minuto,jugador);
+            this.eventos.add(e);
+            if(jugador!=null){
+                jugador.agregarEvento(e);
+            }
     }
     
     //Validamos que no este vacio arbitraje
     public void agregarArbitraje(Arbitraje a){
-        if(a.getPartido() != null) {
-        this.Arbitrajes.add(a);
-        a.setPartido(this);   
+        if(a!=null){
+            this.Arbitrajes.add(a);
+            a.setPartido(this);
         }
     }
     //getter y setter
@@ -149,7 +148,4 @@ public class Partido {
                 + "\nDuracion: " + this.duracion + ""
                 + "\nTiempo adicional: " + this.tiempoadicional;
     }
-    
-    
-    
 }
