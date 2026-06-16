@@ -53,11 +53,11 @@ public class Partido {
             Evento e=new Evento(evento,minuto,jugador);
             this.eventos.add(e);
             if(jugador!=null){
-                jugador.agregarEvento(e);
+                jugador.agregarEvento(e); //Mantiene sincronizada la lista del jugador
             }
     }
     
-    //Validamos que no este vacio arbitraje
+    //Agrega un arbitraje al partido y sincroniza la referencia bidireccional
     public void agregarArbitraje(Arbitraje a){
         if(a!=null){
             this.Arbitrajes.add(a);

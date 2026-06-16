@@ -84,7 +84,7 @@ public class Sede {
                 break;
             }
         }
-        if (existe){
+        if (!existe){ //Agrega si no existe estadio
             this.estadios.add(estadio);
             //agregamos estadio a su sede
             estadio.setSede(this);
