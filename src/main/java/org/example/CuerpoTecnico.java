@@ -42,6 +42,8 @@ public class CuerpoTecnico extends Persona{
     
     public String toString() {
         return "------CuerpoTecnico----" + 
+                "\nNombre: "+super.nombre+
+                "\nFecha de nacimiento: "+super.fecNacimiento+
                 "\nRol: " + this.rol;
     }
     

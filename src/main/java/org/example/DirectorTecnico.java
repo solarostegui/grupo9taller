@@ -38,6 +38,8 @@ public class DirectorTecnico extends Persona{
     @Override
     public String toString() {
         return "-----DirectorTecnico-----"+
+                "\nNombre: "+super.nombre+
+                "\nFecha de nacimiento: "+super.fecNacimiento+
                 "\nFecha de nombramiento: " + this.fechaNombramiento;
     }
     

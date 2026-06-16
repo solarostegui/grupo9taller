@@ -61,29 +61,22 @@ public class Jugador extends Persona{
         this.evento = evento;
     }
 
-    //Método para agregar eventos
+    //Método para agregar eventos(solo administra la lista del jugador)
     public void agregarEvento(Evento e){
-        this.evento.add(e);
+        if(e!=null && !this.evento.contains(e)){
+            this.evento.add(e);
+        }
     }
 
     @Override
     public String toString() {
         return "-------Jugador-------"
-                + "\nDorsal: " + this.dorsal +  
+                +"\nNombre: "+ super.nombre+
+                "\nFecha nacimiento: "+super.fecNacimiento+
+                "\nDorsal: "+this.dorsal+
                 "\nPosicion: " + this.posicion + "\nPeso: " + this.peso + 
                 "\nAltura: " + this.altura;
     }
     
-    //comparamos en memoria si dos jugadores son iguales.
-    @Override
-    public boolean equals(Object o){
-        if (this == o) 
-            return true;
-        if ((o == null) || getClass() != o.getClass())
-            return false;
-        //Casteo
-        Jugador j = (Jugador) o;
-        //comparamos por dorsal que es un identificador unico de cada jugador
-        return this.dorsal == j.dorsal;
-    }
+    
 }

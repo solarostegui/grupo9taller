@@ -61,5 +61,13 @@ public class Arbitro extends Persona {
     public void setFecNacimiento(int fecNacimiento) {
         this.fecNacimiento = fecNacimiento;
     }
+
+    @Override
+    public String toString() {
+        return "-----Arbitro----" +"\nNombre: "+super.nombre+
+                "\n Fecha de naciemiento: "+super.fecNacimiento+
+                "\nAños de experiencia: "+this.aniosExperiencia+
+                "\nPais: "+(this.pais!=null ? this.pais.getNombre(): "Sin pais");
+    }
     
 }
