@@ -66,7 +66,7 @@ public class Menu{
             
             switch (opcion){
                 case 1:
-                   IngresoMundial.crearPais();
+                   IngresoMundial.crearPais(List <paises>);
                    System.out.println("País ingresado.");
                    break;
                 case 2:

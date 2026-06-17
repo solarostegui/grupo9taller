@@ -35,13 +35,19 @@ public class Participacion {
     public void setPartido(Partido partido) {
         this.partido = partido;
     }
+    
+    public boolean perteneceASeleccion(Jugador j){
+        if(seleccion == null){
+            return false;
+    }
+        return seleccion.getJugador().contains(j);
+    }
+    
     public int getCantidadGoles() {
     if (partido == null || partido.getEventos() == null) return 0;
     int goles = 0;
     for (Evento e : partido.getEventos()) {
-        if (e.getEvento() == TipoEvento.Gol &&
-            e.getJugador() != null &&
-            perteneceASeleccion(e.getJugador())) {
+        if (e.getEvento() == TipoEvento.Gol && e.getJugador() != null && perteneceASeleccion(e.getJugador())) {
             goles++;
         }
     }
@@ -52,9 +58,7 @@ public class Participacion {
       if (partido == null || partido.getEventos() == null) return 0;
       int amarillas = 0;
     for (Evento e : partido.getEventos()) {
-        if (e.getEvento() == TipoEvento.TarjetaAmarilla &&
-            e.getJugador() != null &&
-            perteneceASeleccion(e.getJugador())) {
+        if (e.getEvento() == TipoEvento.TarjetaAmarilla && e.getJugador() != null && perteneceASeleccion(e.getJugador())) {
             amarillas++;
         }
     }
@@ -65,10 +69,8 @@ public class Participacion {
     if (partido == null || partido.getEventos() == null) return 0;
     int rojas = 0;
     for (Evento e : partido.getEventos()) {
-        if ((e.getEvento() == TipoEvento.TarjetaRoja ||
-             e.getEvento() == TipoEvento.DobleAmarilla) &&
-            e.getJugador() != null &&
-            perteneceASeleccion(e.getJugador())) {
+        if ((e.getEvento() == TipoEvento.TarjetaRoja || e.getEvento() == TipoEvento.DobleAmarilla) && e.getJugador() != null &&
+                perteneceASeleccion(e.getJugador())) {
             rojas++;
         }
     }

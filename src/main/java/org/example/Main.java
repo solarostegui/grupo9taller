@@ -23,7 +23,8 @@ public class Main {
     public static void main(String[] args) {
       Main app=new Main();
       app.ejecutar();
-      Mundial mundial = IngresoMundial.
+      Mundial mundial = IngresoMundial.ingresarMundial();
+      Menu.Menu(mundial);
     }  
     public void ejecutar(){
     

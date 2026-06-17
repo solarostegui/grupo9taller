@@ -146,6 +146,8 @@ public class Partido {
                 + "\nFecha: " + this.fecha + ""
                 + "\nHorario: " + this.horario + ""
                 + "\nDuracion: " + this.duracion + ""
-                + "\nTiempo adicional: " + this.tiempoadicional;
+                + "\nTiempo adicional: " + this.tiempoadicional + ""
+                + "\nLocal: " + (seleccion1 != null ? seleccion1.getSeleccion().getNombreFederacion() + " " + seleccion1.getCantidadGoles() : "Sin asignar")+ ""
+                + "\nVisitante: " + (seleccion2 != null ? seleccion2.getSeleccion().getNombreFederacion() + " " + seleccion2.getCantidadGoles(): "Sin Asignar");
     }
 }
