@@ -90,10 +90,10 @@ public class IngresoMundial{
         String mascota =pedirString("Ingrese la mascota: ");
 
         
-        int fechaDesde = pedirEntero(" Fecha inicio (num/año) : ");
+        int fechaDesde = pedirEntero(" Fecha de inicio (num/año) : ");
 
         
-        int fechaHasta = pedirEntero(" Fecha fin (num/año) : ");
+        int fechaHasta = pedirEntero(" Fecha de finalizacion (num/año) : ");
         Mundial mundial= new Mundial(anio, mascota, fechaDesde, fechaHasta);
         System.out.println("Mundial " + anio + " creado con éxito.");
         return mundial;

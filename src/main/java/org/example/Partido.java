@@ -59,7 +59,7 @@ public class Partido {
     
     //Agrega un arbitraje al partido y sincroniza la referencia bidireccional
     public void agregarArbitraje(Arbitraje a){
-        if(a!=null){
+        if(a != null){
             this.Arbitrajes.add(a);
             a.setPartido(this);
         }

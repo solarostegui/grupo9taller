@@ -68,11 +68,8 @@ public class Grupo {
        if (s.getGrupo() == null){
           this.selecciones.add(s);
           s.setGrupo(this);
-          this.tablaEstadisticas.add(new Estadisticas(s));
-          
-       } else {
-           System.out.println("La selecicon ya pertenece a un grupo");
-       }
+          this.tablaEstadisticas.add(new Estadisticas(s)); 
+       } 
     }
    //Completar método de ObtenerPuntos 
     public int obtenerPuntos(Seleccion s){
