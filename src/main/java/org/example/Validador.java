@@ -43,7 +43,7 @@ public class Validador {
         return tienePrincipal && tieneAsistente1 && tieneAsistente2 && tieneCuartoArbitro && tieneVarPrincipal && tieneVarAsistente;
     }
 
-    //Valida si un jugador pertenece a cualquiera de las dos selecciones que están jugando
+    //Valida si un jugador pertenece a cualquiera de las dos selecciones que están jugando (es algo más exterior al helper de participacion)
     //necesitamos partido, jugadores de participacion (usamos get y ses de participacion)
     public static boolean validarEvento(Partido p, Jugador j){
         if (p == null || j == null){
