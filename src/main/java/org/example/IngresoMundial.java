@@ -80,8 +80,10 @@ public class IngresoMundial{
     
     //Ingreso de la clase mundial
     public static Mundial ingresarMundial(){
-        System.out.println("\n=== Ingreso de Mundial ===");
-        
+        System.out.println("=================================================");
+        System.out.println("  BIENVENIDO AL SISTEMA DE GESTIÓN DEL MUNDIAL   ");
+        System.out.println("=================================================");
+        System.out.println("\nAntes de comenzar, es obligatorio registrar el Mundial.");
         
         int anio = pedirEntero("Ingrese el año: ");
 

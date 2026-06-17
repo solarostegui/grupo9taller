@@ -28,8 +28,7 @@ public class Main {
     public void ejecutar(){
         Mundial mundial = IngresoMundial.ingresarMundial();
         Menu menu = new Menu(mundial,paises, sedes, estadios, arbitros, dts, cts, jugadores, fases, grupos, selecciones, partidos);
-        //menu.Menu(mundial);
-    
+        menu.Menu(mundial);
     }  
 }      
 

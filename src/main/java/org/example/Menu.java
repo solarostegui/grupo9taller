@@ -72,7 +72,7 @@ public class Menu{
                    System.out.println("País ingresado.");
                    break;
                 case 2:
-                    IngresoMundial.crearSede(paises, sedes, estadios);
+                    IngresoMundial.crearSede(paises, sedes, estadios,mundial);
                     System.out.println("Sede ingresada.");
                     break;
                 case 3:
