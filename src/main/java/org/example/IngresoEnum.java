@@ -9,18 +9,23 @@ package org.example;
  * @author mardalorso
  */
 public class IngresoEnum {
-    public static TipoPosicion elegirTipoPosicion() {
+    
+    private static IngresoMundial TecladoEnum;
+    
+    public TipoPosicion elegirTipoPosicion() {
+        
         System.out.println("\n-- Posiciones disponibles --");
         System.out.println("0 - Arquero");
         System.out.println("1 - Defensor");
         System.out.println("2 - Mediocampista");
         System.out.println("3 - Delantero");
         System.out.println("Seleccione posicion: ");
-        int opcion = IngresoMundial.pedirEnteroRango("Elija la posicion: ",0,3);
+        int opcion = TecladoEnum.pedirEnteroRango("Elija la posicion: ",0,3);
         return TipoPosicion.values()[opcion];
     }
  
-    public static TipoRol elegirTipoRol() {
+    public TipoRol elegirTipoRol() {
+        
         System.out.println("\n-- Roles disponibles --");
         System.out.println("0 - AyudanteCampo");
         System.out.println("1 - PreparadorFisico");
@@ -31,11 +36,12 @@ public class IngresoEnum {
         System.out.println("6 - Nutricionista");
         System.out.println("7 - Psicologo");
         System.out.println("Seleccione rol: ");
-        int opcion = IngresoMundial.pedirEnteroRango("Seleccione rol: ", 0, 7);
+        int opcion = TecladoEnum.pedirEnteroRango("Seleccione rol: ", 0, 7);
         return TipoRol.values()[opcion];
     }
  
-    public static TipoEvento elegirTipoEvento() {
+    public TipoEvento elegirTipoEvento() {
+        
         System.out.println("\n-- Tipos de evento disponibles --");
         System.out.println("0 - Gol");
         System.out.println("1 - TarjetaAmarilla");
@@ -47,11 +53,12 @@ public class IngresoEnum {
         System.out.println("7 - Sustitucion");
         System.out.println("8 - Lesion");
         System.out.println("Seleccione evento: ");
-        int opcion = IngresoMundial.pedirEnteroRango("Elija el evento: ",0,8);
+        int opcion = TecladoEnum.pedirEnteroRango("Elija el evento: ",0,8);
         return TipoEvento.values()[opcion];
     }
  
-    public static TipoNombreFase elegirTipoNombreFase() {
+    public TipoNombreFase elegirTipoNombreFase() {
+        
         System.out.println("\n-- Fases disponibles --");
         System.out.println("0 - Grupos");
         System.out.println("1 - Dieciseisavos");
@@ -60,11 +67,12 @@ public class IngresoEnum {
         System.out.println("4 - Semifinal");
         System.out.println("5 - Final");
         System.out.println("Seleccione fase: ");
-        int opcion = IngresoMundial.pedirEnteroRango("Elija la fase: ",0,5);
+        int opcion = TecladoEnum.pedirEnteroRango("Elija la fase: ",0,5);
         return TipoNombreFase.values()[opcion];
     }
  
-    public static TipoCategoriaArbitro elegirTipoCategoriaArbitro() {
+    public TipoCategoriaArbitro elegirTipoCategoriaArbitro() {
+        
         System.out.println("\n-- Categorías de árbitro disponibles --");
         System.out.println("0 - Principal");
         System.out.println("1 - Asistente1");
@@ -73,7 +81,7 @@ public class IngresoEnum {
         System.out.println("4 - VarPrincipal");
         System.out.println("5 - VarAsistente");
         System.out.println("Seleccione categoría: ");
-        int opcion = IngresoMundial.pedirEnteroRango("Elija la categoria: ",0,5);
+        int opcion = TecladoEnum.pedirEnteroRango("Elija la categoria: ",0,5);
         return TipoCategoriaArbitro.values()[opcion];
     }
 }

@@ -10,7 +10,7 @@ import java.util.*;
  *
  * @author mardalorso
  */
- 
+
 public class Menu{
     private Mundial mundial;
     private List<Pais> paises;
@@ -43,6 +43,7 @@ public class Menu{
     private static Scanner sc = new Scanner(System.in);
     
     public void Menu(Mundial mundial){
+        IngresoMundial Ingreso=new IngresoMundial();
         int opcion;
         do {
             System.out.println("\n========== MENÚ MUNDIAL ==========");
@@ -68,43 +69,43 @@ public class Menu{
             
             switch (opcion){
                 case 1:
-                   IngresoMundial.crearPais(paises);
+                   Ingreso.crearPais(paises);
                    System.out.println("País ingresado.");
                    break;
                 case 2:
-                    IngresoMundial.crearSede(paises, sedes, estadios,mundial);
+                    Ingreso.crearSede(paises, sedes, estadios,mundial);
                     System.out.println("Sede ingresada.");
                     break;
                 case 3:
-                    IngresoMundial.crearArbitro(paises, arbitros);
+                    Ingreso.crearArbitro(paises, arbitros);
                     System.out.println("Arbitro ingresado.");
                     break;
                 case 4:
-                    IngresoMundial.crearDT(dts);
+                    Ingreso.crearDT(dts);
                     System.out.println("Director Tecnico ingresado.");
                     break;
                 case 5:
-                    IngresoMundial.crearCT(cts);
+                    Ingreso.crearCT(cts);
                     System.out.println("Cuerpo tecnico ingresado.");
                     break;
                 case 6:
-                    IngresoMundial.crearFase(fases);
+                    Ingreso.crearFase(fases);
                     System.out.println("Fase creada.");
                     break;
                 case 7:
-                    IngresoMundial.crearGrupo(fases, grupos);
+                    Ingreso.crearGrupo(fases, grupos);
                     System.out.println("Grupo creado.");
                     break;
                 case 8:
-                    IngresoMundial.crearJugador(jugadores);
+                    Ingreso.crearJugador(jugadores);
                     System.out.println("Jugador ingresado.");
                     break;
                 case 9:
-                    IngresoMundial.crearSeleccion(grupos, paises, dts, cts, jugadores, selecciones);
+                    Ingreso.crearSeleccion(grupos, paises, dts, cts, jugadores, selecciones);
                     System.out.println("Seleccion ingresado.");
                     break;
                 case 10:
-                    IngresoMundial.crearPartido(selecciones, estadios, fases, arbitros, partidos, jugadores);
+                    Ingreso.crearPartido(selecciones, estadios, fases, arbitros, partidos, jugadores);
                     System.out.println("Partido creado.");
                     break;
                 case 11:

@@ -12,11 +12,11 @@ import java.time.*;
  * @author mardalorso
  */
 public class IngresoMundial{
-    
+    private static IngresoEnum TecladoEnum;
     private static Scanner sc = new Scanner(System.in);
     
     // Este método se encarga de que el input sea SIEMPRE entero
-    public static int pedirEntero(String mensaje){
+    public int pedirEntero(String mensaje){
         while(true){
             try{
                 System.out.print(mensaje);
@@ -30,7 +30,7 @@ public class IngresoMundial{
         }
     }
     // Pide un float y valida que lo sea
-   public static float pedirFloat(String mensaje) {
+   public float pedirFloat(String mensaje) {
         while (true) {
             System.out.print(mensaje);
             try {
@@ -42,7 +42,7 @@ public class IngresoMundial{
         }
     }
     //Pide un String no vacío
-    public static String pedirString(String mensaje) {
+    public String pedirString(String mensaje) {
         while (true) {
             System.out.print(mensaje);
             String texto = sc.nextLine().trim();
@@ -54,7 +54,7 @@ public class IngresoMundial{
         }
     }
     //pide un booleano (true/false, s/n, si/no)
-    public static boolean pedirBooleano(String mensaje) {
+    public boolean pedirBooleano(String mensaje) {
         while (true) {
             System.out.print(mensaje + " (s/n): ");
             String entrada = sc.nextLine().trim().toLowerCase();
@@ -68,7 +68,7 @@ public class IngresoMundial{
         }
     }
     // Pide un entero dentro de un rango [min, max]
-    public static int pedirEnteroRango(String mensaje, int min, int max) {
+    public int pedirEnteroRango(String mensaje, int min, int max) {
         while (true) {
             int num = pedirEntero(mensaje);
             if (num >= min && num <= max) {
@@ -79,7 +79,7 @@ public class IngresoMundial{
     }
     
     //Ingreso de la clase mundial
-    public static Mundial ingresarMundial(){
+    public Mundial ingresarMundial(){
         System.out.println("=================================================");
         System.out.println("  BIENVENIDO AL SISTEMA DE GESTIÓN DEL MUNDIAL   ");
         System.out.println("=================================================");
@@ -100,7 +100,7 @@ public class IngresoMundial{
         
     }
     // CREAR PAIS
-    public static void crearPais(List<Pais> paises) {
+    public void crearPais(List<Pais> paises) {
         System.out.println("\n--- NUEVO PAÍS ---");
         String nombre = pedirString("Nombre del país: ");
         String bandera = pedirString("Descripción de la bandera: ");
@@ -110,7 +110,7 @@ public class IngresoMundial{
     }
     
     // CREAR SEDE + ESTADIOS
-    public static void crearSede(List<Pais> paises, List<Sede> sedes, List<Estadio> estadios,Mundial mundial) {
+    public void crearSede(List<Pais> paises, List<Sede> sedes, List<Estadio> estadios,Mundial mundial) {
         if (paises.isEmpty()) {
             System.out.println("Primero debe crear al menos un país.");
             return;
@@ -144,7 +144,7 @@ public class IngresoMundial{
     }
 
     // CREAR ARBITRO
-    public static void crearArbitro(List<Pais> paises, List<Arbitro> arbitros) {
+    public void crearArbitro(List<Pais> paises, List<Arbitro> arbitros) {
         if (paises.isEmpty()) {
             System.out.println("Primero debe crear al menos un país.");
             return;
@@ -165,7 +165,7 @@ public class IngresoMundial{
     
     
     // CREAR DIRECTOR TECNICO
-    public static void crearDT(List<DirectorTecnico> dts) {
+    public void crearDT(List<DirectorTecnico> dts) {
         System.out.println("\n--- NUEVO DIRECTOR TÉCNICO ---");
         String nombre = pedirString("Nombre: ");
         int fecNac = pedirEntero("Año de nacimiento: ");
@@ -176,20 +176,20 @@ public class IngresoMundial{
     }
 
     // CREAR CUERPO TECNICO
-    public static void crearCT(List<CuerpoTecnico> cts) {
+    public void crearCT(List<CuerpoTecnico> cts) {
         System.out.println("\n--- NUEVO CUERPO TÉCNICO ---");
         String nombre = pedirString("Nombre: ");
         int fecNac =pedirEntero("Año de nacimiento: ");
-        TipoRol rol = IngresoEnum.elegirTipoRol();
+        TipoRol rol = TecladoEnum.elegirTipoRol();
         CuerpoTecnico ct = new CuerpoTecnico(nombre, fecNac, rol);
         cts.add(ct);
         System.out.println("Cuerpo técnico '" + nombre + "' creado.");
     }
     
     // CREAR FASE
-    public static void crearFase(List<Fase> fases) {
+    public void crearFase(List<Fase> fases) {
         System.out.println("\n--- NUEVA FASE ---");
-        TipoNombreFase nombre = IngresoEnum.elegirTipoNombreFase();
+        TipoNombreFase nombre = TecladoEnum.elegirTipoNombreFase();
         Fase f = new Fase(nombre);
         fases.add(f);
         System.out.println("Fase '" + nombre + "' creada.");
@@ -197,7 +197,7 @@ public class IngresoMundial{
 
     
     // CREAR GRUPO
-    public static void crearGrupo(List<Fase> fases, List<Grupo> grupos) {
+    public void crearGrupo(List<Fase> fases, List<Grupo> grupos) {
         if (fases.isEmpty()) {
             System.out.println("Primero debe crear al menos una fase.");
             return;
@@ -215,12 +215,12 @@ public class IngresoMundial{
     
     
     // CREAR JUGADOR
-    public static void crearJugador(List<Jugador> jugadores) {
+    public void crearJugador(List<Jugador> jugadores) {
         System.out.println("\n--- NUEVO JUGADOR ---");
         String nombre = pedirString("Nombre: ");
         int fecNac = pedirEntero("Año de nacimiento: ");
         int dorsal = pedirEntero("Dorsal: ");
-        TipoPosicion pos = IngresoEnum.elegirTipoPosicion();
+        TipoPosicion pos = TecladoEnum.elegirTipoPosicion();
         float peso = pedirFloat("Peso (kg, ej: 75.5): ");
         float altura = pedirFloat("Altura (m, ej: 1.80): ");
 
@@ -231,7 +231,7 @@ public class IngresoMundial{
 
     
     // CREAR SELECCION COMPLETA
-    public static void crearSeleccion(List<Grupo> grupos,List<Pais> paises,List<DirectorTecnico> dts,List<CuerpoTecnico> cts,
+    public void crearSeleccion(List<Grupo> grupos,List<Pais> paises,List<DirectorTecnico> dts,List<CuerpoTecnico> cts,
     List<Jugador> jugadores, List<Seleccion> selecciones) {
         if (paises.isEmpty() || grupos.isEmpty()) {
             System.out.println("Primero debe crear al menos un país y un grupo.");
@@ -291,7 +291,7 @@ public class IngresoMundial{
     }
     
     // Método auxiliar automático que procesa los eventos y actualiza el grupo en tiempo real
-    private static void actualizarEstadisticasPorPartido(Partido p) {
+    private void actualizarEstadisticasPorPartido(Partido p) {
         if (p == null || p.getSeleccion1() == null || p.getSeleccion2() == null) return;
 
         Seleccion s1 = p.getSeleccion1().getSeleccion();
@@ -342,7 +342,7 @@ public class IngresoMundial{
         }
     }
      // CREAR PARTIDO CON EVENTOS
-    public static void crearPartido(List<Seleccion> selecciones,List<Estadio> estadios,List<Fase> fases,List<Arbitro> arbitros,
+    public void crearPartido(List<Seleccion> selecciones,List<Estadio> estadios,List<Fase> fases,List<Arbitro> arbitros,
     List<Partido> partidos, List<Jugador> jugadores) {
         if (selecciones.size() < 2 || estadios.isEmpty() ||fases.isEmpty() || arbitros.size() < 6) {
             System.out.println("Se necesitan: 2+ selecciones, 1+ estadio, 1+ fase, 6+ árbitros.");
@@ -423,7 +423,7 @@ public class IngresoMundial{
     
      
     // REGISTRAR EVENTOS A PARTIDO EXISTENTE
-    public static void registrarEventosPartido(List<Partido> partidos, List<Jugador> jugadores) {
+    public void registrarEventosPartido(List<Partido> partidos, List<Jugador> jugadores) {
         if (partidos.isEmpty()) {
             System.out.println("No hay partidos creados.");
             return;
@@ -437,12 +437,12 @@ public class IngresoMundial{
     }
 
     //registra eventos en un partido ya creado
-    public static void registrarEventos(Partido p, List<Jugador> jugadores) {
+    public void registrarEventos(Partido p, List<Jugador> jugadores) {
         System.out.println("\n--- Registro de eventos para el partido del " + p.getFecha() + " ---");
         boolean seguir;
         do {
             System.out.println("\nNuevo evento:");
-            TipoEvento tipo = IngresoEnum.elegirTipoEvento();
+            TipoEvento tipo = TecladoEnum.elegirTipoEvento();
             int min = pedirEntero("Minuto: ");
 
             Jugador j = null;
@@ -464,7 +464,7 @@ public class IngresoMundial{
     // ─── SELECTORES POR TIPO ──────────────────────────────────────────────────
     /*estos metodos se usan para que el usuario elija lo que ya se cargo en la lista
     y no tener que volver a cargar todos los datos nuevamente*/
-    private static Pais seleccionarPais(List<Pais> paises) {
+    private Pais seleccionarPais(List<Pais> paises) {
         //si no hay nada para elegir, sale sin romper
         if (paises.isEmpty()) { 
             System.out.println("No hay países disponibles."); 
@@ -479,7 +479,7 @@ public class IngresoMundial{
         return paises.get(pedirEnteroRango("Seleccione país: ", 0, paises.size() - 1));
     }
 
-    private static Sede seleccionarSede(List<Sede> sedes) {
+    private Sede seleccionarSede(List<Sede> sedes) {
         
         if (sedes.isEmpty()) { 
             System.out.println("No hay sedes disponibles."); 
@@ -493,7 +493,7 @@ public class IngresoMundial{
         return sedes.get(pedirEnteroRango("Seleccione sede: ", 0, sedes.size() - 1));
     }
 
-    private static Estadio seleccionarEstadio(List<Estadio> estadios) {
+    private Estadio seleccionarEstadio(List<Estadio> estadios) {
         
         if (estadios.isEmpty()) { 
             System.out.println("No hay estadios disponibles."); 
@@ -507,7 +507,7 @@ public class IngresoMundial{
         return estadios.get(pedirEnteroRango("Seleccione estadio: ", 0, estadios.size() - 1));
     }
 
-    private static Fase seleccionarFase(List<Fase> fases) {
+    private Fase seleccionarFase(List<Fase> fases) {
         
         if (fases.isEmpty()) { 
             System.out.println("No hay fases disponibles."); 
@@ -522,7 +522,7 @@ public class IngresoMundial{
         return fases.get(pedirEnteroRango("Seleccione fase: ", 0, fases.size() - 1));
     }
 
-    private static Grupo seleccionarGrupo(List<Grupo> grupos) {
+    private Grupo seleccionarGrupo(List<Grupo> grupos) {
        
         if (grupos.isEmpty()) { 
             System.out.println("No hay grupos disponibles."); 
@@ -536,7 +536,7 @@ public class IngresoMundial{
         return grupos.get(pedirEnteroRango("Seleccione grupo: ", 0, grupos.size() - 1));
     }
 
-    private static Seleccion seleccionarSeleccion(List<Seleccion> selecciones) {
+    private Seleccion seleccionarSeleccion(List<Seleccion> selecciones) {
         
         if (selecciones.isEmpty()) { 
             System.out.println("No hay selecciones disponibles."); 
@@ -550,7 +550,7 @@ public class IngresoMundial{
         return selecciones.get(pedirEnteroRango("Seleccione selección: ", 0, selecciones.size() - 1));
     }
 
-    private static Arbitro seleccionarArbitro(List<Arbitro> arbitros) {
+    private Arbitro seleccionarArbitro(List<Arbitro> arbitros) {
         
         if (arbitros.isEmpty()) { 
             System.out.println("No hay árbitros disponibles."); 
@@ -563,7 +563,7 @@ public class IngresoMundial{
         return arbitros.get(pedirEnteroRango("Seleccione árbitro: ", 0, arbitros.size() - 1));
     }
 
-    private static Partido seleccionarPartido(List<Partido> partidos) {
+    private Partido seleccionarPartido(List<Partido> partidos) {
         
         if (partidos.isEmpty()) {
             System.out.println("No hay partidos disponibles."); 
@@ -576,7 +576,7 @@ public class IngresoMundial{
         return partidos.get(pedirEnteroRango("Seleccione partido: ", 0, partidos.size() - 1));
     }
 
-    private static Jugador seleccionarJugador(List<Jugador> jugadores) {
+    private Jugador seleccionarJugador(List<Jugador> jugadores) {
         
         if (jugadores.isEmpty()) { 
             System.out.println("No hay jugadores disponibles."); 
@@ -589,7 +589,7 @@ public class IngresoMundial{
         return jugadores.get(pedirEnteroRango("Seleccione jugador: ", 0, jugadores.size() - 1));
     }
 
-    private static DirectorTecnico seleccionarDT(List<DirectorTecnico> dts) {
+    private DirectorTecnico seleccionarDT(List<DirectorTecnico> dts) {
        
         if (dts.isEmpty()) { 
             System.out.println("No hay directores técnicos disponibles."); 
@@ -602,7 +602,7 @@ public class IngresoMundial{
         return dts.get(pedirEnteroRango("Seleccione DT: ", 0, dts.size() - 1));
     }
 
-    private static CuerpoTecnico seleccionarCT(List<CuerpoTecnico> cts) {
+    private CuerpoTecnico seleccionarCT(List<CuerpoTecnico> cts) {
         
         if (cts.isEmpty()) { 
             System.out.println("No hay cuerpo técnico disponible."); 
