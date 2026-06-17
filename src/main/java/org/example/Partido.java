@@ -48,7 +48,7 @@ public class Partido {
         this.Arbitrajes=new ArrayList<Arbitraje>();
     }
     //agregar para las listas
-    //this indica que es para ese patido que esta jugando
+    //this indica que es para ese partido que esta jugando
     public void agregarEvento(TipoEvento evento,int minuto, Jugador jugador){
             Evento e=new Evento(evento,minuto,jugador);
             this.eventos.add(e);

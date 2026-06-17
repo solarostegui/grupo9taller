@@ -77,18 +77,9 @@ public class IngresoMundial{
             System.out.println("Error: el valor debe estar entre " + min + " y " + max + ".");
         }
     }
-    //pausa y espera el enter
-    public static void pausa() {
-        System.out.println("\nPresione Enter para continuar...");
-        sc.nextLine();
-    }
-   //Cierra el Scanner 
-    public static void cerrar() {
-        sc.close();
-    }
     
     //Ingreso de la clase mundial
-    public static void ingresarMundial(List<Sede> sedes){
+    public static Mundial ingresarMundial(){
         System.out.println("\n=== Ingreso de Mundial ===");
         
         
@@ -102,6 +93,8 @@ public class IngresoMundial{
         
         int fechaHasta = pedirEntero(" Fecha fin (num/año) : ");
         Mundial mundial= new Mundial(anio, mascota, fechaDesde, fechaHasta);
+        System.out.println("Mundial " + anio + " creado con éxito.");
+        return mundial;
         
     }
     // CREAR PAIS
@@ -115,7 +108,7 @@ public class IngresoMundial{
     }
     
     // CREAR SEDE + ESTADIOS
-    public static void crearSede(List<Pais> paises, List<Sede> sedes, List<Estadio> estadios) {
+    public static void crearSede(List<Pais> paises, List<Sede> sedes, List<Estadio> estadios,Mundial mundial) {
         if (paises.isEmpty()) {
             System.out.println("Primero debe crear al menos un país.");
             return;
@@ -133,6 +126,7 @@ public class IngresoMundial{
         Sede sede = new Sede(ciudad, altura, clima, zona, pais);
         pais.agregarSede(sede);
         sedes.add(sede);
+        mundial.agregarSede(sede);
 
         int cant = pedirEntero("¿Cuántos estadios tiene esta sede? ");
         for (int i = 0; i < cant; i++) {
@@ -235,9 +229,8 @@ public class IngresoMundial{
 
     
     // CREAR SELECCION COMPLETA
-    public static void crearSeleccion(List<Grupo> grupos, List<Pais> paises,
-                                       List<DirectorTecnico> dts, List<CuerpoTecnico> cts,
-                                       List<Jugador> jugadores, List<Seleccion> selecciones) {
+    public static void crearSeleccion(List<Grupo> grupos,List<Pais> paises,List<DirectorTecnico> dts,List<CuerpoTecnico> cts,
+    List<Jugador> jugadores, List<Seleccion> selecciones) {
         if (paises.isEmpty() || grupos.isEmpty()) {
             System.out.println("Primero debe crear al menos un país y un grupo.");
             return;
@@ -291,12 +284,64 @@ public class IngresoMundial{
 
         grupo.agregarSeleccion(s);
         selecciones.add(s);
+
         System.out.println("Selección '" + fed + "' creada con éxito.");
     }
+    
+    // Método auxiliar automático que procesa los eventos y actualiza el grupo en tiempo real
+    private static void actualizarEstadisticasPorPartido(Partido p) {
+        if (p == null || p.getSeleccion1() == null || p.getSeleccion2() == null) return;
+
+        Seleccion s1 = p.getSeleccion1().getSeleccion();
+        Seleccion s2 = p.getSeleccion2().getSeleccion();
+        if (s1 == null || s2 == null) return;
+
+        // 1. Buscamos las fichas de estadísticas en el Grupo
+        Estadisticas estS1 = null;
+        Estadisticas estS2 = null;
+        Grupo grupoDelPartido = s1.getGrupo();
+
+        if (grupoDelPartido != null && grupoDelPartido.getTablaEstadisticas() != null) {
+            for (Estadisticas est : grupoDelPartido.getTablaEstadisticas()) {
+                if (est != null) {
+                    if (est.getSeleccion() == s1) estS1 = est;
+                    if (est.getSeleccion() == s2) estS2 = est;
+                }
+            }
+        }
+
+        // 2. Si encontramos las fichas, recalculamos de forma segura
+        if (estS1 != null && estS2 != null) {
+            // Ponemos los contadores en 0 temporalmente para no duplicar datos previos
+            estS1.restablecer();
+            estS2.restablecer();
+
+            int golesS1 = 0;
+            int golesS2 = 0;
+
+            // Contamos los goles en tiempo real recorriendo todos los eventos del partido
+            for (Evento e : p.getEventos()) {
+                if (e != null && e.getEvento() == TipoEvento.Gol && e.getJugador() != null) {
+                    if (s1.getJugador().contains(e.getJugador())) {
+                        golesS1++;
+                    } else if (s2.getJugador().contains(e.getJugador())) {
+                        golesS2++;
+                    }
+                }
+            }
+
+            // Computamos el resultado final limpio en las estadísticas
+            estS1.computarPartido(golesS1, golesS2);
+            estS2.computarPartido(golesS2, golesS1);
+
+            System.out.println("\nTabla del grupo recalculada y actualizada:");
+            System.out.println(s1.getNombreFederacion() + ": " + golesS1 + " gol(es)");
+            System.out.println( s2.getNombreFederacion() + ": " + golesS2 + " gol(es)");
+        }
+    }
      // CREAR PARTIDO CON EVENTOS
-    public static void crearPartido(List<Seleccion> selecciones, List<Estadio> estadios,
-                                     List<Fase> fases, List<Arbitro> arbitros,
-                                     List<Partido> partidos, List<Jugador> jugadores) {
+    public static void crearPartido(List<Seleccion> selecciones,List<Estadio> estadios,List<Fase> fases,List<Arbitro> arbitros,
+    List<Partido> partidos, List<Jugador> jugadores) {
         if (selecciones.size() < 2 || estadios.isEmpty() ||fases.isEmpty() || arbitros.size() < 6) {
             System.out.println("Se necesitan: 2+ selecciones, 1+ estadio, 1+ fase, 6+ árbitros.");
             return;
@@ -321,8 +366,13 @@ public class IngresoMundial{
         System.out.println("Seleccione la fase:");
         Fase fase = seleccionarFase(fases);
 
-        Partido p = new Partido(fecha, horario, duracion, estadio, fase);
-
+        Partido p = new Partido();
+        p.setFecha(fecha);
+        p.setDuracion(duracion);
+        p.setEstadio(estadio);
+        p.setHorario(horario);
+        p.setFase(fase);
+        
         System.out.println("\nSeleccione el Equipo A (designado local):");
         Seleccion s1 = seleccionarSeleccion(selecciones);
         Participacion par1 = new Participacion(true, p, s1);
@@ -358,9 +408,14 @@ public class IngresoMundial{
         System.out.println("Equipo de arbitraje válido: " + (arbitrajeValido ? "SÍ" : "NO"));
 
         if (pedirBooleano("¿Desea registrar eventos ahora?")) {
-            registrarEventos(p,jugadores);
+            registrarEventos(p, jugadores);
+            
+            // INDISPENSABLE: Solo actualizamos las estadísticas del grupo si se ingresaron eventos.
+            actualizarEstadisticasPorPartido(p);
+        } else {
+            System.out.println("\nEl partido se guardó como 'Programado'. Las estadísticas se actualizarán cuando registres sus eventos.");
         }
-
+        
         System.out.println("Partido creado con éxito.");
     }
     
@@ -375,6 +430,8 @@ public class IngresoMundial{
         Partido p = seleccionarPartido(partidos);
         if (p == null) return;
         registrarEventos(p,jugadores);
+        
+        actualizarEstadisticasPorPartido(p);
     }
 
     //registra eventos en un partido ya creado
@@ -401,72 +458,157 @@ public class IngresoMundial{
 
         System.out.println("Eventos registrados correctamente.\n");
     }
-
+    /*FLUJO: Main→ menú → crearPartido() → seleccionarEstadio() → devuelve Estadio → sigue crearPartido()
     // ─── SELECTORES POR TIPO ──────────────────────────────────────────────────
-
+    /*estos metodos se usan para que el usuario elija lo que ya se cargo en la lista
+    y no tener que volver a cargar todos los datos nuevamente*/
     private static Pais seleccionarPais(List<Pais> paises) {
-        if (paises.isEmpty()) { System.out.println("No hay países disponibles."); return null; }
-        for (int i = 0; i < paises.size(); i++) System.out.println(" " + i + " - " + paises.get(i));
+        //si no hay nada para elegir, sale sin romper
+        if (paises.isEmpty()) { 
+            System.out.println("No hay países disponibles."); 
+            return null; 
+        }
+        //muestra en pantalla cada elemento de la lista
+        for (int i = 0; i < paises.size(); i++){
+            System.out.println(" " + i + " - " + paises.get(i));
+        }
+        /*pide un numero entre 0 y el ultimo indice
+         y devuelve directamente el objeto de esa posicion*/
         return paises.get(pedirEnteroRango("Seleccione país: ", 0, paises.size() - 1));
     }
 
     private static Sede seleccionarSede(List<Sede> sedes) {
-        if (sedes.isEmpty()) { System.out.println("No hay sedes disponibles."); return null; }
-        for (int i = 0; i < sedes.size(); i++) System.out.println(" " + i + " - " + sedes.get(i));
+        
+        if (sedes.isEmpty()) { 
+            System.out.println("No hay sedes disponibles."); 
+            return null; 
+        }
+        
+        for (int i = 0; i < sedes.size(); i++){
+            System.out.println(" " + i + " - " + sedes.get(i));
+        }
+        
         return sedes.get(pedirEnteroRango("Seleccione sede: ", 0, sedes.size() - 1));
     }
 
     private static Estadio seleccionarEstadio(List<Estadio> estadios) {
-        if (estadios.isEmpty()) { System.out.println("No hay estadios disponibles."); return null; }
-        for (int i = 0; i < estadios.size(); i++) System.out.println(" " + i + " - " + estadios.get(i));
+        
+        if (estadios.isEmpty()) { 
+            System.out.println("No hay estadios disponibles."); 
+            return null; 
+        }
+        
+        for (int i = 0; i < estadios.size(); i++){ 
+            System.out.println(" " + i + " - " + estadios.get(i));
+        }
+        
         return estadios.get(pedirEnteroRango("Seleccione estadio: ", 0, estadios.size() - 1));
     }
 
     private static Fase seleccionarFase(List<Fase> fases) {
-        if (fases.isEmpty()) { System.out.println("No hay fases disponibles."); return null; }
-        for (int i = 0; i < fases.size(); i++) System.out.println(" " + i + " - " + fases.get(i));
+        
+        if (fases.isEmpty()) { 
+            System.out.println("No hay fases disponibles."); 
+            return null; 
+        }
+        
+        for (int i = 0; i < fases.size(); i++){ 
+           System.out.println(" " + i + " - " + fases.get(i));
+        }
+        
+    
         return fases.get(pedirEnteroRango("Seleccione fase: ", 0, fases.size() - 1));
     }
 
     private static Grupo seleccionarGrupo(List<Grupo> grupos) {
-        if (grupos.isEmpty()) { System.out.println("No hay grupos disponibles."); return null; }
-        for (int i = 0; i < grupos.size(); i++) System.out.println(" " + i + " - " + grupos.get(i));
+       
+        if (grupos.isEmpty()) { 
+            System.out.println("No hay grupos disponibles."); 
+            return null; 
+        }
+        
+        for (int i = 0; i < grupos.size(); i++){
+            System.out.println(" " + i + " - " + grupos.get(i));
+        }
+        
         return grupos.get(pedirEnteroRango("Seleccione grupo: ", 0, grupos.size() - 1));
     }
 
     private static Seleccion seleccionarSeleccion(List<Seleccion> selecciones) {
-        if (selecciones.isEmpty()) { System.out.println("No hay selecciones disponibles."); return null; }
-        for (int i = 0; i < selecciones.size(); i++) System.out.println(" " + i + " - " + selecciones.get(i));
+        
+        if (selecciones.isEmpty()) { 
+            System.out.println("No hay selecciones disponibles."); 
+                    return null; 
+        }
+        
+        for (int i = 0; i < selecciones.size(); i++){
+            System.out.println(" " + i + " - " + selecciones.get(i));
+        }
+        
         return selecciones.get(pedirEnteroRango("Seleccione selección: ", 0, selecciones.size() - 1));
     }
 
     private static Arbitro seleccionarArbitro(List<Arbitro> arbitros) {
-        if (arbitros.isEmpty()) { System.out.println("No hay árbitros disponibles."); return null; }
-        for (int i = 0; i < arbitros.size(); i++) System.out.println(" " + i + " - " + arbitros.get(i));
+        
+        if (arbitros.isEmpty()) { 
+            System.out.println("No hay árbitros disponibles."); 
+            return null; 
+        }
+        
+        for (int i = 0; i < arbitros.size(); i++){
+            System.out.println(" " + i + " - " + arbitros.get(i));
+        }
         return arbitros.get(pedirEnteroRango("Seleccione árbitro: ", 0, arbitros.size() - 1));
     }
 
     private static Partido seleccionarPartido(List<Partido> partidos) {
-        if (partidos.isEmpty()) { System.out.println("No hay partidos disponibles."); return null; }
-        for (int i = 0; i < partidos.size(); i++) System.out.println(" " + i + " - " + partidos.get(i));
+        
+        if (partidos.isEmpty()) {
+            System.out.println("No hay partidos disponibles."); 
+            return null; 
+        }
+        for (int i = 0; i < partidos.size(); i++) {
+            System.out.println(" " + i + " - " + partidos.get(i));
+        }
+        
         return partidos.get(pedirEnteroRango("Seleccione partido: ", 0, partidos.size() - 1));
     }
 
     private static Jugador seleccionarJugador(List<Jugador> jugadores) {
-        if (jugadores.isEmpty()) { System.out.println("No hay jugadores disponibles."); return null; }
-        for (int i = 0; i < jugadores.size(); i++) System.out.println(" " + i + " - " + jugadores.get(i));
+        
+        if (jugadores.isEmpty()) { 
+            System.out.println("No hay jugadores disponibles."); 
+            return null; 
+        }
+        
+        for (int i = 0; i < jugadores.size(); i++){
+            System.out.println(" " + i + " - " + jugadores.get(i));
+        }
         return jugadores.get(pedirEnteroRango("Seleccione jugador: ", 0, jugadores.size() - 1));
     }
 
     private static DirectorTecnico seleccionarDT(List<DirectorTecnico> dts) {
-        if (dts.isEmpty()) { System.out.println("No hay directores técnicos disponibles."); return null; }
-        for (int i = 0; i < dts.size(); i++) System.out.println(" " + i + " - " + dts.get(i));
+       
+        if (dts.isEmpty()) { 
+            System.out.println("No hay directores técnicos disponibles."); 
+            return null; 
+        }
+        
+        for (int i = 0; i < dts.size(); i++){
+            System.out.println(" " + i + " - " + dts.get(i));
+        }
         return dts.get(pedirEnteroRango("Seleccione DT: ", 0, dts.size() - 1));
     }
 
     private static CuerpoTecnico seleccionarCT(List<CuerpoTecnico> cts) {
-        if (cts.isEmpty()) { System.out.println("No hay cuerpo técnico disponible."); return null; }
-        for (int i = 0; i < cts.size(); i++) System.out.println(" " + i + " - " + cts.get(i));
+        
+        if (cts.isEmpty()) { 
+            System.out.println("No hay cuerpo técnico disponible."); 
+            return null; }
+        for (int i = 0; i < cts.size(); i++){
+            System.out.println(" " + i + " - " + cts.get(i));
+        }
+        
         return cts.get(pedirEnteroRango("Seleccione cuerpo técnico: ", 0, cts.size() - 1));
     }
 }

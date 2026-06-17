@@ -38,6 +38,11 @@ public class Arbitraje {
         this.partido = partido;
     }
     
+    @Override
+    public String toString() {
+       return "----Arbitraje------"+"\nRol: " + this.rol + 
+           "\nÁrbitro: " + (this.arbitro != null ? this.arbitro.getNombre() : "sin asignar");
+    }
     
 
 }
