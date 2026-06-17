@@ -21,14 +21,14 @@ public class Main {
     List<Partido> partidos = new ArrayList<>();
 
     public static void main(String[] args) {
-      Main app=new Main();
-      app.ejecutar();
-      Mundial mundial = IngresoMundial.ingresarMundial();
-      Menu.Menu(mundial);
+      Main app = new Main();
+      app.ejecutar(); 
     }  
-    public void ejecutar(){
     
-    Menu menu=new Menu(paises, sedes, estadios, arbitros, dts, cts, jugadores, fases, grupos, selecciones, partidos);
+    public void ejecutar(){
+        Mundial mundial = IngresoMundial.ingresarMundial();
+        Menu menu = new Menu(mundial,paises, sedes, estadios, arbitros, dts, cts, jugadores, fases, grupos, selecciones, partidos);
+        //menu.Menu(mundial);
     
     }  
 }      

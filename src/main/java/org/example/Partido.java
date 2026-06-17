@@ -134,12 +134,7 @@ public class Partido {
     public void setArbitraje(List<Arbitraje> Arbitrajes) {
         this.Arbitrajes = Arbitrajes;
     }
-    
-    //metodo para actualizar los resultados de partido y el grupo
-    public static int cargarResultados(){
-        return 0;
-    }
-
+  
     @Override
     public String toString() {
         return "\n-------Partido------" + ""
