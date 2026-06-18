@@ -113,15 +113,19 @@ public class IngresoMundial{
             System.out.println("Primero debe crear al menos un país.");
             return;
         }
+        System.out.println("Seleccione el país de la sede:");
+        
+        Pais pais = seleccionarPais(paises);
+        if (pais == null) {
+            System.out.println("Debe volver a menu y crear el pais que desee primero");
+            return;
+        }
 
         System.out.println("\n--- NUEVA SEDE ---");
         String ciudad =pedirString("Ciudad: ");
         float altura =pedirFloat("Altura sobre el nivel del mar: ");
         String clima =pedirString("Clima: ");
         String zona =pedirString("Zona horaria: ");
-
-        System.out.println("Seleccione el país de la sede:");
-        Pais pais = seleccionarPais(paises);
 
         Sede sede = new Sede(ciudad, altura, clima, zona, pais);
         pais.agregarSede(sede);
@@ -147,13 +151,21 @@ public class IngresoMundial{
             System.out.println("Primero debe crear al menos un país.");
             return;
         }
-
+        Pais pais = seleccionarPais(paises);
+        
+        if (pais == null) {
+            System.out.println("Debe volver a menu y crear el pais que desee primero");
+            return;
+        }
+        
         System.out.println("\n--- NUEVO ÁRBITRO ---");
         String nombre = pedirString("Nombre: ");
         int fecNac =pedirEntero("Año de nacimiento (ej: 1985): ");
         int exp =pedirEntero("Años de experiencia: ");
+        
         System.out.println("Seleccione el país del árbitro:");
-        Pais pais = seleccionarPais(paises);
+        
+        
 
         Arbitro a = new Arbitro(nombre, fecNac, exp, pais);
         pais.agregarArbitro(a);
@@ -210,8 +222,15 @@ public class IngresoMundial{
         System.out.println("\n--- NUEVO GRUPO ---");
         String id = pedirString("Identificación (ej: A): ");
         String desc = pedirString("Descripción (ej: Grupo A): ");
+        
         System.out.println("Seleccione la fase:");
+        
         Fase fase = seleccionarFase(fases);
+        if (fase == null) {
+            System.out.println("Debe volver a menu y crear la fase que desee primero");
+            return;
+        }
+        
         Grupo g = new Grupo(id, desc, fase);
         fase.agregarGrupos(g);
         grupos.add(g);
@@ -242,6 +261,20 @@ public class IngresoMundial{
             System.out.println("Primero debe crear al menos un país y un grupo.");
             return;
         }
+        
+        System.out.println("Seleccione el país:");
+        Pais pais = seleccionarPais(paises);
+        if (pais == null) {
+            System.out.println("Debe volver a menu y crear el pais que desee primero");
+            return;
+        }
+        
+        System.out.println("Seleccione el grupo:");
+        Grupo grupo = seleccionarGrupo(grupos);
+        if (grupo == null) {
+            System.out.println("Debe volver a menu y crear el grupo que desee primero");
+            return;
+        }
 
         System.out.println("\n--- NUEVA SELECCIÓN ---");
         String fed = pedirString("Nombre de la federación (ej: AFA): ");
@@ -250,11 +283,6 @@ public class IngresoMundial{
         int ranking =pedirEntero("Ranking FIFA: ");
         boolean cabeza = pedirBooleano("¿Es cabeza de grupo?");
 
-        System.out.println("Seleccione el país:");
-        Pais pais = seleccionarPais(paises);
-
-        System.out.println("Seleccione el grupo:");
-        Grupo grupo = seleccionarGrupo(grupos);
 
         DirectorTecnico dt = null;
         if (!dts.isEmpty()) {
@@ -386,9 +414,17 @@ public class IngresoMundial{
 
         System.out.println("Seleccione el estadio:");
         Estadio estadio = seleccionarEstadio(estadios);
-
+        if (estadio == null){
+            System.out.println("Debe volver a menu y cargar los estadios que desee primero");
+            return;
+        }
+        
         System.out.println("Seleccione la fase:");
         Fase fase = seleccionarFase(fases);
+        if (fase == null){
+            System.out.println("Debe volver a menu y cargar las fases que desee primero");
+            return;
+        }
 
         Partido p = new Partido();
         p.setFecha(fecha);
@@ -399,6 +435,11 @@ public class IngresoMundial{
         
         System.out.println("\nSeleccione el Equipo A (designado local):");
         Seleccion s1 = seleccionarSeleccion(selecciones);
+        if (s1 == null){
+            System.out.println("Debe volver a menu y registar las selecciones que desee primero");
+            return;
+        }
+        
         Participacion par1 = new Participacion(true, p, s1);
         p.setSeleccion1(par1);
         s1.agregarParticipacion(par1);
@@ -407,6 +448,10 @@ public class IngresoMundial{
         Seleccion s2;
         do {
             s2 = seleccionarSeleccion(selecciones);
+            if (s2 == null){
+                System.out.println("Debe volver a menu y registar las selecciones que desee primero");
+                return;
+            }
             if (s2 == s1) {
                 System.out.println("Debe ser distinta al Equipo A.");
             }
@@ -419,6 +464,10 @@ public class IngresoMundial{
         for (TipoCategoriaArbitro rol : TipoCategoriaArbitro.values()) {
             System.out.println("Seleccione el " + rol + ":");
             Arbitro a = seleccionarArbitro(arbitros);
+            if (a == null){
+                System.out.println("Debe volver a menu y seleccionar todos los arbitros primero");
+                return;
+            }
             Arbitraje arb = new Arbitraje(rol, a, p);
             p.agregarArbitraje(arb);
             a.agregarArbitraje(arb);
@@ -502,153 +551,187 @@ public class IngresoMundial{
     /*estos metodos se usan para que el usuario elija lo que ya se cargo en la lista
     y no tener que volver a cargar todos los datos nuevamente*/
     private Pais seleccionarPais(List<Pais> paises) {
-        //si no hay nada para elegir, sale sin romper
-        if (paises.isEmpty()) { 
-            System.out.println("No hay países disponibles."); 
-            return null; 
-        }
-        //muestra en pantalla cada elemento de la lista
+       
         for (int i = 0; i < paises.size(); i++){
-            System.out.println(" " + i + " - " + paises.get(i));
+          System.out.println(" " + i + " - " + paises.get(i));
         }
-        /*pide un numero entre 0 y el ultimo indice
-         y devuelve directamente el objeto de esa posicion*/
-        return paises.get(pedirEnteroRango("Seleccione país: ", 0, paises.size() - 1));
+       
+        System.out.println(" " + paises.size() + " - [Volver al menú para crear nuevo país]");
+       
+        int opcion = pedirEnteroRango("Seleccione: ", 0, paises.size());
+       
+        if (opcion == paises.size()) {
+          System.out.println("Volviendo al menú...");
+          return null;
+        }
+        return paises.get(opcion);
     }
 
     private Sede seleccionarSede(List<Sede> sedes) {
         
-        if (sedes.isEmpty()) { 
-            System.out.println("No hay sedes disponibles."); 
-            return null; 
-        }
-        
         for (int i = 0; i < sedes.size(); i++){
-            System.out.println(" " + i + " - " + sedes.get(i));
+          System.out.println(" " + i + " - " + sedes.get(i));
         }
         
-        return sedes.get(pedirEnteroRango("Seleccione sede: ", 0, sedes.size() - 1));
+        System.out.println(" " + sedes.size() + " - [Volver al menú para crear nueva sede]");
+        int opcion = pedirEnteroRango("Seleccione: ", 0, sedes.size());
+       
+        if (opcion == sedes.size()) {
+            System.out.println("Volviendo al menú...");
+            return null;
+        }
+        return sedes.get(opcion);
     }
-
     private Estadio seleccionarEstadio(List<Estadio> estadios) {
-        
-        if (estadios.isEmpty()) { 
-            System.out.println("No hay estadios disponibles."); 
-            return null; 
+        for (int i = 0; i < estadios.size(); i++){
+          System.out.println(" " + i + " - " + estadios.get(i));
         }
         
-        for (int i = 0; i < estadios.size(); i++){ 
-            System.out.println(" " + i + " - " + estadios.get(i));
+        System.out.println(" " + estadios.size() + " - [Volver al menú para crear nuevo estadio]");
+        int opcion = pedirEnteroRango("Seleccione: ", 0, estadios.size());
+        
+        if (opcion == estadios.size()) {
+           System.out.println("Volviendo al menú...");
+           return null;
         }
-        
-        return estadios.get(pedirEnteroRango("Seleccione estadio: ", 0, estadios.size() - 1));
-    }
-
-    private Fase seleccionarFase(List<Fase> fases) {
-        
-        if (fases.isEmpty()) { 
-            System.out.println("No hay fases disponibles."); 
-            return null; 
-        }
-        
-        for (int i = 0; i < fases.size(); i++){ 
-           System.out.println(" " + i + " - " + fases.get(i));
-        }
-        
-    
-        return fases.get(pedirEnteroRango("Seleccione fase: ", 0, fases.size() - 1));
+       return estadios.get(opcion);
     }
 
     private Grupo seleccionarGrupo(List<Grupo> grupos) {
-       
-        if (grupos.isEmpty()) { 
-            System.out.println("No hay grupos disponibles."); 
-            return null; 
-        }
-        
+    
         for (int i = 0; i < grupos.size(); i++){
-            System.out.println(" " + i + " - " + grupos.get(i));
+          System.out.println(" " + i + " - " + grupos.get(i));
+        }
+     
+        System.out.println(" " + grupos.size() + " - [Volver al menú para crear nuevo grupo]");
+    
+        int opcion = pedirEnteroRango("Seleccione: ", 0, grupos.size());
+    
+        if (opcion == grupos.size()) {
+        
+            System.out.println("Volviendo al menú...");
+            return null;
+        }
+        return grupos.get(opcion);
+    }
+
+    private Fase seleccionarFase(List<Fase> fases) {
+    
+        for (int i = 0; i < fases.size(); i++){
+           System.out.println(" " + i + " - " + fases.get(i));
         }
         
-        return grupos.get(pedirEnteroRango("Seleccione grupo: ", 0, grupos.size() - 1));
+        System.out.println(" " + fases.size() + " - [Volver al menú para crear nueva fase]");
+        int opcion = pedirEnteroRango("Seleccione: ", 0, fases.size());
+    
+        if (opcion == fases.size()) {
+            System.out.println("Volviendo al menú...");
+            return null;
+        }
+        return fases.get(opcion);
     }
 
     private Seleccion seleccionarSeleccion(List<Seleccion> selecciones) {
-        
-        if (selecciones.isEmpty()) { 
-            System.out.println("No hay selecciones disponibles."); 
-                    return null; 
-        }
-        
+       
         for (int i = 0; i < selecciones.size(); i++){
             System.out.println(" " + i + " - " + selecciones.get(i));
         }
-        
-        return selecciones.get(pedirEnteroRango("Seleccione selección: ", 0, selecciones.size() - 1));
+       
+       System.out.println(" " + selecciones.size() + " - [Volver al menú para crear nueva selección]");
+       
+       int opcion = pedirEnteroRango("Seleccione: ", 0, selecciones.size());
+       
+       if (opcion == selecciones.size()) {
+          System.out.println("Volviendo al menú...");
+          return null;
+        }
+       return selecciones.get(opcion);
     }
 
     private Arbitro seleccionarArbitro(List<Arbitro> arbitros) {
         
-        if (arbitros.isEmpty()) { 
-            System.out.println("No hay árbitros disponibles."); 
-            return null; 
+        for (int i = 0; i < arbitros.size(); i++){
+           System.out.println(" " + i + " - " + arbitros.get(i));
         }
         
-        for (int i = 0; i < arbitros.size(); i++){
-            System.out.println(" " + i + " - " + arbitros.get(i));
+        System.out.println(" " + arbitros.size() + " - [Volver al menú para crear nuevo árbitro]");
+        
+        int opcion = pedirEnteroRango("Seleccione: ", 0, arbitros.size());
+        
+        if (opcion == arbitros.size()) {
+            System.out.println("Volviendo al menú...");
+            return null;
         }
-        return arbitros.get(pedirEnteroRango("Seleccione árbitro: ", 0, arbitros.size() - 1));
+        return arbitros.get(opcion);
     }
 
     private Partido seleccionarPartido(List<Partido> partidos) {
-        
-        if (partidos.isEmpty()) {
-            System.out.println("No hay partidos disponibles."); 
-            return null; 
-        }
-        for (int i = 0; i < partidos.size(); i++) {
-            System.out.println(" " + i + " - " + partidos.get(i));
+    
+        for (int i = 0; i < partidos.size(); i++){
+           System.out.println(" " + i + " - " + partidos.get(i));
         }
         
-        return partidos.get(pedirEnteroRango("Seleccione partido: ", 0, partidos.size() - 1));
+        System.out.println(" " + partidos.size() + " - [Volver al menú para crear nuevo partido]");
+        int opcion = pedirEnteroRango("Seleccione: ", 0, partidos.size());
+    
+        if (opcion == partidos.size()) {
+           System.out.println("Volviendo al menú...");
+           return null;
+        }
+        return partidos.get(opcion);
     }
 
     private Jugador seleccionarJugador(List<Jugador> jugadores) {
-        
-        if (jugadores.isEmpty()) { 
-            System.out.println("No hay jugadores disponibles."); 
-            return null; 
-        }
-        
+    
         for (int i = 0; i < jugadores.size(); i++){
-            System.out.println(" " + i + " - " + jugadores.get(i));
+           System.out.println(" " + i + " - " + jugadores.get(i));
         }
-        return jugadores.get(pedirEnteroRango("Seleccione jugador: ", 0, jugadores.size() - 1));
+    
+        System.out.println(" " + jugadores.size() + " - [Volver al menú para crear nuevo jugador]");
+    
+        int opcion = pedirEnteroRango("Seleccione: ", 0, jugadores.size());
+    
+        if (opcion == jugadores.size()) {
+           System.out.println("Volviendo al menú...");
+            return null;
+    
+        }
+        return jugadores.get(opcion);
     }
 
     private DirectorTecnico seleccionarDT(List<DirectorTecnico> dts) {
-       
-        if (dts.isEmpty()) { 
-            System.out.println("No hay directores técnicos disponibles."); 
-            return null; 
-        }
-        
+    
         for (int i = 0; i < dts.size(); i++){
+        
             System.out.println(" " + i + " - " + dts.get(i));
         }
-        return dts.get(pedirEnteroRango("Seleccione DT: ", 0, dts.size() - 1));
+    
+        System.out.println(" " + dts.size() + " - [Volver al menú para crear nuevo DT]");
+    
+        int opcion = pedirEnteroRango("Seleccione: ", 0, dts.size());
+    
+        if (opcion == dts.size()) {
+            System.out.println("Volviendo al menú...");
+            return null;
+        }
+        return dts.get(opcion);
     }
 
     private CuerpoTecnico seleccionarCT(List<CuerpoTecnico> cts) {
-        
-        if (cts.isEmpty()) { 
-            System.out.println("No hay cuerpo técnico disponible."); 
-            return null; }
+    
         for (int i = 0; i < cts.size(); i++){
             System.out.println(" " + i + " - " + cts.get(i));
         }
-        
-        return cts.get(pedirEnteroRango("Seleccione cuerpo técnico: ", 0, cts.size() - 1));
+    
+        System.out.println(" " + cts.size() + " - [Volver al menú para crear nuevo cuerpo técnico]");
+   
+        int opcion = pedirEnteroRango("Seleccione: ", 0, cts.size());
+    
+        if (opcion == cts.size()) {
+            System.out.println("Volviendo al menú...");
+            return null;
+        }
+        return cts.get(opcion);
     }
 }
 
