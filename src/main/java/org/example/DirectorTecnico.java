@@ -34,6 +34,19 @@ public class DirectorTecnico extends Persona{
     public void setFecNacimiento(int fecNacimiento) {
         this.fecNacimiento = fecNacimiento;
     }
+    
+    @Override
+    public boolean equals(Object o) {
+    if (o == null) {
+        return false;
+    }
+    if (this.getClass() != o.getClass()) {
+        return false;
+    }
+    DirectorTecnico otroDT = (DirectorTecnico) o;
+    boolean nombresIguales = this.getNombre().equalsIgnoreCase(otroDT.getNombre());
+    return nombresIguales;
+}
 
     @Override
     public String toString() {
@@ -42,5 +55,4 @@ public class DirectorTecnico extends Persona{
                 "\nFecha de nacimiento: "+super.fecNacimiento+
                 "\nFecha de nombramiento: " + this.fechaNombramiento;
     }
-    
 }

@@ -17,10 +17,6 @@ public class Arbitro extends Persona {
         this.pais = pais;
         this.arbitrajes=new ArrayList<Arbitraje>();
     }
-    //agregar lista
-    public void agregarArbitraje(Arbitraje a){
-        this.arbitrajes.add(a);
-    }
     
     //Constructor por defecto
     public Arbitro (){
@@ -46,20 +42,9 @@ public class Arbitro extends Persona {
         this.arbitrajes = arbitrajes;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getFecNacimiento() {
-        return fecNacimiento;
-    }
-
-    public void setFecNacimiento(int fecNacimiento) {
-        this.fecNacimiento = fecNacimiento;
+    //agregar lista
+    public void agregarArbitraje(Arbitraje a){
+        this.arbitrajes.add(a);
     }
 
     @Override

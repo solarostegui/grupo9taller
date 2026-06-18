@@ -88,12 +88,10 @@ public class IngresoMundial{
         int anio = pedirEntero("Ingrese el año: ");
 
         String mascota =pedirString("Ingrese la mascota: ");
-
         
-        int fechaDesde = pedirEntero(" Fecha de inicio (num/año) : ");
-
+        int fechaDesde = pedirEntero(" Año de inicio del Mundial: ");
+        int fechaHasta = pedirEntero(" Año de finalizacion del Mundial: ");
         
-        int fechaHasta = pedirEntero(" Fecha de finalizacion (num/año) : ");
         Mundial mundial= new Mundial(anio, mascota, fechaDesde, fechaHasta);
         System.out.println("Mundial " + anio + " creado con éxito.");
         return mundial;
@@ -167,12 +165,16 @@ public class IngresoMundial{
     // CREAR DIRECTOR TECNICO
     public void crearDT(List<DirectorTecnico> dts) {
         System.out.println("\n--- NUEVO DIRECTOR TÉCNICO ---");
-        String nombre = pedirString("Nombre: ");
+        String nombre = pedirString("Nombre y Apellido: ");
         int fecNac = pedirEntero("Año de nacimiento: ");
         int fecNomb = pedirEntero("Año de nombramiento: ");
         DirectorTecnico dt = new DirectorTecnico(nombre, fecNac, fecNomb);
-        dts.add(dt);
-        System.out.println("DT '" + nombre + "' creado.");
+        if (dts.add(dt)){
+            System.out.println("DT " + dt.getNombre() + " creado.");
+        } else {
+            System.out.println("Error: no se pudo agregar el director tecnico");
+        }
+        
     }
 
     // CREAR CUERPO TECNICO
@@ -182,8 +184,11 @@ public class IngresoMundial{
         int fecNac =pedirEntero("Año de nacimiento: ");
         TipoRol rol = TecladoEnum.elegirTipoRol();
         CuerpoTecnico ct = new CuerpoTecnico(nombre, fecNac, rol);
-        cts.add(ct);
-        System.out.println("Cuerpo técnico '" + nombre + "' creado.");
+        if(cts.add(ct)){
+            System.out.println("Cuerpo técnico '" + ct.getNombre() + "' creado.");
+        } else {
+            System.out.println("Error: no se pudo agregar el cuerpo tecnico");
+        }   
     }
     
     // CREAR FASE
@@ -280,7 +285,24 @@ public class IngresoMundial{
                 break;
             }
             Jugador j = seleccionarJugador(jugadores);
-            s.agregarJugador(j);
+            //Controlamos que no exista en otra seleccion
+            boolean yaTieneSeleccion = false;
+            for (Seleccion selExistente : selecciones){
+                if(selExistente.getJugador() != null && selExistente.getJugador().contains(j)){
+                    yaTieneSeleccion = true;
+                    break;
+                }
+            }
+            if(yaTieneSeleccion){
+                System.out.println("El jugador " + j.getNombre() + " ya pertenece a una seleccion");
+            } else {
+                //Verificamos con el metodo agregarjugador si ya esta en la seleccion
+                if(s.agregarJugador(j)){
+                System.out.println("Jugador " + j.getNombre() + " agregado con éxito");
+                } else {
+                    System.out.println("Error: El jugador " + (j != null ? j.getNombre() : "") + " no es válido o ya pertenece a esta selección.");
+                }
+            }
             seguir = pedirBooleano("¿Agregar otro jugador?");
         } while (seguir);
 
@@ -401,23 +423,38 @@ public class IngresoMundial{
             p.agregarArbitraje(arb);
             a.agregarArbitraje(arb);
         }
+        //Validador de arbitraje si no esta completo 
+        if(!Validador.validarArbitraje(p.getArbitraje())){
+            System.out.println("El equipo de arbitraje no es valido o está incompleto");
+            return;
+        }
 
-        estadio.agregarPartido(p);
-        fase.agregarPartido(p);
+        if(estadio.agregarPartido(p)){
+            System.out.println("Partido asociado al estadio " + estadio.getNombre() + " con éxito.");
+        } else {
+            System.out.println("Advertencia: El partido ya estaba registrado en este estadio.");
+        }
+        if(fase.agregarPartido(p)){
+            System.out.println("✅ Partido agendado en la fase " + fase.getNombreFase() + " con éxito.");
+        } else {
+            System.out.println("⚠️ Advertencia: El partido ya pertenecía a esta fase.");
+        }
+        
         partidos.add(p);
-
-        boolean arbitrajeValido = Validador.validarArbitraje(p.getArbitraje());
-        System.out.println("Equipo de arbitraje válido: " + (arbitrajeValido ? "SÍ" : "NO"));
+        System.out.println("Equipo de arbitraje válido: SÍ");
 
         if (pedirBooleano("¿Desea registrar eventos ahora?")) {
             registrarEventos(p, jugadores);
-            
-            // INDISPENSABLE: Solo actualizamos las estadísticas del grupo si se ingresaron eventos.
-            actualizarEstadisticasPorPartido(p);
+            //VALIDA SI LA FASE ES GRUPO PARA SUMAR LOS PUNTOS CCORRESPONDIENTES
+            if(p.getFase().getNombreFase() == TipoNombreFase.Grupos){
+                actualizarEstadisticasPorPartido(p);
+                System.out.println("Estadisticas deñ grupo actualizadas");
+            } else {
+                System.out.println("Partido de eliminación directa registrado");
+            }
         } else {
             System.out.println("\nEl partido se guardó como 'Programado'. Las estadísticas se actualizarán cuando registres sus eventos.");
         }
-        
         System.out.println("Partido creado con éxito.");
     }
     

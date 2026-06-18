@@ -39,11 +39,27 @@ public class Fase {
     public List<Grupo> getGrupos() {return grupos;}
     public void setGrupos(List<Grupo> grupos) {this.grupos = grupos;}
 
-    public void agregarPartido(Partido p){
-        this.partidos.add(p);
+    public boolean agregarPartido(Partido p){
+        if(p != null){
+            return false;
+        }
+        // Validamos si el partido ya fue agregado a esta fase
+        if(!this.partidos.contains(p)){
+            this.partidos.add(p);
+            return true;
+        }
+        return false; //no se agrega porque ya existe
     }
-    public void agregarGrupos(Grupo g){
-        this.grupos.add(g);
+    
+    public boolean agregarGrupos(Grupo g){
+        if(g != null){
+            return false;
+        }
+        if(!this.grupos.contains(g)){
+            this.grupos.add(g);
+            return true;
+        }
+        return false;
     }
     
 

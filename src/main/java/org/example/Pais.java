@@ -42,8 +42,16 @@ public class Pais {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public void setSeleccion(Seleccion seleccion) {
-        this.seleccion = seleccion;
+    public boolean setSeleccion(Seleccion s) {
+        if (s == null) {
+        return false;
+        }
+        // Si el país ya tiene una selección asignada, no permitimos pisarla
+        if(this.seleccion != null){
+            return false;
+        }
+        this.seleccion = s;
+        return true;
     } 
     public void setBandera(String bandera) {
         this.bandera = bandera;
@@ -57,8 +65,28 @@ public class Pais {
     
 
     //Métodos
-    public void agregarArbitro (Arbitro a){this.arbitros.add (a);}
-    public void agregarSede (Sede s){this.sedes.add (s);}
+    public boolean agregarArbitro (Arbitro a){
+        if (a == null) {
+        return false;
+    }
+        if(!this.arbitros.contains(a)){
+            this.arbitros.add (a);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean agregarSede (Sede s){
+        if(s==null){
+            return false; 
+        }
+        if(!this.sedes.contains(s)){
+            this.sedes.add (s);
+            return true;
+        }
+        return false;
+    }
+        
 
     @Override
     public String toString() {

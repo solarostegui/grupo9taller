@@ -25,21 +25,24 @@ public class CuerpoTecnico extends Persona{
     public void setRol(TipoRol rol) {
         this.rol = rol;
     }
-
-    public String getNombre() {
-        return nombre;
-    }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getFecNacimiento() {
-        return fecNacimiento;
-    }
-    public void setFecNacimiento(int fecNacimiento) {
-        this.fecNacimiento = fecNacimiento;
-    }
     
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+    }
+        if (this.getClass() != o.getClass()) {
+            return false;
+    }
+        CuerpoTecnico otroCT = (CuerpoTecnico) o;
+        
+        boolean nombresIguales = this.getNombre().equalsIgnoreCase(otroCT.getNombre());
+        
+        return nombresIguales;
+}
+
+    
+    @Override
     public String toString() {
         return "------CuerpoTecnico----" + 
                 "\nNombre: "+super.nombre+

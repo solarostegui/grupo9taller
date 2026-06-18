@@ -78,5 +78,16 @@ public class Jugador extends Persona{
                 "\nAltura: " + this.altura;
     }
     
-    
+    @Override
+    public boolean equals(Object o) {
+    if (o == null) {
+        return false;
+    }
+    if (this.getClass() != o.getClass()) {
+        return false;
+    }
+    Jugador j = (Jugador) o;
+    boolean nombresIguales = this.getNombre().equalsIgnoreCase(j.getNombre());
+    return nombresIguales;
+}
 }

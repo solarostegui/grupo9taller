@@ -51,8 +51,15 @@ public class Estadio {
     }
 
     //Método agregar partido
-    public void agregarPartido(Partido p){
-        this.partidos.add(p);
+    public boolean agregarPartido(Partido p){
+        if(p != null){
+            return false;
+        }
+        if(!this.partidos.contains(p)){
+            this.partidos.add(p);
+            return true;
+        }
+        return false;
     }
     
     //Método

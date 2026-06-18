@@ -61,8 +61,16 @@ public class Mundial {
         this.sedes=sedes;
     }
 
-    public void agregarSede (Sede a){
-        this.sedes.add(a);
+    public boolean agregarSede (Sede s){
+        if (s == null) {
+        return false;
     }
+        if(!this.sedes.contains(s)){
+            this.sedes.add(s);
+            return true;
+        }
+        return false;
+    }
+    
 
 }

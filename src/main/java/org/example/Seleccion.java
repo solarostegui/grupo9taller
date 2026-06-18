@@ -124,26 +124,42 @@ public class Seleccion {
     }
     
     //Metodos para las listas
-    public void agregarCuerposTecnicos(CuerpoTecnico ct){
-        this.cuerposTecnicos.add(ct);
+    public boolean agregarCuerposTecnicos(CuerpoTecnico ct){
+        if(ct == null){
+            return false;
+        }
+        if(!this.cuerposTecnicos.contains(ct)) {
+            this.cuerposTecnicos.add(ct);
+            return true;
+        }
+        return false;
     }
-    public void agregarDirectoresTecnicos(DirectorTecnico dt){
-        this.directoresTecnicos.add(dt);
+    
+    public boolean agregarDirectoresTecnicos(DirectorTecnico dt){
+        if(dt == null){
+            return false;
+        }
+        if(!this.directoresTecnicos.contains(dt)){
+           this.directoresTecnicos.add(dt);
+           return true;
+        }
+        return false;   
     }
+    
     public void agregarParticipacion(Participacion p){
        this.participaciones.add(p);
    }
 
 //Chequeamos que un jugador esté en una sola selección. Contains contiene equals y utiliza el de clase jugadorpara comparar
-    public void agregarJugador (Jugador j){
+    public boolean agregarJugador (Jugador j){
         if(j==null){
-            System.out.println("El jugador no es válido.");
-            return;
+            return false;
         }
         if(!this.jugador.contains(j)){
             this.jugador.add(j);
-        }else{
-            System.out.println("El jugador" + j.getNombre() + " ya está agregado en esta selección.");
+            return true;
+        } else{
+            return false;
 
         }
     }
