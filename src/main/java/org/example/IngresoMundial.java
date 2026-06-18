@@ -313,6 +313,11 @@ public class IngresoMundial{
                 break;
             }
             Jugador j = seleccionarJugador(jugadores);
+            if (j == null) {
+                System.out.println("Debe volver a menu y crear todos los jugadores que desee primero");
+                break;
+            }
+            
             //Controlamos que no exista en otra seleccion
             boolean yaTieneSeleccion = false;
             for (Seleccion selExistente : selecciones){
@@ -327,7 +332,7 @@ public class IngresoMundial{
                 //Verificamos con el metodo agregarjugador si ya esta en la seleccion
                 if(s.agregarJugador(j)){
                 System.out.println("Jugador " + j.getNombre() + " agregado con éxito");
-                } else {
+                } else {   //pusimos 2 veces null acomodar
                     System.out.println("Error: El jugador " + (j != null ? j.getNombre() : "") + " no es válido o ya pertenece a esta selección.");
                 }
             }
