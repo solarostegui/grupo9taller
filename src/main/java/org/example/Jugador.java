@@ -96,6 +96,8 @@ public class Jugador extends Persona{
     }
     //para no tener problemas con contains ni hasmap
     @Override
+    /*Objects.hash(...) es un método estático de la clase java.util.Objects que te genera 
+    un hashCode combinando varios valores. Te ahorra hacerlo a mano.*/
     public int hashCode() {
         return Objects.hash(getNombre().toLowerCase(), getPeso(), getAltura());
     }

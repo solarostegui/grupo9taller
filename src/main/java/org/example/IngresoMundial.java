@@ -20,7 +20,7 @@ public class IngresoMundial{
         while(true){
             try{
                 System.out.print(mensaje);
-                //trim elimina espacion en blanco de inicio y final
+                //trim elimina espacios en blanco de inicio y final
                 int num = Integer.parseInt(sc.nextLine().trim()); 
                 return num;
             }catch(NumberFormatException e){
@@ -71,6 +71,8 @@ public class IngresoMundial{
     public int pedirEnteroRango(String mensaje, int min, int max) {
         while (true) {
             int num = pedirEntero(mensaje);
+            /*para evitar la excepcion de indice fuera de rango
+            en el caso de los enum*/
             if (num >= min && num <= max) {
                 return num;
             }
@@ -577,10 +579,12 @@ public class IngresoMundial{
 
         System.out.println("Eventos registrados correctamente.\n");
     }
+    
     /*FLUJO: Main→ menú → crearPartido() → seleccionarEstadio() → devuelve Estadio → sigue crearPartido()
     // ─── SELECTORES POR TIPO ──────────────────────────────────────────────────
     /*estos metodos se usan para que el usuario elija lo que ya se cargo en la lista
-    y no tener que volver a cargar todos los datos nuevamente*/
+    y no tener que volver a cargar todos los datos nuevamente o puede
+    volver al menu y crear un objeto si no esta en lista todavia*/
     private Pais seleccionarPais(List<Pais> paises) {
        
         for (int i = 0; i < paises.size(); i++){

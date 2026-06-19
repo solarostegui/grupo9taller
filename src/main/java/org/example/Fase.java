@@ -40,7 +40,7 @@ public class Fase {
     public void setGrupos(List<Grupo> grupos) {this.grupos = grupos;}
 
     public boolean agregarPartido(Partido p){
-        if(p != null){
+        if(p == null){
             return false;
         }
         // Validamos si el partido ya fue agregado a esta fase
