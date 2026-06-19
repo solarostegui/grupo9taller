@@ -1,6 +1,5 @@
 package org.example;
 import java.util.*;
-import java.time.*;
 
 /**
  *
@@ -26,9 +25,20 @@ public class Main {
     }  
     
     public void ejecutar(){
+        
+        /*creamos una instancia de Ingresomundial 
+        para poder usar los metodos de esa clase*/
         IngresoMundial ingreso=new IngresoMundial();
         Mundial mundial = ingreso.ingresarMundial();
+        
+       /*creamos una instancia de menu pasando por parametros las listas
+        para comenzar a crear los objetos y agregarlos a cada lista
+        */
         Menu menu = new Menu(mundial,paises, sedes, estadios, arbitros, dts, cts, jugadores, fases, grupos, selecciones, partidos);
+        
+        /*llamamos al metodo para dar las opciones de menu
+        pasando por parametro mundial creado si o si antes que todo
+        */
         menu.Menu(mundial);
     }  
 }      

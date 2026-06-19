@@ -233,17 +233,19 @@ public class IngresoMundial{
             System.out.println("Primero debe crear al menos una fase.");
             return;
         }
-        System.out.println("\n--- NUEVO GRUPO ---");
-        String id = pedirString("Identificación (ej: A): ");
-        String desc = pedirString("Descripción (ej: Grupo A): ");
-        
-        System.out.println("Seleccione la fase:");
         
         Fase fase = seleccionarFase(fases);
         if (fase == null) {
             System.out.println("Debe volver a menu y crear la fase que desee primero");
             return;
         }
+        
+        System.out.println("\n--- NUEVO GRUPO ---");
+        String id = pedirString("Identificación (ej: A): ");
+        String desc = pedirString("Descripción (ej: Grupo A): ");
+        
+        System.out.println("Seleccione la fase:");
+        
         
         Grupo g = new Grupo(id, desc, fase);
         fase.agregarGrupos(g);
@@ -422,6 +424,20 @@ public class IngresoMundial{
             System.out.println("Se necesitan: 2+ selecciones, 1+ estadio, 1+ fase, 6+ árbitros.");
             return;
         }
+        
+        System.out.println("Seleccione la fase:");
+        Fase fase = seleccionarFase(fases);
+        if (fase == null){
+            System.out.println("Debe volver a menu y cargar las fases que desee primero");
+            return;
+        }
+        
+        System.out.println("\nSeleccione el Equipo A (designado local):");
+        Seleccion s1 = seleccionarSeleccion(selecciones);
+        if (s1 == null){
+            System.out.println("Debe volver a menu y registar las selecciones que desee primero");
+            return;
+        }
 
         System.out.println("\n--- NUEVO PARTIDO ---");
 
@@ -442,13 +458,7 @@ public class IngresoMundial{
             System.out.println("Debe volver a menu y cargar los estadios que desee primero");
             return;
         }
-        
-        System.out.println("Seleccione la fase:");
-        Fase fase = seleccionarFase(fases);
-        if (fase == null){
-            System.out.println("Debe volver a menu y cargar las fases que desee primero");
-            return;
-        }
+
 
         Partido p = new Partido();
         p.setFecha(fecha);
@@ -457,12 +467,7 @@ public class IngresoMundial{
         p.setHorario(horario);
         p.setFase(fase);
         
-        System.out.println("\nSeleccione el Equipo A (designado local):");
-        Seleccion s1 = seleccionarSeleccion(selecciones);
-        if (s1 == null){
-            System.out.println("Debe volver a menu y registar las selecciones que desee primero");
-            return;
-        }
+        
         
         Participacion par1 = new Participacion(true, p, s1);
         p.setSeleccion1(par1);
@@ -508,9 +513,9 @@ public class IngresoMundial{
             System.out.println("Advertencia: El partido ya estaba registrado en este estadio.");
         }
         if(fase.agregarPartido(p)){
-            System.out.println("✅ Partido agendado en la fase " + fase.getNombreFase() + " con éxito.");
+            System.out.println("Partido agendado en la fase " + fase.getNombreFase() + " con éxito.");
         } else {
-            System.out.println("⚠️ Advertencia: El partido ya pertenecía a esta fase.");
+            System.out.println("Advertencia: El partido ya pertenecía a esta fase.");
         }
         
         partidos.add(p);
@@ -521,7 +526,7 @@ public class IngresoMundial{
             //VALIDA SI LA FASE ES GRUPO PARA SUMAR LOS PUNTOS CCORRESPONDIENTES
             if(p.getFase().getNombreFase() == TipoNombreFase.Grupos){
                 actualizarEstadisticasPorPartido(p);
-                System.out.println("Estadisticas deñ grupo actualizadas");
+                System.out.println("Estadisticas del grupo actualizadas");
             } else {
                 System.out.println("Partido de eliminación directa registrado");
             }

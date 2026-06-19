@@ -22,7 +22,7 @@ public class Validador {
         for (Arbitraje arb : arbitrajes){
             //Esto es para que un elemento nulo no nos complique
             if (arb == null || arb.getRol()==null){
-                continue;
+                return false;
             }
             //Validamos usando nombres del enum TipoCategoriaArbitro
             if (arb.getRol() == TipoCategoriaArbitro.Principal){
@@ -43,21 +43,24 @@ public class Validador {
         return tienePrincipal && tieneAsistente1 && tieneAsistente2 && tieneCuartoArbitro && tieneVarPrincipal && tieneVarAsistente;
     }
 
-    //Valida si un jugador pertenece a cualquiera de las dos selecciones que están jugando (es algo más exterior al helper de participacion)
-    //necesitamos partido, jugadores de participacion (usamos get y ses de participacion)
+    /*Valida si un jugador pertenece a cualquiera de las dos selecciones 
+    que están jugando (es algo más exterior al helper de participacion)
+    necesitamos partido, jugadores de participacion (usamos get y set de participacion)*/
     public static boolean validarEvento(Partido p, Jugador j){
         if (p == null || j == null){
             return false;
         }
-        //Obtenemos clases asociación "Participación" desde partido
+        /*Obtenemos la participacion de cada seleccion 
+        desde el partido pasado por parametro*/
         Participacion part1 = p.getSeleccion1();
         Participacion part2 = p.getSeleccion2();
         if (part1 == null || part2 == null){
             return false;
         }
-        //Obtenemos la Seleccion de cada participacion
+        //Obtenemos cual es la Seleccion de cada participacion
         Seleccion seleccion1 = part1.getSeleccion();
         Seleccion seleccion2 = part2.getSeleccion();
+        
         //Uso el get de mi lista "jugador" en Seleccion
         if(seleccion1 != null && seleccion1.getJugador()!=null){
             if(seleccion1.getJugador().contains(j)) {
