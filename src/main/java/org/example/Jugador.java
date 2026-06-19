@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 //Definición clase jugador -> atributos: dorsal (int), posicion (de TipoPosicion -enum), peso (float), altura (float)
 public class Jugador extends Persona{
@@ -80,14 +81,22 @@ public class Jugador extends Persona{
     
     @Override
     public boolean equals(Object o) {
-    if (o == null) {
-        return false;
+       if(this==o) return true;
+       
+       if (o == null || this.getClass() != o.getClass()) {
+           return false;
+        }
+  
+       Jugador j = (Jugador) o;
+       boolean nombresIgual = this.getNombre().equalsIgnoreCase(j.getNombre());
+       boolean pesoIgual=this.getPeso()==j.getPeso();
+       boolean alturaIgual=this.getAltura()==j.getAltura();
+       
+       return nombresIgual && pesoIgual && alturaIgual;
     }
-    if (this.getClass() != o.getClass()) {
-        return false;
+    //para no tener problemas con contains ni hasmap
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNombre().toLowerCase(), getPeso(), getAltura());
     }
-    Jugador j = (Jugador) o;
-    boolean nombresIguales = this.getNombre().equalsIgnoreCase(j.getNombre());
-    return nombresIguales;
-}
 }

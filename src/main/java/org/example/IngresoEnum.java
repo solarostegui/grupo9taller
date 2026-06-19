@@ -21,6 +21,9 @@ public class IngresoEnum {
         System.out.println("3 - Delantero");
         System.out.println("Seleccione posicion: ");
         int opcion = TecladoEnum.pedirEnteroRango("Elija la posicion: ",0,3);
+        /*TipoPosicion.values() devuelve :
+        [ARQUERO, DEFENSOR, MEDIOCAMPISTA, DELANTERO]
+        [opcion] elije segun el numero ingresado en ese array*/
         return TipoPosicion.values()[opcion];
     }
  
