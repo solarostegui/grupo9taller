@@ -73,10 +73,14 @@ public class Sede {
     
     //Métodos
     //Chequeamos que cada estadio que se ingrese pertenezca a una sede.
-    public void agregarEstadio (Estadio estadio) {
+    public boolean agregarEstadio (Estadio estadio) {
+        if(estadio == null){
+            return false;
+        }
+
         //usamos una bandera
-        boolean existe = false;
         
+        boolean existe = false;
         for (Estadio e: this.estadios){
             //Comparamos por el nombre si ya existe el estadio
             if(e.getNombre().equalsIgnoreCase(estadio.getNombre())){
@@ -88,8 +92,9 @@ public class Sede {
             this.estadios.add(estadio);
             //agregamos estadio a su sede
             estadio.setSede(this);
+            return true;
         }else {
-            System.out.println ("El estadio ya existe en esta Sede");
+            return false;
         }
     }
 

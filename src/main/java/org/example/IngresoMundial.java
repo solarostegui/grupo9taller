@@ -128,9 +128,18 @@ public class IngresoMundial{
         String zona =pedirString("Zona horaria: ");
 
         Sede sede = new Sede(ciudad, altura, clima, zona, pais);
-        pais.agregarSede(sede);
-        sedes.add(sede);
-        mundial.agregarSede(sede);
+        if(pais.agregarSede(sede)){
+            System.out.println("Se asigno correctamente la sede del pais " + pais.getNombre());
+            sedes.add(sede);
+        } else {
+            System.out.println("La sede ya esta registrada en este pais");
+        }
+        
+        if(mundial.agregarSede(sede)){
+            System.out.println("Agregada correctamente la sede al mundial");
+        } else {
+            System.out.println("Esta sede ya forma parte del mundial");
+        }
 
         int cant = pedirEntero("¿Cuántos estadios tiene esta sede? ");
         for (int i = 0; i < cant; i++) {
@@ -138,9 +147,12 @@ public class IngresoMundial{
             String nomEst =pedirString("Nombre del estadio: ");
             int cap =pedirEntero("Capacidad: ");
             Estadio e = new Estadio(nomEst, cap, sede);
-            sede.agregarEstadio(e);
-            estadios.add(e);
-            System.out.println("Estadio '" + nomEst + "' creado.");
+            if(sede.agregarEstadio(e)){
+                estadios.add(e);
+                System.out.println("Estadio '" + nomEst + "' creado y vinculado a la sede correctamente");
+            } else {
+                System.out.println("Ya existe un estadio llamado " + nomEst + "en la sede " + ciudad + ". No se pudo agregar" );
+            }
         }
         System.out.println("Sede '" + ciudad + "' creada con " + cant + " estadio(s).");
     }
@@ -151,6 +163,8 @@ public class IngresoMundial{
             System.out.println("Primero debe crear al menos un país.");
             return;
         }
+        
+        System.out.println("Seleccione el país del árbitro:");
         Pais pais = seleccionarPais(paises);
         
         if (pais == null) {
@@ -163,16 +177,16 @@ public class IngresoMundial{
         int fecNac =pedirEntero("Año de nacimiento (ej: 1985): ");
         int exp =pedirEntero("Años de experiencia: ");
         
-        System.out.println("Seleccione el país del árbitro:");
-        
-        
-
         Arbitro a = new Arbitro(nombre, fecNac, exp, pais);
-        pais.agregarArbitro(a);
-        arbitros.add(a);
-        System.out.println("Árbitro '" + nombre + "' creado.");
+        
+        if(pais.agregarArbitro(a)){
+            System.out.println("Se guardo correctamente el arbitro en " + pais.getNombre());
+            arbitros.add(a);
+            System.out.println("Árbitro '" + nombre + "' creado.");
+        } else {
+            System.out.println("Error: el arbitro ya se encuentra registrado en el pais " + pais.getNombre());
+        }
     }
-    
     
     // CREAR DIRECTOR TECNICO
     public void crearDT(List<DirectorTecnico> dts) {
@@ -291,18 +305,23 @@ public class IngresoMundial{
         }
 
         Seleccion s = new Seleccion(fed, camPpal, camSec, cabeza, ranking, pais, grupo);
-        if (dt != null) s.agregarDirectoresTecnicos(dt);
+        //chequeamos que se agregue la seleccion al pais
+        if(pais.setSeleccion(s)){
+            System.out.println("La seleccion se asocio correctamente al pais ");
+            
+            if (dt != null) s.agregarDirectoresTecnicos(dt);
 
-        if (!cts.isEmpty()) {
-            System.out.print("¿Agregar cuerpo técnico? ");
-            if (pedirBooleano("")) {
-                for (CuerpoTecnico ct : cts) {
-                    System.out.print("¿Agregar a " + ct.getNombre() + " (" + ct.getRol() + ")? ");
-                    if (pedirBooleano("")) {
-                        s.agregarCuerposTecnicos(ct);
+            if (!cts.isEmpty()) {
+                System.out.print("¿Agregar cuerpo técnico? ");
+                if (pedirBooleano("")) {
+                    for (CuerpoTecnico ct : cts) {
+                        System.out.print("¿Agregar a " + ct.getNombre() + " (" + ct.getRol() + ")? ");
+                        if (pedirBooleano("")) {
+                            s.agregarCuerposTecnicos(ct);
                     }
                 }
             }
+        }
         }
 
         System.out.println("\nAgregando jugadores a la selección " + fed);
