@@ -64,38 +64,23 @@ public class Grupo {
     }
 
     //metodo para agregar cada sleeccion al grupo A, B, C, etc.
-    public void agregarSeleccion(Seleccion s){
+    public boolean agregarSeleccion(Seleccion s){
        if (s.getGrupo() == null){
           this.selecciones.add(s);
           s.setGrupo(this);
           this.tablaEstadisticas.add(new Estadisticas(s)); 
+          return true;
        } 
+       return false;
     }
    //Completar método de ObtenerPuntos 
     public int obtenerPuntos(Seleccion s){
-        int puntos = 0;
-        Participacion rival = null;
-        
-        for(Participacion participacion : s.getParticipaciones()){
-            Partido partido = participacion.getPartido();
-            int golesPropios = participacion.getCantidadGoles();
-            
-            if (partido.getSeleccion1().getSeleccion()== s){
-            rival = partido.getSeleccion2();
-        }
-            else {
-                rival = partido.getSeleccion1();
-        }
-            int golesRival = rival.getCantidadGoles();
-            
-            if (golesPropios > golesRival){
-                puntos +=3;
+        for(Estadisticas est : this.tablaEstadisticas){
+            if(est.getSeleccion() == s){
+                return est.getPuntos();
             }
-            if (golesPropios == golesRival){
-                puntos+=1;
-            }
-    }
-        return puntos;
+        }
+        return 0;
     }
     //Método para actualiza tabla de posiciones
     public void actualizarTablaPosiciones(){

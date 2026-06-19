@@ -360,10 +360,12 @@ public class IngresoMundial{
             seguir = pedirBooleano("¿Agregar otro jugador?");
         } while (seguir);
 
-        grupo.agregarSeleccion(s);
+        if(grupo.agregarSeleccion(s)){
+            System.out.println("Seleccion " + fed + "agregada al grupo " + grupo.getIdentificacion());
+        } else {
+            System.out.println("La seleccion ya pertenece a un grupo");
+        }
         selecciones.add(s);
-
-        System.out.println("Selección '" + fed + "' creada con éxito.");
     }
     
     // Método auxiliar automático que procesa los eventos y actualiza el grupo en tiempo real

@@ -54,19 +54,28 @@ public class Reportes {
         }
 
     }
-    //PUNTOS POR SELECCIÓN (VER SI ESTÁ BIEN)
-    public static int obtenerPuntosSeleccion(Grupo grupo, Seleccion seleccionBuscada) {
-        // guardar el resultado del Stream en una variable local para poder imprimirla
-        int puntos = grupo.getTablaEstadisticas().stream()
-                .filter(Objects::nonNull)
-                .filter(est -> est.getSeleccion().equals(seleccionBuscada))
-                .mapToInt(Estadisticas::getPuntos)
-                .findFirst()
-                .orElse(0);
-
-        System.out.println("La selección tiene " + puntos + " puntos.");
-        return puntos;
+    //PUNTOS Y FASES DE UNA SELECCIÓN (VER SI ESTÁ BIEN)
+    public static void mostrarResultadosSeleccion(Grupo grupo, Seleccion seleccionBuscada) {
+        //Datos generales de la selección, el grupo y su fase
+    System.out.println("\n===== RESULTADOS DE LA SELECCIÓN =====");
+    System.out.println("Selección: " + seleccionBuscada.getNombreFederacion());
+    System.out.println("Grupo: " + grupo.getIdentificacion());
+    System.out.println("Fase: " + grupo.getFase().getNombreFase());
+    
+    //Búsqueda de la fila de estadísticas correspondiente a la selección pasada por parámetro
+    for (Estadisticas est : grupo.getTablaEstadisticas()) {
+        // Comparamos de forma segura usando el método .equals() de tu objeto Seleccion
+        if (est.getSeleccion().equals(seleccionBuscada)) {
+            System.out.println("Puntos: " + est.getPuntos());
+            System.out.println("Partidos Jugados: " + est.getPartidosJugados());
+            System.out.println("Ganados: " + est.getPartidosGanados());
+            System.out.println("Empatados: " + est.getPartidosEmpatados());
+            System.out.println("Perdidos: " + est.getPartidosPerdidos());
+            break; // Rompemos el bucle porque ya encontramos el registro que buscábamos
+        }
     }
+    }
+}
     //RANKING GOLEADORES
     public static void mostrarRankingGoleadores(List<Partido>partidos){
         //RANKING DE GOLEADORES
@@ -319,4 +328,4 @@ public class Reportes {
                             s.getEstadios().size());
                 });
     }
-}
+
