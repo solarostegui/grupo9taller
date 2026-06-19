@@ -9,7 +9,7 @@ package org.example;
  * @author mardalorso
  */
 public class IngresoEnum {
-    
+    //variable para poder utilizar los metodos de ingreso mundial
     private static IngresoMundial TecladoEnum;
     
     public TipoPosicion elegirTipoPosicion() {

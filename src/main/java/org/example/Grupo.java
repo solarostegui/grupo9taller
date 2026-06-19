@@ -74,27 +74,27 @@ public class Grupo {
    //Completar método de ObtenerPuntos 
     public int obtenerPuntos(Seleccion s){
         int puntos = 0;
-        Participacion rival = null;
-        
         for(Participacion participacion : s.getParticipaciones()){
             Partido partido = participacion.getPartido();
+        
+          //solo cuenta partidos de la fase de este grupo
+           if (partido == null || partido.getFase() != this.fase){
+               continue;
+            }
+        
             int golesPropios = participacion.getCantidadGoles();
-            
-            if (partido.getSeleccion1().getSeleccion()== s){
-            rival = partido.getSeleccion2();
-        }
-            else {
-                rival = partido.getSeleccion1();
-        }
+            Participacion rival = (partido.getSeleccion1() == participacion) ? partido.getSeleccion2() : partido.getSeleccion1();
+        
+            if (rival == null) continue;
+        
             int golesRival = rival.getCantidadGoles();
-            
+        
             if (golesPropios > golesRival){
-                puntos +=3;
+                puntos += 3;
+            } else if (golesPropios == golesRival){
+                puntos += 1;
             }
-            if (golesPropios == golesRival){
-                puntos+=1;
-            }
-    }
+        }
         return puntos;
     }
     //Método para actualiza tabla de posiciones
