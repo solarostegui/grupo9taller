@@ -54,6 +54,20 @@ public class Reportes {
         }
 
     }
+    //PUNTOS POR SELECCIÓN (VER SI ESTÁ BIEN)
+    public static int obtenerPuntosSeleccion(Grupo grupo, Seleccion seleccionBuscada) {
+        // guardar el resultado del Stream en una variable local para poder imprimirla
+        int puntos = grupo.getTablaEstadisticas().stream()
+                .filter(Objects::nonNull)
+                .filter(est -> est.getSeleccion().equals(seleccionBuscada))
+                .mapToInt(Estadisticas::getPuntos)
+                .findFirst()
+                .orElse(0);
+
+        System.out.println("La selección tiene " + puntos + " puntos.");
+        return puntos;
+    }
+    //RANKING GOLEADORES
     public static void mostrarRankingGoleadores(List<Partido>partidos){
         //RANKING DE GOLEADORES
         System.out.println("===== RANKING DE GOLEADORES =====");
@@ -127,6 +141,7 @@ public class Reportes {
             }
         }
     }
+    //INFORME DISCIPLINARIO POR SELECCIÓN O JUGADOR
     public static void mostrarInformeDisciplinario(List<Partido>partidos){
         System.out.println("===== INFORME DISCIPLINARIO =====");
         System.out.printf("%-20s %6s %10s %6s%n", "Jugador", "Dorsal", "Amarillas", "Rojas");
@@ -209,5 +224,99 @@ public class Reportes {
                         s.rojas);
             }
         }
+    }
+    //FICHA TÉCNICA
+    public static void mostrarFichaTecnica(Partido p) {
+        System.out.println("===== FICHA TÉCNICA DEL PARTIDO =====");
+        if (p == null) {
+            System.out.println("Partido no válido.");
+            return;
+        }
+
+        // Datos grales. del encuentro
+        System.out.println("Fecha: " + p.getFecha() + " | Horario: " + p.getHorario());
+        System.out.println("Estadio: " + (p.getEstadio() != null ? p.getEstadio().getNombre() : "N/A"));
+        System.out.println("Fase: " + (p.getFase() != null ? p.getFase().getNombreFase() : "N/A"));
+        System.out.println("Duración: " + p.getDuracion() + " min | Tiempo adicional: " + p.getTiempoadicional() + " min");
+
+        Participacion p1 = p.getSeleccion1();
+        Participacion p2 = p.getSeleccion2();
+
+        //resultado final
+        if (p1 != null && p2 != null) {
+            System.out.println("--- Resultado Final ---");
+            System.out.println("RESULTADO: " + p1.getSeleccion().getNombreFederacion() +
+                    " " + p1.getCantidadGoles() +
+                    " - " + p2.getCantidadGoles() + " " +
+                    p2.getSeleccion().getNombreFederacion());
+        }
+
+        //Alineaciones (revisar)
+        System.out.println("--- Alineaciones ---");
+        if (p1 != null && p1.getSeleccion() != null && p1.getSeleccion().getJugador() != null) {
+            System.out.println(">> " + p1.getSeleccion().getNombreFederacion() + ":");
+            p1.getSeleccion().getJugador().forEach(j ->
+                    System.out.printf("   N° %-3d | %-15s | %s%n",
+                            j.getDorsal(), j.getPosicion(), j.getNombre())
+            );
+        } else {
+            System.out.println(" Sin jugadores registrados para el equipo 1.");
+        }
+
+        if (p2 != null && p2.getSeleccion() != null && p2.getSeleccion().getJugador() != null) {
+            System.out.println(">> " + p2.getSeleccion().getNombreFederacion() + ":");
+            p2.getSeleccion().getJugador().forEach(j ->
+                    System.out.printf("   N° %-3d | %-15s | %s%n",
+                            j.getDorsal(), j.getPosicion(), j.getNombre())
+            );
+        } else {
+            System.out.println(" Sin jugadores registrados para el equipo 2.");
+        }
+
+        //EVENTOS (Ordenados por minuto)
+        System.out.println("--- Eventos ---");
+        if (p.getEventos() != null && !p.getEventos().isEmpty()) {
+            p.getEventos().stream()
+                    .filter(Objects::nonNull)
+                    .sorted(Comparator.comparingInt(Evento::getMinuto))
+                    .forEach(e -> System.out.printf(" Min %3d: %-20s %s%n",
+                            e.getMinuto(),
+                            e.getEvento(),
+                            e.getJugador() != null ? e.getJugador().getNombre() : ""));
+        } else {
+            System.out.println(" Sin eventos registrados.");
+        }
+
+        // ÁRBITROS (opcional, podemos sacarlo pero queda prolijo dejarlo)
+        System.out.println("\n--- Árbitros ---");
+        if (p.getArbitraje() != null && !p.getArbitraje().isEmpty()) {
+            p.getArbitraje().stream()
+                    .filter(Objects::nonNull)
+                    .forEach(a -> System.out.printf(" %-15s: %s%n",
+                            a.getRol(),
+                            a.getArbitro() != null ? a.getArbitro().getNombre() : ""));
+        } else {
+            System.out.println(" Sin árbitros asignados.");
+        }
+    }
+    //ESTADISTICAS DE SEDES
+    public static void mostrarEstadisticasSedes(List<Sede> sedes) {
+        System.out.println("===== ESTADÍSTICAS DE SEDES =====");
+        System.out.printf("%-20s %-15s %10s %12s%n", "Ciudad", "País", "Partidos", "Estadios");
+        System.out.println("-".repeat(60));
+        //Acá estoy usando .stream, es más corto pero quiero ver si está bien usarlo. Supuestamente lo dimos en U2 xd
+        sedes.stream()
+                .filter(Objects::nonNull)
+                .forEach(s -> {
+                    int cantPartidos = s.getEstadios().stream()
+                            .filter(Objects::nonNull)
+                            .mapToInt(e -> e.getPartidos() != null ? e.getPartidos().size() : 0)
+                            .sum();
+                    System.out.printf("%-20s %-15s %10d %12d%n",
+                            s.getCiudad(),
+                            s.getPais() != null ? s.getPais().getNombre() : "N/A",
+                            cantPartidos,
+                            s.getEstadios().size());
+                });
     }
 }
