@@ -585,7 +585,7 @@ public class IngresoMundial{
     /*estos metodos se usan para que el usuario elija lo que ya se cargo en la lista
     y no tener que volver a cargar todos los datos nuevamente o puede
     volver al menu y crear un objeto si no esta en lista todavia*/
-    private Pais seleccionarPais(List<Pais> paises) {
+    public Pais seleccionarPais(List<Pais> paises) {
        
         for (int i = 0; i < paises.size(); i++){
           System.out.println(" " + i + " - " + paises.get(i));
@@ -602,7 +602,7 @@ public class IngresoMundial{
         return paises.get(opcion);
     }
 
-    private Sede seleccionarSede(List<Sede> sedes) {
+    public Sede seleccionarSede(List<Sede> sedes) {
         
         for (int i = 0; i < sedes.size(); i++){
           System.out.println(" " + i + " - " + sedes.get(i));
@@ -617,7 +617,7 @@ public class IngresoMundial{
         }
         return sedes.get(opcion);
     }
-    private Estadio seleccionarEstadio(List<Estadio> estadios) {
+    public Estadio seleccionarEstadio(List<Estadio> estadios) {
         for (int i = 0; i < estadios.size(); i++){
           System.out.println(" " + i + " - " + estadios.get(i));
         }
@@ -632,7 +632,7 @@ public class IngresoMundial{
        return estadios.get(opcion);
     }
 
-    private Grupo seleccionarGrupo(List<Grupo> grupos) {
+    public Grupo seleccionarGrupo(List<Grupo> grupos) {
     
         for (int i = 0; i < grupos.size(); i++){
           System.out.println(" " + i + " - " + grupos.get(i));
@@ -650,7 +650,7 @@ public class IngresoMundial{
         return grupos.get(opcion);
     }
 
-    private Fase seleccionarFase(List<Fase> fases) {
+    public Fase seleccionarFase(List<Fase> fases) {
     
         for (int i = 0; i < fases.size(); i++){
            System.out.println(" " + i + " - " + fases.get(i));
@@ -666,7 +666,7 @@ public class IngresoMundial{
         return fases.get(opcion);
     }
 
-    private Seleccion seleccionarSeleccion(List<Seleccion> selecciones) {
+    public Seleccion seleccionarSeleccion(List<Seleccion> selecciones) {
        
         for (int i = 0; i < selecciones.size(); i++){
             System.out.println(" " + i + " - " + selecciones.get(i));
@@ -683,7 +683,7 @@ public class IngresoMundial{
        return selecciones.get(opcion);
     }
 
-    private Arbitro seleccionarArbitro(List<Arbitro> arbitros) {
+    public Arbitro seleccionarArbitro(List<Arbitro> arbitros) {
         
         for (int i = 0; i < arbitros.size(); i++){
            System.out.println(" " + i + " - " + arbitros.get(i));
@@ -700,7 +700,7 @@ public class IngresoMundial{
         return arbitros.get(opcion);
     }
 
-    private Partido seleccionarPartido(List<Partido> partidos) {
+    public Partido seleccionarPartido(List<Partido> partidos) {
     
         for (int i = 0; i < partidos.size(); i++){
            System.out.println(" " + i + " - " + partidos.get(i));
@@ -716,7 +716,7 @@ public class IngresoMundial{
         return partidos.get(opcion);
     }
 
-    private Jugador seleccionarJugador(List<Jugador> jugadores) {
+    public Jugador seleccionarJugador(List<Jugador> jugadores) {
     
         for (int i = 0; i < jugadores.size(); i++){
            System.out.println(" " + i + " - " + jugadores.get(i));
@@ -734,7 +734,7 @@ public class IngresoMundial{
         return jugadores.get(opcion);
     }
 
-    private DirectorTecnico seleccionarDT(List<DirectorTecnico> dts) {
+    public DirectorTecnico seleccionarDT(List<DirectorTecnico> dts) {
     
         for (int i = 0; i < dts.size(); i++){
         
@@ -752,7 +752,7 @@ public class IngresoMundial{
         return dts.get(opcion);
     }
 
-    private CuerpoTecnico seleccionarCT(List<CuerpoTecnico> cts) {
+    public CuerpoTecnico seleccionarCT(List<CuerpoTecnico> cts) {
     
         for (int i = 0; i < cts.size(); i++){
             System.out.println(" " + i + " - " + cts.get(i));

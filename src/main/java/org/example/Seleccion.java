@@ -150,8 +150,9 @@ public class Seleccion {
        this.participaciones.add(p);
    }
 
-//Chequeamos que un jugador esté en una sola selección. Contains contiene equals y utiliza el de clase jugadorpara comparar
-    public boolean agregarJugador (Jugador j){
+    /*Chequeamos que un jugador no se repita 
+    en una seleccion*/
+    public boolean agregarJugador(Jugador j){
         if(j==null){
             return false;
         }

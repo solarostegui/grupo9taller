@@ -51,7 +51,7 @@ public class Validador {
             return false;
         }
         /*Obtenemos la participacion de cada seleccion 
-        desde el partido pasado por parametro*/
+        desde el partido*/
         Participacion part1 = p.getSeleccion1();
         Participacion part2 = p.getSeleccion2();
         if (part1 == null || part2 == null){
