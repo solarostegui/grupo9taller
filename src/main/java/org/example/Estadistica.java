@@ -1,6 +1,6 @@
 package org.example;
 
-public class Estadisticas {
+public class Estadistica {
     private Seleccion seleccion;
     private int partidosJugados;
     private int partidosGanados;
@@ -12,7 +12,7 @@ public class Estadisticas {
     private int puntos; //ganados x3 + empatados
 
     //Constructor que vincula la seleccion y arranca todo en 0
-    public Estadisticas(Seleccion seleccion){
+    public Estadistica(Seleccion seleccion){
         this.seleccion = seleccion;
         this.partidosJugados = 0;
         this.partidosGanados = 0;

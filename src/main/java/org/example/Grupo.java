@@ -12,7 +12,7 @@ public class Grupo {
     private List<Seleccion> selecciones;
     //bidireccional con fase
     private Fase fase;
-    private List<Estadisticas> tablaEstadisticas;
+    private List<Estadistica> tablaEstadisticas;
     
 
     public Grupo(String identificacion, String descripcion,Fase fase) {
@@ -20,14 +20,14 @@ public class Grupo {
         this.descripcion = descripcion;
         this.selecciones = new ArrayList<Seleccion>();
         this.fase = fase;
-        this.tablaEstadisticas = new ArrayList<Estadisticas>();
+        this.tablaEstadisticas = new ArrayList<Estadistica>();
     }
     
     public Grupo(){
         this.identificacion = "";
         this.descripcion = "";
         this.selecciones = new ArrayList<Seleccion>();
-        this.tablaEstadisticas = new ArrayList<Estadisticas>();
+        this.tablaEstadisticas = new ArrayList<Estadistica>();
         
     }
     //Getters y setters
@@ -43,7 +43,7 @@ public class Grupo {
     public Fase getFase() {
         return fase;
     }
-    public List<Estadisticas> getTablaEstadisticas() {
+    public List<Estadistica> getTablaEstadisticas() {
         return tablaEstadisticas;
     }
 
@@ -59,7 +59,7 @@ public class Grupo {
     public void setFase(Fase fase) {
         this.fase = fase;
     }
-    public void setTablaEstadisticas(List<Estadisticas> tablaEstadisticas) {
+    public void setTablaEstadisticas(List<Estadistica> tablaEstadisticas) {
         this.tablaEstadisticas = tablaEstadisticas;
     }
 
@@ -68,14 +68,14 @@ public class Grupo {
        if (s.getGrupo() == null){
           this.selecciones.add(s);
           s.setGrupo(this);
-          this.tablaEstadisticas.add(new Estadisticas(s)); 
+          this.tablaEstadisticas.add(new Estadistica(s)); 
           return true;
        } 
        return false;
     }
    //Completar método de ObtenerPuntos 
     public int obtenerPuntos(Seleccion s){
-        for(Estadisticas est : this.tablaEstadisticas){
+        for(Estadistica est : this.tablaEstadisticas){
             if(est.getSeleccion() == s){
                 return est.getPuntos();
             }
@@ -85,7 +85,7 @@ public class Grupo {
     //Método para actualiza tabla de posiciones
     public void actualizarTablaPosiciones(){
         //1. Usamos el metodo restablecer para llevar todo a cero y que no quede nada de lo anterior
-        for (Estadisticas est : this.tablaEstadisticas){
+        for (Estadistica est : this.tablaEstadisticas){
             est.restablecer();
         }
         //2. el grupo debe tener partidos asignados a su fase, sino no hay nada que calcular
@@ -115,12 +115,12 @@ public class Grupo {
                 int golesS2 = part2.getCantidadGoles();
 
                 //busca en estadisticas la fila de s1 y le suma los goles
-                Estadisticas estS1 = buscarEstadistica(s1);
+                Estadistica estS1 = buscarEstadistica(s1);
                 if (estS1 != null){
                     estS1.computarPartido(golesS1,golesS2);
                 }
                 //busca en estadisticas la fila de s2 y le suma los goles
-                Estadisticas estS2 = buscarEstadistica(s2);
+                Estadistica estS2 = buscarEstadistica(s2);
                 if (estS2 != null){
                     estS2.computarPartido(golesS2, golesS1);
                 }
@@ -131,8 +131,8 @@ public class Grupo {
     //Método para que agarre la Seleccion, vaya a tablaEstadisticas, busque que fila le corresponde a esa
     //Seleccion y se la devuelva a actualizarTablaPosiciones() -el de arriba- para que ejecute el computo
     //del partido
-    private Estadisticas buscarEstadistica(Seleccion s){
-        for (Estadisticas est : this.tablaEstadisticas){
+    private Estadistica buscarEstadistica(Seleccion s){
+        for (Estadistica est : this.tablaEstadisticas){
             if (est.getSeleccion().equals(s)){
                 return est;
             }

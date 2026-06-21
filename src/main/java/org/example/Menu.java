@@ -40,9 +40,10 @@ public class Menu{
         this.partidos = partidos;
     }
     
-    private static Scanner sc = new Scanner(System.in);
     
-    public void Menu(Mundial mundial){
+    
+    public void MostrarMenu(){
+        Reporte reporte=new Reporte();
         IngresoMundial Ingreso=new IngresoMundial();
         int opcion;
         do {
@@ -64,8 +65,7 @@ public class Menu{
             System.out.println("15. Informe Disciplinario");
             System.out.println("16. Estadísticas por Sede ");
             System.out.println("0. Salir");
-            System.out.print("Seleccione una opción: ");
-            opcion = sc.nextInt();
+            opcion = IngresoMundial.pedirEnteroRango("Seleccione una opción: ",0,16);
             
             switch (opcion){
                 case 1:
@@ -109,10 +109,12 @@ public class Menu{
                     System.out.println("Partido creado.");
                     break;
                 case 11:
-                    //Reportes.
+                    System.out.println("Seleccione el partido para mostrar la ficha: ");
+                    Partido p=Ingreso.seleccionarPartido(partidos);
+                    reporte.mostrarFichaTecnica(p);
                     break;
                 case 12:
-                    //Reportes.mostrarTablaPosiciones(grupo);
+                    //Reporte.mostrarTablaPosiciones(grupos);
                     break;
                 case 13:
                     //Reportes
@@ -128,6 +130,7 @@ public class Menu{
                     break;
                 case 0:
                     System.out.println("Saliendo del programa...");
+                    break;
                 default:
                     System.out.println("Opción Invalida.");
             }

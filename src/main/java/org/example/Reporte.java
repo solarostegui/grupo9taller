@@ -3,12 +3,12 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Comparator;
-import java.util.Objects;
+
 import java.util.Collections;
 
-public class Reportes {
+public class Reporte {
     //TABLA DE POSICIONES POR GRUPO (REPORTE 1)
-    public static void mostrarTablaPosiciones(Grupo grupo) {
+    public void mostrarTablaPosiciones(Grupo grupo) {
         //Impresion de los encabezados
         grupo.actualizarTablaPosiciones();
         System.out.println("===== TABLA DE POSICIONES - Grupo " + grupo.getIdentificacion() + " =====");
@@ -16,13 +16,13 @@ public class Reportes {
         System.out.println("-".repeat(55));
 
         //Creamos una lista local para ordenar de forma segura
-        List<Estadisticas> listaEstadisticas = new ArrayList<>(grupo.getTablaEstadisticas());
+        List<Estadistica> listaEstadisticas = new ArrayList<>(grupo.getTablaEstadisticas());
 
        //La ordenamos usando la clase comparadora
        listaEstadisticas.sort(new OrdenarEstadisticasPorPuntos());
     
         //Bucle para imprimir la lista fila x fila
-        for (Estadisticas est : listaEstadisticas) {
+        for (Estadistica est : listaEstadisticas) {
             if (est != null) {
                 System.out.printf("%-20s %3d %3d %3d %3d %3d %3d %4d %4d%n",
                         est.getSeleccion().getNombreFederacion(),
@@ -40,18 +40,31 @@ public class Reportes {
     }
 
     //PUNTOS Y FASES DE UNA SELECCIÓN (REPORTE 2)
-    public static void mostrarResultadosSeleccion(Grupo grupo, Seleccion seleccionBuscada) {
+    public void mostrarResultadosSeleccion(Seleccion seleccionBuscada) {
         System.out.println("===== RESULTADOS DE LA SELECCIÓN =====");
+        
+        // Control de null en el parámetro
+       if (seleccionBuscada == null) {
+           System.out.println("Datos inválidos para generar el reporte.");
+           return;
+        }
+        
         System.out.println("Selección: " + seleccionBuscada.getNombreFederacion());
-
+        
+        // Obtenemos el grupo directo desde la selección
+        Grupo grupo = seleccionBuscada.getGrupo();
+        if (grupo == null) {
+            System.out.println("La selección no pertenece a ningún grupo.");
+            return;
+        }
         // Mostrar puntajes de la fase de grupos
         System.out.println("\n--- Estadísticas en Grupo " + grupo.getIdentificacion() + " ---");
         boolean encontradaEnGrupo = false;
-
+        
         // chequeo de null para controlar
         if (grupo.getTablaEstadisticas() != null) {
-            for (Estadisticas est : grupo.getTablaEstadisticas()) {
-                if (est.getSeleccion().equals(seleccionBuscada)) {
+            for (Estadistica est : grupo.getTablaEstadisticas()) {
+                if (est != null && est.getSeleccion() != null && est.getSeleccion().equals(seleccionBuscada)) {
                     System.out.println("Puntos: " + est.getPuntos());
                     System.out.println("Partidos Jugados: " + est.getPartidosJugados());
                     System.out.println("Ganados: " + est.getPartidosGanados());
@@ -76,7 +89,7 @@ public class Reportes {
         if (seleccionBuscada.getParticipaciones() != null) {
             for (Participacion participacion : seleccionBuscada.getParticipaciones()) {
                 // Verificamos que los objetos no sean nulos para evitar crasheos (NullPointerException)
-                if (participacion.getPartido() != null && participacion.getPartido().getFase() != null) {
+                if (participacion != null && participacion.getPartido() != null && participacion.getPartido().getFase() != null) {
                     TipoNombreFase faseDelPartido = participacion.getPartido().getFase().getNombreFase();
 
                     // Si la fase no está en nuestra lista auxiliar, la agregamos
@@ -98,7 +111,7 @@ public class Reportes {
     }
 
     //RANKING GOLEADORES (REPORTE 3)
-    public static void mostrarRankingGoleadores(List<Partido> partidos) {
+    public void mostrarRankingGoleadores(List<Partido> partidos) {
         //RANKING DE GOLEADORES
         System.out.println("===== RANKING DE GOLEADORES =====");
         System.out.printf("%-20s %6s %6s%n", "Jugador", "Dorsal", "Goles");
@@ -180,7 +193,7 @@ public class Reportes {
     }
 
     //INFORME DISCIPLINARIO POR SELECCIÓN O JUGADOR (REPORTE 4)
-    public static void mostrarInformeDisciplinario(List<Partido> partidos) {
+    public void mostrarInformeDisciplinario(List<Partido> partidos) {
         System.out.println("===== INFORME DISCIPLINARIO =====");
         System.out.printf("%-20s %6s %10s %6s%n", "Jugador", "Dorsal", "Amarillas", "Rojas");
         System.out.println("-".repeat(45));
@@ -202,7 +215,7 @@ public class Reportes {
             }
 
            @Override
-           public int compareTo(Sancionado otro) {
+           public int compareTo(Sancionado otro) { //si es verdadero         | si es falso   
                String n1 = (this.jugador != null) ? this.jugador.getNombre() : "";
                String n2 = (otro != null && otro.jugador != null) ? otro.jugador.getNombre() : "";
                return n1.compareToIgnoreCase(n2);
@@ -268,7 +281,7 @@ public class Reportes {
     }
 
     //FICHA TÉCNICA (REPORTE 5)
-    public static void mostrarFichaTecnica(Partido p) {
+    public void mostrarFichaTecnica(Partido p) {
         System.out.println("===== FICHA TÉCNICA DEL PARTIDO =====");
         if (p == null) {
             System.out.println("Partido no válido.");
@@ -293,24 +306,28 @@ public class Reportes {
                     p2.getSeleccion().getNombreFederacion());
         }
 
-        //Alineaciones (revisar)
+        //Alineaciones
         System.out.println("--- Alineaciones ---");
         if (p1 != null && p1.getSeleccion() != null && p1.getSeleccion().getJugador() != null) {
             System.out.println(">> " + p1.getSeleccion().getNombreFederacion() + ":");
-            p1.getSeleccion().getJugador().forEach(j ->
-                    System.out.printf("   N° %-3d | %-15s | %s%n",
-                            j.getDorsal(), j.getPosicion(), j.getNombre())
-            );
+            for (Jugador j : p1.getSeleccion().getJugador()) {
+                if (j != null) {
+                System.out.printf("   N° %-3d | %-15s | %s%n",
+                j.getDorsal(), j.getPosicion(), j.getNombre());
+            }
+        }
         } else {
             System.out.println(" Sin jugadores registrados para el equipo 1.");
         }
 
         if (p2 != null && p2.getSeleccion() != null && p2.getSeleccion().getJugador() != null) {
             System.out.println(">> " + p2.getSeleccion().getNombreFederacion() + ":");
-            p2.getSeleccion().getJugador().forEach(j ->
-                    System.out.printf("   N° %-3d | %-15s | %s%n",
-                            j.getDorsal(), j.getPosicion(), j.getNombre())
-            );
+            for (Jugador j : p2.getSeleccion().getJugador()) {
+                if (j != null) {
+                System.out.printf("   N° %-3d | %-15s | %s%n",
+                j.getDorsal(), j.getPosicion(), j.getNombre());
+            }
+        }
         } else {
             System.out.println(" Sin jugadores registrados para el equipo 2.");
         }
@@ -318,13 +335,23 @@ public class Reportes {
         //EVENTOS (Ordenados por minuto)
         System.out.println("--- Eventos ---");
         if (p.getEventos() != null && !p.getEventos().isEmpty()) {
-            p.getEventos().stream()
-                    .filter(Objects::nonNull)
-                    .sorted(Comparator.comparingInt(Evento::getMinuto))
-                    .forEach(e -> System.out.printf(" Min %3d: %-20s %s%n",
-                            e.getMinuto(),
-                            e.getEvento(),
-                            e.getJugador() != null ? e.getJugador().getNombre() : ""));
+            List<Evento> eventosOrdenados = new ArrayList<>(p.getEventos());
+            Collections.sort(eventosOrdenados, new Comparator<Evento>() {
+            @Override
+            public int compare(Evento e1, Evento e2) {
+                if (e1 == null) return 1;
+                if (e2 == null) return -1;
+                return Integer.compare(e1.getMinuto(), e2.getMinuto());
+            }
+        });
+        for (Evento e : eventosOrdenados) {
+            if (e != null) {
+                System.out.printf(" Min %3d: %-20s %s%n",
+                e.getMinuto(),
+                e.getEvento(),
+                e.getJugador() != null ? e.getJugador().getNombre() : "");
+            }
+        }
         } else {
             System.out.println(" Sin eventos registrados.");
         }
@@ -332,18 +359,20 @@ public class Reportes {
         // ÁRBITROS (opcional, podemos sacarlo pero queda prolijo dejarlo)
         System.out.println("\n--- Árbitros ---");
         if (p.getArbitraje() != null && !p.getArbitraje().isEmpty()) {
-            p.getArbitraje().stream()
-                    .filter(Objects::nonNull)
-                    .forEach(a -> System.out.printf(" %-15s: %s%n",
-                            a.getRol(),
-                            a.getArbitro() != null ? a.getArbitro().getNombre() : ""));
+            for (Arbitraje a : p.getArbitraje()) {
+                if (a != null) {
+                    System.out.printf(" %-15s: %s%n",
+                    a.getRol(),
+                    a.getArbitro() != null ? a.getArbitro().getNombre() : "");
+                }
+            }
         } else {
             System.out.println(" Sin árbitros asignados.");
         }
     }
 
     //ESTADISTICAS DE SEDES (REPORTE 6)
-    public static void mostrarEstadisticasSedes(List<Sede> sedes) {
+    public void mostrarEstadisticasSedes(List<Sede> sedes) {
         System.out.println("===== ESTADÍSTICAS DE SEDES =====");
         System.out.printf("%-20s %-15s %10s %12s%n", "Ciudad", "País", "Partidos", "Estadios");
         System.out.println("-".repeat(60));
@@ -352,23 +381,26 @@ public class Reportes {
             System.out.println("No hay sedes registradas.");
             return;
         }
-        //Acá estoy usando .stream, es más corto pero quiero ver si está bien usarlo. Supuestamente lo dimos en U2 xd
-        sedes.stream()
-                .filter(Objects::nonNull)
-                .forEach(s -> {
-                    int cantPartidos = 0;
-                    if(s.getEstadios()!=null) {
-                        cantPartidos = s.getEstadios().stream()
-                                .filter(Objects::nonNull)
-                                .mapToInt(e -> e.getPartidos() != null ? e.getPartidos().size() : 0)
-                                .sum();
+        
+        for (Sede s : sedes) {
+            if (s != null) {
+              int cantPartidos = 0;
+              int cantEstadios = 0;
+               if (s.getEstadios() != null) {
+                  cantEstadios = s.getEstadios().size();
+                  for (Estadio e : s.getEstadios()) {
+                       if (e != null && e.getPartidos() != null) {
+                           cantPartidos += e.getPartidos().size();
+                        }
                     }
-                    System.out.printf("%-20s %-15s %10d %12d%n",
-                            s.getCiudad(),
-                            s.getPais() != null ? s.getPais().getNombre() : "N/A",
-                            cantPartidos,
-                            s.getEstadios().size());
-                });
+                }
+                System.out.printf("%-20s %-15s %10d %12d%n",
+                s.getCiudad(),
+                s.getPais() != null ? s.getPais().getNombre() : "N/A",
+                cantPartidos,
+                s.getEstadios().size());
+            }
+        }
     }
 }
 

@@ -8,10 +8,10 @@ import java.util.Comparator;
  *
  * @author mardalorso
  */
-public class OrdenarEstadisticasPorPuntos implements Comparator<Estadisticas> {
+public class OrdenarEstadisticasPorPuntos implements Comparator<Estadistica> {
 
     @Override
-    public int compare(Estadisticas est1, Estadisticas est2) {
+    public int compare(Estadistica est1, Estadistica est2) {
         if (est1 == null) {
             return 1;
         }

@@ -18,6 +18,7 @@ public class Main {
     List<Grupo> grupos = new ArrayList<>();
     List<Seleccion> selecciones = new ArrayList<>();
     List<Partido> partidos = new ArrayList<>();
+    Mundial mundial;
 
     public static void main(String[] args) {
       Main app = new Main();
@@ -29,7 +30,7 @@ public class Main {
         /*creamos una instancia de Ingresomundial 
         para poder usar los metodos de esa clase*/
         IngresoMundial ingreso=new IngresoMundial();
-        Mundial mundial = ingreso.ingresarMundial();
+        mundial= ingreso.ingresarMundial();
         
        /*creamos una instancia de menu pasando por parametros las listas
         para comenzar a crear los objetos y agregarlos a cada lista
@@ -39,7 +40,7 @@ public class Main {
         /*llamamos al metodo para dar las opciones de menu
         pasando por parametro mundial creado si o si antes que todo
         */
-        menu.Menu(mundial);
+        menu.MostrarMenu();
     }  
 }      
 

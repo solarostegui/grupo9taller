@@ -12,11 +12,11 @@ import java.time.*;
  * @author mardalorso
  */
 public class IngresoMundial{
-    private static IngresoEnum TecladoEnum;
+    
     private static Scanner sc = new Scanner(System.in);
     
     // Este método se encarga de que el input sea SIEMPRE entero
-    public int pedirEntero(String mensaje){
+    public static int pedirEntero(String mensaje){
         while(true){
             try{
                 System.out.print(mensaje);
@@ -30,7 +30,7 @@ public class IngresoMundial{
         }
     }
     // Pide un float y valida que lo sea
-   public float pedirFloat(String mensaje) {
+   public static float pedirFloat(String mensaje) {
         while (true) {
             System.out.print(mensaje);
             try {
@@ -42,7 +42,7 @@ public class IngresoMundial{
         }
     }
     //Pide un String no vacío
-    public String pedirString(String mensaje) {
+    public static String pedirString(String mensaje) {
         while (true) {
             System.out.print(mensaje);
             String texto = sc.nextLine().trim();
@@ -54,7 +54,7 @@ public class IngresoMundial{
         }
     }
     //pide un booleano (true/false, s/n, si/no)
-    public boolean pedirBooleano(String mensaje) {
+    public static boolean pedirBooleano(String mensaje) {
         while (true) {
             System.out.print(mensaje + " (s/n): ");
             String entrada = sc.nextLine().trim().toLowerCase();
@@ -68,7 +68,7 @@ public class IngresoMundial{
         }
     }
     // Pide un entero dentro de un rango [min, max]
-    public int pedirEnteroRango(String mensaje, int min, int max) {
+    public static int pedirEnteroRango(String mensaje, int min, int max) {
         while (true) {
             int num = pedirEntero(mensaje);
             /*para evitar la excepcion de indice fuera de rango
@@ -79,7 +79,6 @@ public class IngresoMundial{
             System.out.println("Error: el valor debe estar entre " + min + " y " + max + ".");
         }
     }
-    
     //Ingreso de la clase mundial
     public Mundial ingresarMundial(){
         System.out.println("=================================================");
@@ -210,7 +209,7 @@ public class IngresoMundial{
         System.out.println("\n--- NUEVO CUERPO TÉCNICO ---");
         String nombre = pedirString("Nombre: ");
         int fecNac =pedirEntero("Año de nacimiento: ");
-        TipoRol rol = TecladoEnum.elegirTipoRol();
+        TipoRol rol = IngresoEnum.elegirTipoRol();
         CuerpoTecnico ct = new CuerpoTecnico(nombre, fecNac, rol);
         if(cts.add(ct)){
             System.out.println("Cuerpo técnico '" + ct.getNombre() + "' creado.");
@@ -222,7 +221,7 @@ public class IngresoMundial{
     // CREAR FASE
     public void crearFase(List<Fase> fases) {
         System.out.println("\n--- NUEVA FASE ---");
-        TipoNombreFase nombre = TecladoEnum.elegirTipoNombreFase();
+        TipoNombreFase nombre =IngresoEnum.elegirTipoNombreFase();
         Fase f = new Fase(nombre);
         fases.add(f);
         System.out.println("Fase '" + nombre + "' creada.");
@@ -235,7 +234,7 @@ public class IngresoMundial{
             System.out.println("Primero debe crear al menos una fase.");
             return;
         }
-        
+        System.out.println("Seleccione la fase:");
         Fase fase = seleccionarFase(fases);
         if (fase == null) {
             System.out.println("Debe volver a menu y crear la fase que desee primero");
@@ -245,8 +244,6 @@ public class IngresoMundial{
         System.out.println("\n--- NUEVO GRUPO ---");
         String id = pedirString("Identificación (ej: A): ");
         String desc = pedirString("Descripción (ej: Grupo A): ");
-        
-        System.out.println("Seleccione la fase:");
         
         
         Grupo g = new Grupo(id, desc, fase);
@@ -262,7 +259,7 @@ public class IngresoMundial{
         String nombre = pedirString("Nombre: ");
         int fecNac = pedirEntero("Año de nacimiento: ");
         int dorsal = pedirEntero("Dorsal: ");
-        TipoPosicion pos = TecladoEnum.elegirTipoPosicion();
+        TipoPosicion pos = IngresoEnum.elegirTipoPosicion();
         float peso = pedirFloat("Peso (kg, ej: 75.5): ");
         float altura = pedirFloat("Altura (m, ej: 1.80): ");
 
@@ -370,56 +367,68 @@ public class IngresoMundial{
         selecciones.add(s);
     }
     
-    // Método auxiliar automático que procesa los eventos y actualiza el grupo en tiempo real
-    private void actualizarEstadisticasPorPartido(Partido p) {
-        if (p == null || p.getSeleccion1() == null || p.getSeleccion2() == null) return;
+    // Método auxiliar que recalcula TODA la tabla del grupo desde cero,
+   // leyendo el estado actual de los eventos. Así es seguro llamarlo
+  // las veces que sea necesario, incluso si se agregan eventos después.
+   public void actualizarEstadisticasPorPartido(Partido p, List<Partido> partidos) {
+       if (p == null || p.getSeleccion1() == null || p.getSeleccion2() == null) return;
+       Seleccion s1 = p.getSeleccion1().getSeleccion();
+       Seleccion s2 = p.getSeleccion2().getSeleccion();
+       if (s1 == null || s2 == null) return;
 
-        Seleccion s1 = p.getSeleccion1().getSeleccion();
-        Seleccion s2 = p.getSeleccion2().getSeleccion();
-        if (s1 == null || s2 == null) return;
+       Grupo grupoDelPartido = s1.getGrupo();
+       if (grupoDelPartido == null || grupoDelPartido.getTablaEstadisticas() == null) return;
 
-        // 1. Buscamos las fichas de estadísticas en el Grupo
-        Estadisticas estS1 = null;
-        Estadisticas estS2 = null;
-        Grupo grupoDelPartido = s1.getGrupo();
+       // 1. Reseteamos TODAS las fichas del grupo (no solo las de este partido)
+       for (Estadistica est : grupoDelPartido.getTablaEstadisticas()) {
+           if (est != null) {
+              est.restablecer();
+            }
+        } 
 
-        if (grupoDelPartido != null && grupoDelPartido.getTablaEstadisticas() != null) {
-            for (Estadisticas est : grupoDelPartido.getTablaEstadisticas()) {
+       // 2. Recorremos TODOS los partidos del Mundial.
+       if (partidos != null) {
+        for (Partido partidoDelGrupo : partidos) {
+            if (partidoDelGrupo == null || partidoDelGrupo.getFase() == null) continue;
+            if (partidoDelGrupo.getFase().getNombreFase() != TipoNombreFase.Grupos) continue;
+            if (partidoDelGrupo.getSeleccion1() == null || partidoDelGrupo.getSeleccion2() == null) continue;
+
+            Seleccion sa = partidoDelGrupo.getSeleccion1().getSeleccion();
+            Seleccion sb = partidoDelGrupo.getSeleccion2().getSeleccion();
+            if (sa == null || sb == null) continue;
+
+            // Solo nos interesan los partidos cuyas dos selecciones son de ESTE grupo
+            if (sa.getGrupo() != grupoDelPartido || sb.getGrupo() != grupoDelPartido) continue;
+
+            Estadistica estA = null;
+            Estadistica estB = null;
+            for (Estadistica est : grupoDelPartido.getTablaEstadisticas()) {
                 if (est != null) {
-                    if (est.getSeleccion() == s1) estS1 = est;
-                    if (est.getSeleccion() == s2) estS2 = est;
+                    if (est.getSeleccion() == sa) estA = est;
+                    if (est.getSeleccion() == sb) estB = est;
                 }
             }
-        }
+            if (estA == null || estB == null) continue;
 
-        // 2. Si encontramos las fichas, recalculamos de forma segura
-        if (estS1 != null && estS2 != null) {
-            // Ponemos los contadores en 0 temporalmente para no duplicar datos previos
-            estS1.restablecer();
-            estS2.restablecer();
-
-            int golesS1 = 0;
-            int golesS2 = 0;
-
-            // Contamos los goles en tiempo real recorriendo todos los eventos del partido
-            for (Evento e : p.getEventos()) {
-                if (e != null && e.getEvento() == TipoEvento.Gol && e.getJugador() != null) {
-                    if (s1.getJugador().contains(e.getJugador())) {
-                        golesS1++;
-                    } else if (s2.getJugador().contains(e.getJugador())) {
-                        golesS2++;
+            int golesA = 0;
+            int golesB = 0;
+            if (partidoDelGrupo.getEventos() != null) {
+                for (Evento e : partidoDelGrupo.getEventos()) {
+                    if (e != null && e.getEvento() == TipoEvento.Gol && e.getJugador() != null) {
+                        if (sa.getJugador() != null && sa.getJugador().contains(e.getJugador())) {
+                            golesA++;
+                        } else if (sb.getJugador() != null && sb.getJugador().contains(e.getJugador())) {
+                            golesB++;
+                        }
                     }
                 }
             }
-
-            // Computamos el resultado final limpio en las estadísticas
-            estS1.computarPartido(golesS1, golesS2);
-            estS2.computarPartido(golesS2, golesS1);
-
-            System.out.println("\nTabla del grupo recalculada y actualizada:");
-            System.out.println(s1.getNombreFederacion() + ": " + golesS1 + " gol(es)");
-            System.out.println( s2.getNombreFederacion() + ": " + golesS2 + " gol(es)");
+            estA.computarPartido(golesA, golesB);
+            estB.computarPartido(golesB, golesA);
         }
+    }
+
+      System.out.println("\nTabla del grupo " + grupoDelPartido.getIdentificacion() + " recalculada y actualizada.");
     }
      // CREAR PARTIDO CON EVENTOS
     public void crearPartido(List<Seleccion> selecciones,List<Estadio> estadios,List<Fase> fases,List<Arbitro> arbitros,
@@ -442,7 +451,13 @@ public class IngresoMundial{
             System.out.println("Debe volver a menu y registar las selecciones que desee primero");
             return;
         }
-
+        
+        System.out.println("Seleccione el estadio:");
+        Estadio estadio = seleccionarEstadio(estadios);
+        if (estadio == null){
+            System.out.println("Debe volver a menu y cargar los estadios que desee primero");
+            return;
+        }
         System.out.println("\n--- NUEVO PARTIDO ---");
 
         int dia =pedirEntero("Día del partido (1-31): ");
@@ -456,13 +471,6 @@ public class IngresoMundial{
 
         int duracion = pedirEntero("Duración (minutos, ej: 90): ");
 
-        System.out.println("Seleccione el estadio:");
-        Estadio estadio = seleccionarEstadio(estadios);
-        if (estadio == null){
-            System.out.println("Debe volver a menu y cargar los estadios que desee primero");
-            return;
-        }
-
 
         Partido p = new Partido();
         p.setFecha(fecha);
@@ -474,8 +482,8 @@ public class IngresoMundial{
         
         
         Participacion par1 = new Participacion(true, p, s1);
-        p.setSeleccion1(par1);
-        s1.agregarParticipacion(par1);
+        p.setSeleccion1(par1);//el partido conoce a esta participacion puntual
+        s1.agregarParticipacion(par1);//la seleccion conoce todas sus participaciones
 
         System.out.println("Seleccione el Equipo B (designado visitante):");
         Seleccion s2;
@@ -502,8 +510,8 @@ public class IngresoMundial{
                 return;
             }
             Arbitraje arb = new Arbitraje(rol, a, p);
-            p.agregarArbitraje(arb);
-            a.agregarArbitraje(arb);
+            p.agregarArbitraje(arb);//el partido sabe quienes lo arbitran
+            a.agregarArbitraje(arb);//el arbitro sabe en que partidos arbitro
         }
         //Validador de arbitraje si no esta completo 
         if(!Validador.validarArbitraje(p.getArbitraje())){
@@ -511,12 +519,12 @@ public class IngresoMundial{
             return;
         }
 
-        if(estadio.agregarPartido(p)){
+        if(estadio.agregarPartido(p)){//el estadio sabe que partidos se jugaron ahi
             System.out.println("Partido asociado al estadio " + estadio.getNombre() + " con éxito.");
         } else {
             System.out.println("Advertencia: El partido ya estaba registrado en este estadio.");
         }
-        if(fase.agregarPartido(p)){
+        if(fase.agregarPartido(p)){//la fase sabe que partidos le pertenecen
             System.out.println("Partido agendado en la fase " + fase.getNombreFase() + " con éxito.");
         } else {
             System.out.println("Advertencia: El partido ya pertenecía a esta fase.");
@@ -529,8 +537,10 @@ public class IngresoMundial{
             registrarEventos(p, jugadores);
             //VALIDA SI LA FASE ES GRUPO PARA SUMAR LOS PUNTOS CCORRESPONDIENTES
             if(p.getFase().getNombreFase() == TipoNombreFase.Grupos){
-                actualizarEstadisticasPorPartido(p);
-                System.out.println("Estadisticas del grupo actualizadas");
+               
+              actualizarEstadisticasPorPartido(p, partidos); // <- ahora pasa "partidos" también
+              System.out.println("Estadisticas del grupo actualizadas");
+
             } else {
                 System.out.println("Partido de eliminación directa registrado");
             }
@@ -552,16 +562,22 @@ public class IngresoMundial{
         if (p == null) return;
         registrarEventos(p,jugadores);
         
-        actualizarEstadisticasPorPartido(p);
+        if (p.getFase() != null && p.getFase().getNombreFase() == TipoNombreFase.Grupos) {
+            actualizarEstadisticasPorPartido(p, partidos);
+            System.out.println("Estadisticas del grupo actualizadas");
+        } else {
+            System.out.println("Partido de eliminación directa registrado");
+        }
     }
 
     //registra eventos en un partido ya creado
+    //este es un metodo para crear los eventos llamado desde registar evento de un partido y crear partido
     public void registrarEventos(Partido p, List<Jugador> jugadores) {
         System.out.println("\n--- Registro de eventos para el partido del " + p.getFecha() + " ---");
         boolean seguir;
         do {
             System.out.println("\nNuevo evento:");
-            TipoEvento tipo = TecladoEnum.elegirTipoEvento();
+            TipoEvento tipo = IngresoEnum.elegirTipoEvento();
             int min = pedirEntero("Minuto: ");
 
             Jugador j = null;
