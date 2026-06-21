@@ -371,7 +371,7 @@ public class Reporte {
         }
     }
 
-    //ESTADISTICAS DE SEDES (REPORTE 6)
+    //ESTADISTICAS DE SEDES (REPORTE 6)(ARREGLAR ESTO)
     public void mostrarEstadisticasSedes(List<Sede> sedes) {
         System.out.println("===== ESTADÍSTICAS DE SEDES =====");
         System.out.printf("%-20s %-15s %10s %12s%n", "Ciudad", "País", "Partidos", "Estadios");

@@ -114,19 +114,23 @@ public class Menu{
                     reporte.mostrarFichaTecnica(p);
                     break;
                 case 12:
-                    //Reporte.mostrarTablaPosiciones(grupos);
+                    System.out.println("Seleccione el grupo para mostrar la tabla: ");
+                    Grupo g=Ingreso.seleccionarGrupo(grupos);
+                    reporte.mostrarTablaPosiciones(g);
                     break;
                 case 13:
-                    //Reportes
+                   System.out.println("Seleccione la seleccion para mostrar los resultados: ");
+                   Seleccion s=Ingreso.seleccionarSeleccion(selecciones);
+                   reporte.mostrarResultadosSeleccion(s);
                     break;
                 case 14:
-                    //Reportes
+                    reporte.mostrarRankingGoleadores(partidos);
                     break;
                 case 15:
-                    //Reportes
+                    reporte.mostrarInformeDisciplinario(partidos);
                     break;
                 case 16:
-                    //Reportes
+                    //
                     break;
                 case 0:
                     System.out.println("Saliendo del programa...");
