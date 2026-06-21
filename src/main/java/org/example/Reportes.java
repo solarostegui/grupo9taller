@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.Collections;
 
 public class Reportes {
     //TABLA DE POSICIONES POR GRUPO (REPORTE 1)
@@ -17,30 +18,9 @@ public class Reportes {
         //Creamos una lista local para ordenar de forma segura
         List<Estadisticas> listaEstadisticas = new ArrayList<>(grupo.getTablaEstadisticas());
 
-        //La ordenamos usando los criterios FIFA
-        listaEstadisticas.sort((est1, est2) -> {
-            //si las estadisticas son nulas las mandamos al final
-            if (est1 == null) {
-                return 1;
-            }
-            if (est2 == null) {
-                return -1;
-            }
-
-            //Criterio 1: puntos de mayor a menor
-            int comparacionPuntos = Integer.compare(est2.getPuntos(), est1.getPuntos());
-            if (comparacionPuntos != 0) {
-                return comparacionPuntos;
-            }
-            //Criterio 2: dif goles de mayor a menor
-            int comparacionDiferencia = Integer.compare(est2.getDiferenciaGoles(), est1.getDiferenciaGoles());
-            if (comparacionDiferencia != 0) {
-                return comparacionDiferencia;
-            }
-            //Criterio 3: goles a favor de mayor a menor
-            return Integer.compare(est2.getGolesAFavor(), est1.getGolesAFavor());
-
-        });
+       //La ordenamos usando la clase comparadora
+       listaEstadisticas.sort(new OrdenarEstadisticasPorPuntos());
+    
         //Bucle para imprimir la lista fila x fila
         for (Estadisticas est : listaEstadisticas) {
             if (est != null) {
@@ -129,13 +109,22 @@ public class Reportes {
             return;
         }
         //Clase auxiliar para unir un jugador con su contador de goles
-        class GoleadorAux {
-            Jugador jugador;
-            int goles;
+       //Ya define su propio orden (de mayor a menor goles) con compareTo
+       class GoleadorAux implements Comparable<GoleadorAux> {
+           Jugador jugador;
+           int goles;
+           GoleadorAux(Jugador jugador, int goles) {
+               this.jugador = jugador;
+               this.goles = goles;
+            }
 
-            GoleadorAux(Jugador jugador, int goles) {
-                this.jugador = jugador;
-                this.goles = goles;
+            @Override
+           public int compareTo(GoleadorAux otro) {
+               if (otro == null) {
+                   return -1;
+                }
+                //De mayor a menor goles
+                return Integer.compare(otro.goles, this.goles);
             }
         }
         //Lista para los auxiliares
@@ -144,10 +133,13 @@ public class Reportes {
         for (Partido p : partidos) {
             if (p != null && p.getEventos() != null) {
                 for (Evento e : p.getEventos()) {
-                    if (e != null && e.getEvento() == TipoEvento.Gol && e.getJugador() != null) { //Verifica que sea gol y que esté asignado a un jugador
+                    //Verifica que sea gol y que esté asignado a un jugador
+                    if (e != null && e.getEvento() == TipoEvento.Gol && e.getJugador() != null) { 
+                        /*chequea q el jugador pertenezca a alguna de las dos 
+                        selecciones del partido*/
                         Jugador jugadorActual = e.getJugador();
-                        if (Validador.validarEvento(p, jugadorActual)) { //Buscamos si el jugador está en la lista
-                            //Si no está
+                        if (Validador.validarEvento(p, jugadorActual)) { 
+                            //debemos buscar si ya existe un jugadoraux para ese jugador en listagoleadores
                             GoleadorAux encontrado = null;
                             for (GoleadorAux g : listaGoleadores) {
                                 if (g.jugador.getDorsal() == jugadorActual.getDorsal() && g.jugador.getNombre().equalsIgnoreCase(jugadorActual.getNombre())) {
@@ -159,6 +151,7 @@ public class Reportes {
                             if (encontrado != null) {
                                 encontrado.goles++;
                             } else {
+                                //si no esta crea un jugadoraux
                                 listaGoleadores.add(new GoleadorAux(jugadorActual, 1));
                             }
 
@@ -172,16 +165,9 @@ public class Reportes {
             System.out.println("No hay goles registrados.");
             return;
         }
-        //Ordenamiento mayor a menor FIFA
-        listaGoleadores.sort((g1, g2) -> {
-            if (g1 == null) {
-                return 1;
-            }
-            if (g2 == null) {
-                return -1;
-            }
-            return Integer.compare(g2.goles, g1.goles);
-        });
+        //Ordenamiento mayor a menor FIFA 
+        Collections.sort(listaGoleadores);
+        
         //Impresion en pantalla
         for (GoleadorAux g : listaGoleadores) {
             if (g != null && g.jugador != null) {
@@ -204,17 +190,24 @@ public class Reportes {
             return;
         }
         //Auxiliar local
-        class Sancionado {
+        class Sancionado implements Comparable<Sancionado> {
             Jugador jugador;
             int amarillas;
             int rojas;
 
             Sancionado(Jugador jugador) {
-                this.jugador = jugador;
-                this.amarillas = 0;
-                this.rojas = 0;
+               this.jugador = jugador;
+               this.amarillas = 0;
+               this.rojas = 0;
             }
-        }
+
+           @Override
+           public int compareTo(Sancionado otro) {
+               String n1 = (this.jugador != null) ? this.jugador.getNombre() : "";
+               String n2 = (otro != null && otro.jugador != null) ? otro.jugador.getNombre() : "";
+               return n1.compareToIgnoreCase(n2);
+            }
+        }   
         //Lista registros disciplinarios
         List<Sancionado> listaSancionados = new ArrayList<>();
         //Recorremos los partidos uno x uno
@@ -225,8 +218,11 @@ public class Reportes {
                         TipoEvento tipo = e.getEvento();
                         //Si el evento es tarjeta
                         if (tipo == TipoEvento.TarjetaAmarilla || tipo == TipoEvento.TarjetaRoja || tipo == TipoEvento.DobleAmarilla) {
+                            /*obtenemos el jusgador del evento y confimamos si el juador
+                            esta jugando en una de las selecciones de ese partido*/
                             Jugador jugadorActual = e.getJugador();
                             if (Validador.validarEvento(p, jugadorActual)) {
+                                //buscamos si el jugador ya esta en la lista de sancionados
                                 Sancionado encontrado = null;
                                 for (Sancionado s : listaSancionados) {
                                     if (s.jugador.getDorsal() == jugadorActual.getDorsal() && s.jugador.getNombre().equalsIgnoreCase((jugadorActual.getNombre()))) {
@@ -257,17 +253,9 @@ public class Reportes {
             System.out.println("No hay eventos disciplinarios registrados.");
             return;
         }
-        //Ordenar alfabéticamente los nombres de los jugadores
-        listaSancionados.sort((s1, s2) -> {
-            if (s1 == null || s1.jugador == null) {
-                return 1;
-            }
-            if (s2 == null || s2.jugador == null) {
-                return -1;
-            }
-            //Comparamos strings
-            return s1.jugador.getNombre().compareToIgnoreCase(s2.jugador.getNombre());
-        });
+        //ordena por nombre de los jugadores
+        Collections.sort(listaSancionados);
+        
         for (Sancionado s : listaSancionados) {
             if (s != null && s.jugador != null) {
                 System.out.printf("%-20s %6d %10d %6d%n",
