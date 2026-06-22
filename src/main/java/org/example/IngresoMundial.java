@@ -30,7 +30,7 @@ public class IngresoMundial{
         }
     }
     // Pide un float y valida que lo sea
-   public static float pedirFloat(String mensaje) {
+    public static float pedirFloat(String mensaje) {
         while (true) {
             System.out.print(mensaje);
             try {

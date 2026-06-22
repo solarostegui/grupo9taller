@@ -130,7 +130,17 @@ public class Menu{
                     reporte.mostrarInformeDisciplinario(partidos);
                     break;
                 case 16:
-                    //
+                    System.out.println("Que desea consultar?");
+                    System.out.println("1. Sede");
+                    System.out.println("2. Estadio");
+                    int opcionSede = IngresoMundial.pedirEnteroRango("Seleccione: ",1,2);
+                    if(opcionSede == 1){
+                        Sede sede = Ingreso.seleccionarSede(sedes);
+                        reporte.mostrarEstadisticasSedes(sede);
+                    } else {
+                        Estadio estadio = Ingreso.seleccionarEstadio(estadios);
+                        reporte.mostrarEstadisticasEstadio(estadio);
+                    }
                     break;
                 case 0:
                     System.out.println("Saliendo del programa...");

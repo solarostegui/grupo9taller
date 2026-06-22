@@ -3,7 +3,6 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Comparator;
-
 import java.util.Collections;
 
 public class Reporte {
@@ -372,35 +371,45 @@ public class Reporte {
     }
 
     //ESTADISTICAS DE SEDES (REPORTE 6)(ARREGLAR ESTO)
-    public void mostrarEstadisticasSedes(List<Sede> sedes) {
-        System.out.println("===== ESTADÍSTICAS DE SEDES =====");
-        System.out.printf("%-20s %-15s %10s %12s%n", "Ciudad", "País", "Partidos", "Estadios");
-        System.out.println("-".repeat(60));
-        //Control para que no falle si hay cosas vacías
-        if(sedes == null || sedes.isEmpty()){
-            System.out.println("No hay sedes registradas.");
+    public void mostrarEstadisticasSedes(Sede sedes) {
+        System.out.println("===== ESTADÍSTICAS DE LA SEDE =====");
+        
+        //Control para que no falle si no existe la sede
+        if(sedes == null){
+            System.out.println("Sede no valida.");
             return;
         }
         
-        for (Sede s : sedes) {
-            if (s != null) {
-              int cantPartidos = 0;
-              int cantEstadios = 0;
-               if (s.getEstadios() != null) {
-                  cantEstadios = s.getEstadios().size();
-                  for (Estadio e : s.getEstadios()) {
-                       if (e != null && e.getPartidos() != null) {
-                           cantPartidos += e.getPartidos().size();
-                        }
-                    }
-                }
-                System.out.printf("%-20s %-15s %10d %12d%n",
-                s.getCiudad(),
-                s.getPais() != null ? s.getPais().getNombre() : "N/A",
-                cantPartidos,
-                s.getEstadios().size());
-            }
+        int cantPartidosTotales = 0;
+        
+        //Recorremos los estadios de esa sede
+        for (Estadio estadio : sedes.getEstadios()) {
+            int partidos = estadio.getPartidos().size();
+            cantPartidosTotales += partidos;
+            //Sedes puede tener mas de un estadio y muestra la cantidad de partidos de los estadios de la sede luego muestra el total de partidos de la sede
+            System.out.println("Estadio: " + estadio.getNombre() + " | Partidos: " + partidos);
         }
+        
+        System.out.println("Total partidos de la sede: " + cantPartidosTotales);
+    }
+    
+    public void mostrarEstadisticasEstadio(Estadio estadio){
+        if (estadio == null){
+            System.out.println("Estadio no valido");
+            return;
+        }
+        
+        if(estadio.getPartidos() == null || estadio.getPartidos().isEmpty()){
+            System.out.println("No hay partidos registrados en el estadio " + estadio.getNombre());
+            return;
+        }
+        System.out.println("Estadio: " + estadio.getNombre() + " - Total partidos jugados: " + estadio.getPartidos().size());
     }
 }
+
+
+    
+
+
+
 
