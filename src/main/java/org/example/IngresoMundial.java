@@ -569,32 +569,44 @@ public class IngresoMundial{
             System.out.println("Partido de eliminación directa registrado");
         }
     }
+    
+    /**
+    * Registra los eventos ocurridos durante un partido.
+    * Valida que el jugador involucrado pertenezca a alguna
+    * de las selecciones participantes en el partido.
+    * @param p partido en el que se registran los eventos
+    * @param jugadores lista de jugadores disponibles para seleccionar
+ */
 
     //registra eventos en un partido ya creado
     //este es un metodo para crear los eventos llamado desde registar evento de un partido y crear partido
     public void registrarEventos(Partido p, List<Jugador> jugadores) {
         System.out.println("\n--- Registro de eventos para el partido del " + p.getFecha() + " ---");
-        boolean seguir;
-        do {
+        
+        while(true) {
             System.out.println("\nNuevo evento:");
             TipoEvento tipo = IngresoEnum.elegirTipoEvento();
             int min = pedirEntero("Minuto: ");
-
             Jugador j = null;
             if (tipo != TipoEvento.Sustitucion) {
-                System.out.println("Jugador involucrado:");
+                System.out.println("Jugador involucrado: ");
                 j = seleccionarJugador(jugadores);
                 if (j != null && !Validador.validarEvento(p, j)) {
-                    System.out.println("¡ADVERTENCIA! El jugador no pertenece a ninguna de las dos selecciones.");
+                    System.out.println("El jugador no pertenece a ninguna de las dos selecciones.");
+                    if(!pedirBooleano("¿Agregar otro evento?")){
+                    break;
+                    }
+                    continue;
                 }
             }
-
             p.agregarEvento(tipo, min, j);
-            seguir = pedirBooleano("¿Agregar otro evento?");
-        } while (seguir);
-
+            if(!pedirBooleano("¿Agregar otro evento?")){
+                break;
+            }  
+        }
         System.out.println("Eventos registrados correctamente.\n");
     }
+    
     
     /*FLUJO: Main→ menú → crearPartido() → seleccionarEstadio() → devuelve Estadio → sigue crearPartido()
     // ─── SELECTORES POR TIPO ──────────────────────────────────────────────────

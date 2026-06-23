@@ -52,7 +52,7 @@ public class Estadio {
 
     //Método agregar partido
     public boolean agregarPartido(Partido p){
-        if(p != null){
+        if(p == null){
             return false;
         }
         if(!this.partidos.contains(p)){

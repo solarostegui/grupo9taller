@@ -52,7 +52,7 @@ public class Fase {
     }
     
     public boolean agregarGrupos(Grupo g){
-        if(g != null){
+        if(g == null){
             return false;
         }
         if(!this.grupos.contains(g)){

@@ -3,18 +3,44 @@ package org.example;
 import java.util.ArrayList;
 import java.util.Objects;
 
-//Definición clase jugador -> atributos: dorsal (int), posicion (de TipoPosicion -enum), peso (float), altura (float)
+/**
+ * Representa a cada jugador de una selección. Esta clase hereda de persona.
+ * Incluye los atributos dorsal, posición, peso y altura.
+ * @author Antonella Monti, María Sol Arostegui, María del Mar Dalorso.
+ * @version 1.0
+ */
+
 public class Jugador extends Persona{
-
+    /**
+     * Numero de camiseta del jugador.
+     */
     private int dorsal;
+    /**
+     * Posición en que juega el jugador.
+     */
     private TipoPosicion posicion;
+    /**
+     * Peso del jugador.
+     */
     private float peso;
+    /**
+     * Altura del jugador.
+     */
     private float altura;
-    //bidireccional con evento
+    /**
+     * Colección de los eventos que haga el jugador.
+     */
     private ArrayList<Evento> evento;
-   
-
-    //Constructor con parámetros
+    
+    /**
+     * Constructor con parámetros para crear a un jugador.
+     * @param nombre nombre del jugador.
+     * @param fecNacimiento fecha de nacimiento de un jugador.
+     * @param dorsal numero de camiseta del jugador.
+     * @param posicion posicion que juega el jugador.
+     * @param peso peso del jugador.
+     * @param altura altura del jugador.
+     */
     public Jugador (String nombre, int fecNacimiento, int dorsal, TipoPosicion posicion, float peso, float altura){
         super (nombre, fecNacimiento);
         this.dorsal = dorsal;
@@ -23,12 +49,15 @@ public class Jugador extends Persona{
         this.altura = altura;
         this.evento = new ArrayList<Evento>();
     }
-
-    //Constructor por defecto
+    /** 
+     * Cosntructor por defecto que inicializa  la estructura de datos para la coleccion de eventos.
+     */
+    
     public Jugador (){
+        this.evento = new ArrayList<Evento>();
     }
 
-    //Get
+    
     public int getDorsal() {
         return dorsal;
     }
@@ -61,13 +90,23 @@ public class Jugador extends Persona{
     public void setEvento(ArrayList<Evento> evento) {
         this.evento = evento;
     }
-
-    //Método para agregar eventos(solo administra la lista del jugador)
-    public void agregarEvento(Evento e){
+    /**
+     * Agrega un evento a la lista de eventos del jugador si el evento no es nulo y no está registrado previamente.
+     * @param e evento a agregar.
+     * @return true si se agrego correctamente, false si era nulo o ya existía.
+     */
+    
+    public boolean agregarEvento(Evento e){
         if(e!=null && !this.evento.contains(e)){
             this.evento.add(e);
+            return true;
         }
+        return false;
     }
+    /**
+     * Imprime la información de un jugador.
+     * @return presenta los datos de un jugador.
+     */
 
     @Override
     public String toString() {
@@ -78,6 +117,13 @@ public class Jugador extends Persona{
                 "\nPosicion: " + this.posicion + "\nPeso: " + this.peso + 
                 "\nAltura: " + this.altura;
     }
+    
+    /**
+     * Compara un jugador con otro objeto para determianar si son iguales. 
+     * Se concideran iguales si tienen el mismo nombre, peso y altura.
+     * @param o objeto a comparar.
+     * @return true si el nombre, peso y altura es igual, false si es lo contrario.
+     */
     
     @Override
     public boolean equals(Object o) {
