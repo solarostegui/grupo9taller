@@ -17,7 +17,7 @@ public class Estadio {
     /** Colección de los partidos vinculados al estadio. */
     private List<Partido> partidos;
     
-    /** Constructor por defecto que inicializa  la estructura de datos para la coleccion de partidos.
+    /** Constructor por defecto que inicia  la estructura de datos para la coleccion de partidos.aliz
     */
     public Estadio(){
         this.partidos=new ArrayList<Partido>();
@@ -66,6 +66,7 @@ public class Estadio {
     /** 
      * Agrega un nuevo partido a la lista de partidos del estadio.
      * @param p agrega a los partidos.
+     * @return true cuando se agrega un partido , false si ya está agregado o es null. 
      */
     public boolean agregarPartido(Partido p){
         if(p == null){

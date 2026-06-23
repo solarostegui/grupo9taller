@@ -7,23 +7,80 @@ package org.example;
 import java.util.*;
 
 /**
- *
- * @author mardalorso
+ * Clase encargada de gestionar la interfaz de usuario por consola
+ * para el sistema de gestion del Mundial.
+ * Coordina el flujo completo de la aplicación, interactua con el  ingreso
+ * de datos, permite registrar eventos en tiempo real y emitir reportes e informes solicitados.
+ * @author Antonella Monti, María del Mar Dalorso.
+ * @version 1.0
  */
 
 public class Menu{
+    /**
+     * Objeto central que guarda los datos generales del torneo.
+     */
     private Mundial mundial;
+    /**
+     * Colección global de los paises registrados en el sistema.
+     */
     private List<Pais> paises;
+    /**
+     * Colección global de sedes asignadas para los encuentros.
+     */
     private List<Sede> sedes;
+    /**
+     * Colección global de estadios donde se jugaran los partidos.
+     */
     private List<Estadio> estadios;
+    /**
+     * Colección de arbitros habilitados para dirigir los partidos.
+     */
     private List<Arbitro> arbitros;
+    /**
+     * Colección de directores técnicos a cargo de las selecciones.
+     */
     private List<DirectorTecnico> dts;
+    /**
+     * Colección de integrantes del cuerpo técnico y medicos de los equipos. 
+     */
     private List<CuerpoTecnico> cts;
+    /**
+     * Colección global de jugadores inscriptos en el torneo.
+     */
     private List<Jugador> jugadores;
+    /**
+     * Colección de las fases del torneo.
+     */
     private List<Fase> fases;
+    /**
+     * Colección de los grupos que componen la primera instancia del tornoe.
+     */
     private List<Grupo> grupos;
+    /**
+     * Colección de selecciones que compiten en el torneo.
+     */
     private List<Seleccion> selecciones;
+    /**
+     * Colección de partidos programados del torneo.
+     */
     private List<Partido> partidos;
+    
+    /**
+     * Constructor parametrizado para crear el menú cargando el objeto principal Mundial y todas las listas de datos requeridas para permitir
+     * consultarlas, modificarlas y asegurar que los cambios se mantengan guardados en memoria. 
+     * @param mundial objeto centtral {@link Mundial}.
+     * @param paises Lista de objetos de tipo {@link Pais}.
+     * @param sedes Lista de objetos de tipo {@link Sede}.
+     * @param estadios Lista de objetos de tipo {@link Estadio}.
+     * @param arbitros Lista de árbitros de tipo {@link Arbitro}.
+     * @param dts Lista de directores técnicos de tipo {@link DirectorTecnico}.
+     * @param cts Lista de integrantes del cuerpo técnico de tipo {@link CuerpoTecnico}.
+     * @param jugadores Lista de futbolistas de tipo {@link Jugador}.
+     * @param fases Lista de las instancias del torneo de tipo {@link Fase}.
+     * @param grupos Lista de zonas de tipo {@link Grupo}.
+     * @param selecciones Lista de combinados nacionales de tipo {@link Seleccion}.
+     * @param partidos Lista de los encuentros pautados de tipo {@link Partido}.
+     */
 
     public Menu(Mundial mundial,List<Pais> paises, List<Sede> sedes, List<Estadio> estadios, List<Arbitro> arbitros, List<DirectorTecnico> dts, List<CuerpoTecnico> cts, List<Jugador> jugadores, List<Fase> fases, List<Grupo> grupos, List<Seleccion> selecciones, List<Partido> partidos) {
         this.mundial = mundial;
@@ -40,7 +97,12 @@ public class Menu{
         this.partidos = partidos;
     }
     
-    
+    /**
+     * Ejecuta el bucle principal de control por consola de la interfaz de usuario.
+     * Muestra las opciones en pantalla y divide el flujo lógico mediante un bloque {@code switch}
+     * para coordinar las operaciones de carga de datos y muestra de informes.
+     * Finaliza la ejecución cuando el usuario ingresa la opción {@code 0}.
+     */
     
     public void MostrarMenu(){
         Reporte reporte=new Reporte();

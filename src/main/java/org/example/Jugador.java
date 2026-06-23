@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * Representa a cada jugador de una selección. Esta clase hereda de persona.
  * Incluye los atributos dorsal, posición, peso y altura.
- * @author Antonella Monti, María Sol Arostegui, María del Mar Dalorso.
+ * @author Antonella Monti, María del Mar Dalorso.
  * @version 1.0
  */
 

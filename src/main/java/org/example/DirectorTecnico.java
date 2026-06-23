@@ -28,7 +28,6 @@ public class DirectorTecnico extends Persona{
      */
     public DirectorTecnico (){
     }
-
     
     public int getFechaNombramiento() {
         return fechaNombramiento;
@@ -36,26 +35,14 @@ public class DirectorTecnico extends Persona{
     public void setFechaNombramiento(int fechaNombramiento) {
         this.fechaNombramiento = fechaNombramiento;
     }
-
-    public String getNombre() {
-        return nombre;
-    }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getFecNacimiento() {
-        return fecNacimiento;
-    }
-    public void setFecNacimiento(int fecNacimiento) {
-        this.fecNacimiento = fecNacimiento;
-    }
+    
     /**
      * Compara un director técnico con otro objeto para determinar si son iguales. 
      * Se concideran iguales si sus nombres son iguales.
      * @param o objeto a comparar.
      * @return true si los nombres son iguales; false en caso contrario.
      */
+    
     @Override
     public boolean equals(Object o) {
        if (o == null) {

@@ -5,11 +5,16 @@
 package org.example;
 
 /**
- *
- * @author mardalorso
+ * Clase que gestiona el ingreso de valores enum por teclado.
+ * @author María del Mar Dalroso, Monti Antonella.
+ * @version 1.0
  */
 public class IngresoEnum {
-    
+    /**
+     * Muestra por consola las posiciones de juego del equipo y solicita al usuario que seleccione
+     * una dentro del rango permitido.
+     * @return El valor de {@link TipoPosicion} que corresponde a la opción seleccionada.
+     */
     public static TipoPosicion elegirTipoPosicion() {
         
         System.out.println("\n-- Posiciones disponibles --");
@@ -24,7 +29,11 @@ public class IngresoEnum {
         [opcion] elije segun el numero ingresado en ese array*/
         return TipoPosicion.values()[opcion];
     }
- 
+    /**
+     * Muestra en consola los roles para el cuerpo técnico y médico,
+     * y solicita al usuario que seleccione uno dentro del rango permitido.
+     * @return El valor de {@link TipoRol} que corresponde a la opción seleccionada. 
+     */
     public static TipoRol elegirTipoRol() {
         
         System.out.println("\n-- Roles disponibles --");
@@ -40,7 +49,12 @@ public class IngresoEnum {
         int opcion = IngresoMundial.pedirEnteroRango("Seleccione rol: ", 0, 7);
         return TipoRol.values()[opcion];
     }
- 
+    
+    /**
+     * Muestra en consola los tipos de eventos que pueden ocurrir durante un partido
+     * y solicita al usuario que seleccione uno dentro del rango permitido.
+     * @return El valor de {@link TipoEvento} que corresponde a la opción seleccionada.
+     */ 
     public static TipoEvento elegirTipoEvento() {
         
         System.out.println("\n-- Tipos de evento disponibles --");
@@ -57,7 +71,11 @@ public class IngresoEnum {
         int opcion = IngresoMundial.pedirEnteroRango("Elija el evento: ",0,8);
         return TipoEvento.values()[opcion];
     }
- 
+    /**
+     * Muestra en consola las fases del torneo mundial disponibles
+     * y solicita al usuario que seleccione una dentro del rango permitido.
+     * @return El valor de {@link TipoNombreFase} que corresponde a la opción seleccionada.
+     */
     public static TipoNombreFase elegirTipoNombreFase() {
         
         System.out.println("\n-- Fases disponibles --");
@@ -71,7 +89,13 @@ public class IngresoEnum {
         int opcion = IngresoMundial.pedirEnteroRango("Elija la fase: ",0,5);
         return TipoNombreFase.values()[opcion];
     }
- 
+    
+    /**
+     * Muestra en consola los roles arbitrales disponibles para un partido
+     * y solicita al usuario que seleccione una dentro del rango permitido.
+     * @return El valor de {@link TipoCategoriaArbitro} que corresponde a la opción seleccionada.
+     */
+    
     public static TipoCategoriaArbitro elegirTipoCategoriaArbitro() {
         
         System.out.println("\n-- Categorías de árbitro disponibles --");

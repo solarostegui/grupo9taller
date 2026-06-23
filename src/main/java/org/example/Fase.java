@@ -3,7 +3,7 @@ package org.example;
 import java.util.List;
 import java.util.ArrayList;
 /**
- * Representa la fase del mundial. Esta clase posee un atributo nombreFase,una relacion bidireccional con la clase partido y con la clase grupo
+ * Representa las fases del mundial. Esta clase posee un atributo con el nombre de la fase,una relación bidireccional con la clase partido y con la clase grupo.
  * @author Maria del Mar Dalorso, Antonella Monti, Maria Sol Arostegui
  * @version 1.0
  */
@@ -24,7 +24,7 @@ public class Fase {
         this.partidos=new ArrayList<Partido>();
         this.grupos=new ArrayList<Grupo>();
     }
-    /** Constructor por defecto que inicializa  las estructuras de datos para la coleccion de partidos y de grupos.
+    /** Constructor por defecto que inicializa  las estructuras de datos para la colección de partidos y de grupos.
     */
     public Fase(){
         this.partidos=new ArrayList<Partido>();
@@ -50,7 +50,8 @@ public class Fase {
     public void setGrupos(List<Grupo> grupos) {this.grupos = grupos;}
     /** 
      * Agrega un nuevo partido a la lista de partidos de la fase.
-     * @param p se agrega a los partidos.
+     * @param p objeto que se agrega a la lista.
+     * @return true si se agrega correctamente a la lista, false si ya fue agregado o es null.
      */
     public boolean agregarPartido(Partido p){
         if(p == null){
@@ -65,7 +66,8 @@ public class Fase {
     }
     /** 
      * Agrega un nuevo grupo a la lista de grupos de la fase.
-     * @param g se agrega a los grupos.
+     * @param g objeto que se agrega a la lista.
+     * @return true si se agrega correctamente a la lista, false si ya existe o es null.
      */
     public boolean agregarGrupos(Grupo g){
         if(g == null){

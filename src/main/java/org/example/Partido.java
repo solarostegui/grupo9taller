@@ -8,33 +8,72 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 /**
- *
- * @author mardalorso
+ * Clase que representa un partido dentro del mundial. 
+ * Coordina la fecha, el horario, el estadio donde se juega,
+ * las selecciones que participan y todos los eventos que ocurren en el partido.
+ * @author María del Mar Dalorso, Antonella Monti.
+ * @version 1.0
  */
 public class Partido {
-    //variables miembro de objeto
+    /**
+     * Fecha en que realiza el partido.
+     */
     private LocalDate fecha;
+    /**
+     * Horario en que se realiza el partido.
+     */
     private LocalTime horario;
+    /**
+     * Duracion del partido en minutos.
+     */
     private int duracion;
+    /**
+     * Tiempo adicional agregado al partido.
+     */
     private int tiempoadicional;
-    //bidireccional con estadio
+    /**
+     * Relacion bidireccional, estadio donde se juega el partido
+     */
     private Estadio estadio;
-    //bidireccional con fase
+    /**
+     * Relacion dibireccional, fase del torneo en la que esta jugando el partido
+     */
     private Fase fase;
-    //clase asocicion con Participacion
+    /**
+     * Información de la primera selección que participa.
+     */
     private Participacion seleccion1;
+    /**
+     * Información de la segunda selección que participa.
+     */
     private Participacion seleccion2;
-    //composicion con evento
+    /**
+     * Lista de los eventos ocurridos en el partido.
+     */
     private List<Evento> eventos;
-    //Clase asociacion arbitraje
+    /**
+     * Lista del equipo arbitral asignado para dirigir el partido.
+     */
     private List<Arbitraje> Arbitrajes;
     
-    //contructor por defecto
+    /**
+     * Constructor por defecto que inicializa las listas de evento y arbitraje vacías. 
+     */
     public Partido(){
-    this.eventos=new ArrayList<Evento>();
-    this.Arbitrajes=new ArrayList<Arbitraje>();
+    this.eventos=new ArrayList<>();
+    this.Arbitrajes=new ArrayList<>();
     }
-    
+    /**
+     * Constructor con parámetros para crear un partido.
+     * @param fecha fecha del encuentro.
+     * @param horario horario de inicio del partido.
+     * @param duracion minutos de duración del partido.
+     * @param tiempoadicional minutos adicionales agregador al partido
+     * @param estadio el {@link Estadio} donde se jugará el encuentro.
+     * @param fase la {@link Fase} del mundial a la que corresponde el partido.
+     * @param seleccion1 la {@link Participacion} del primer equipo participante 
+     * @param seleccion2 la {@link Participacion} del segundo equipo participante.
+     */
     public Partido(LocalDate fecha, LocalTime horario, int duracion, int tiempoadicional,Estadio estadio,Fase fase,Participacion seleccion1,Participacion seleccion2) {
         this.fecha = fecha;
         this.horario = horario;
@@ -44,11 +83,16 @@ public class Partido {
         this.fase=fase;
         this.seleccion1=seleccion1;
         this.seleccion2=seleccion2;
-        this.eventos=new ArrayList<Evento>();
-        this.Arbitrajes=new ArrayList<Arbitraje>();
+        this.eventos=new ArrayList<>();
+        this.Arbitrajes=new ArrayList<>();
     }
-    //agregar para las listas
-    //this indica que es para ese partido que esta jugando
+    /**
+     * Crea y agrega un nuevo evento en el partido.
+     * @param evento tipo de evento ocurrido.
+     * @param minuto minuto que ocurrió el evento.
+     * @param jugador jugador involucrado en el evento
+     */
+    
     public void agregarEvento(TipoEvento evento,int minuto, Jugador jugador){
             Evento e=new Evento(evento,minuto,jugador);
             this.eventos.add(e);
@@ -56,7 +100,10 @@ public class Partido {
                 jugador.agregarEvento(e); //Mantiene sincronizada la lista del jugador
             }
     }
-    
+    /**
+     * Agrega el equipo de arbitraje que dirije el parido.
+     * @param a 
+     */
     //Agrega un arbitraje al partido y sincroniza la referencia bidireccional
     public void agregarArbitraje(Arbitraje a){
         if(a != null){
@@ -137,8 +184,10 @@ public class Partido {
   
     @Override
     public String toString() {
-        return "\n-------Partido------" + ""
-                + "\nFecha: " + this.fecha + ""
+        return """
+               
+               -------Partido------
+               Fecha: """ + this.fecha + ""
                 + "\nHorario: " + this.horario + ""
                 + "\nDuracion: " + this.duracion + ""
                 + "\nTiempo adicional: " + this.tiempoadicional + ""
