@@ -2,48 +2,95 @@
 package org.example;
 import java.util.List;
 import java.util.ArrayList;
+/**
+ * Clase que representa una seleccion que participa en el torneo.
+ * Se encarga de guardar los datos de la federación, la camiseta y 
+ * de administrar las listas de sus jugadores, el cuerpo técnico y los directores técnicos.
+ * @author Antonella Monti, María del Mar Dalorso, María Sol Arostegui
+ * @version 1.0
+ */
 
 public class Seleccion {
-    //variable miembro de objeto
+    /**
+     * Nombre de la federación.
+     */ 
     private String nombreFederacion;
+    /**
+     * Camiseta principal
+     */
     private String camisetaPrincipal;
+    /**
+     * Camiseta Secundaria
+     */
     private String camisetaSecundaria;
+    /**
+     * Puntero del grupo
+     */
     private boolean cabezaGrupo;
+    /**
+     * Posición en el ranking Fifa
+     */
     private int rankingFIFA;
-    //clase asociacion con participacion
+    /**
+     * Relación de asociación, colección de las participaciones de la seleccion
+     */
     private List<Participacion> participaciones;
-    //bidireccional con pais
+    /**
+     * Relación bidireccional, una seleccion representa a un pais.
+     */ 
     private Pais pais;
-    //bidireccional con grupo
+    /**
+     * Relación bidireccional, las selecciones se agrupan en un grupo. 
+     */
     private Grupo grupo;
-    //Agregacion de jugador
+    /**
+     * Relación de agregación, Coleccion de jugadores que integra una seleccion.
+     */
     private List<Jugador> jugador;
-    //Agregacion Director Tecnico
+    /**
+     * Relacion de agregación, Colección de director tecnico que dirige una seleccion.
+     */
+    
     private List<DirectorTecnico> directoresTecnicos;
-    //Agregacion con Cuerpo Tecnico
+    /**
+     * Relacion de agregación, Colección de cuerpo técnico que tiene una selección.
+     */
+    
     private List<CuerpoTecnico> cuerposTecnicos;
 
-
-    //constructor parametrizado
+    /**
+     * Constructor con parámetros que crea una seleccion e inicializa las colecciones 
+     * de jugador, director tecnico y cuerpo tecnico.
+     * @param nombreFederacion nombre de la seleccion
+     * @param camisetaPrincipal nombre de la camiseta pricipal
+     * @param camisetaSecundaria nombre de la camiseta secundaria
+     * @param cabezaGrupo puntero del grupo
+     * @param rankingFIFA poscion de la seleccion en el ranking
+     * @param pais pais que representa la seleccion
+     * @param grupo grupo que pertenece de la selección
+     */
+    
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo, int rankingFIFA,Pais pais, Grupo grupo) {
         this.nombreFederacion = nombreFederacion;
         this.camisetaPrincipal = camisetaPrincipal;
         this.camisetaSecundaria = camisetaSecundaria;
         this.cabezaGrupo = cabezaGrupo;
         this.rankingFIFA = rankingFIFA;
-        this.participaciones=new ArrayList<Participacion>();
+        this.participaciones=new ArrayList<>();
         this.pais = pais;
         this.grupo = grupo;
-        this.jugador = new ArrayList<Jugador>();
-        this.directoresTecnicos = new ArrayList<DirectorTecnico>();
-        this.cuerposTecnicos = new ArrayList<CuerpoTecnico>();
+        this.jugador = new ArrayList<>();
+        this.directoresTecnicos = new ArrayList<>();
+        this.cuerposTecnicos = new ArrayList<>();
     }
-    //constructor por defecto
+    /**
+     * Contructor por defecto que inicializa las colecciones para evitar errores.
+     */
     public Seleccion(){
-        this.jugador = new ArrayList<Jugador>();
-        this.directoresTecnicos = new ArrayList<DirectorTecnico>();
-        this.cuerposTecnicos = new ArrayList<CuerpoTecnico>();
-        this.participaciones=new ArrayList<Participacion>();
+        this.jugador = new ArrayList<>();
+        this.directoresTecnicos = new ArrayList<>();
+        this.cuerposTecnicos = new ArrayList<>();
+        this.participaciones=new ArrayList<>();
     }
     //Setter y getter
     public String getNombreFederacion() {
@@ -123,7 +170,14 @@ public class Seleccion {
         this.participaciones = participaciones;
     }
     
-    //Metodos para las listas
+    /**
+     * Agrega un nuevo miembro al cuerpo técnico de esta selección.
+     * Verifica que el objeto no sea nulo y que no esté ya registrado en la lista.
+     * @param ct El {@link CuerpoTecnico} que se quiere agregar.
+     * @return {@code true} si se agregó con éxito, o {@code false} si ya existía o era nulo.
+     */
+     
+    
     public boolean agregarCuerposTecnicos(CuerpoTecnico ct){
         if(ct == null){
             return false;
@@ -134,6 +188,13 @@ public class Seleccion {
         }
         return false;
     }
+    
+    /**
+     * Incorpora un director técnico a la selección.
+     * Chequea que el dato sea válido y que no se repita.
+     * @param dt El {@link DirectorTecnico} que se desea sumar.
+     * @return {@code true} si se agregó correctamente, o {@code false} si ya estaba en la lista o es nulo.
+     */
     
     public boolean agregarDirectoresTecnicos(DirectorTecnico dt){
         if(dt == null){
@@ -146,12 +207,21 @@ public class Seleccion {
         return false;   
     }
     
+    /**
+     * Registra un nuevo partido de la selección.
+     * @param p La {@link Participacion} que vincula a este equipo con el encuentro jugado.
+     */
+    
     public void agregarParticipacion(Participacion p){
        this.participaciones.add(p);
    }
 
-    /*Chequeamos que un jugador no se repita 
-    en una seleccion*/
+    /**
+     * Añade un jugador a la selección.
+     * Verifica que el jugador no se repita en la lista de este equipo.
+     * @param j El {@link Jugador} que se intenta agregar.
+     * @return {@code true} si el jugador fue sumado con éxito, o {@code false} si ya estaba anotado o es nulo.
+     */
     public boolean agregarJugador(Jugador j){
         if(j==null){
             return false;
@@ -166,8 +236,9 @@ public class Seleccion {
     }
     @Override
     public String toString() {
-        return "--------Seleccion----------" +
-               "\nNombreFederacion: " + this.nombreFederacion + ""
+        return """
+               --------Seleccion----------
+               NombreFederacion: """ + this.nombreFederacion + ""
                 + "\nCamisetaPrincipal: " + this.camisetaPrincipal + ""
                 + "\nCamisetaSecundaria:" + this.camisetaSecundaria + ""
                 + "\nCabezagrupo: " + this.cabezaGrupo

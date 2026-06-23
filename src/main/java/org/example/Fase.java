@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 /**
  * Representa las fases del mundial. Esta clase posee un atributo con el nombre de la fase,una relación bidireccional con la clase partido y con la clase grupo.
- * @author Maria del Mar Dalorso, Antonella Monti, Maria Sol Arostegui
+ * @author Maria del Mar Dalorso, Antonella Monti.
  * @version 1.0
  */
 public class Fase {

@@ -2,7 +2,7 @@ package org.example;
 /**
  * Representa la clase de asociacion encargada de vincular a un Árbitro específico
  * con un Partido determinado, asignandole un rol particular.
- * @author Antonella Monti, María del Mar Dalorso, María Sol Arostegui
+ * @author Antonella Monti, María del Mar Dalorso.
  * @version 1.0
  */
 public class Arbitraje {

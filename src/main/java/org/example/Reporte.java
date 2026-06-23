@@ -4,24 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Comparator;
 import java.util.Collections;
-
+/**
+ * Clase responsable de generar todos los informes y reportes estadísticos del mundial
+ * Procesa la información de partidos, selecciones y eventos para mostrar los resultados
+ * ingresados por consola.
+ * @author Antoenlla Monti, María del Mar Dalorso.
+ */
 public class Reporte {
     
-    // Helper interno: calcula la tabla de estadísticas de un grupo,
+    /**
+     * Calcula las estadísticas completas de un grupo específico según la lista de partidos jugados.
+     * @param grupo El {@link Grupo} del cual se quieren calcular las estadísticas.
+     * @param partidos La lista total de {@link Partido} registrados en el sistema.
+     * @return Una lista de objetos {@link Estadistica} con los datos acumulados de cada selección.
+     */
     public List<Estadistica> calcularTablaEstadisticas(Grupo grupo, List<Partido> partidos) {
         
         List<Estadistica> tabla = new ArrayList<>();
         
         if (grupo == null || grupo.getSelecciones() == null) return tabla;
        
-        // 1. Una ficha en blanco por cada selección del grupo
+        //Una ficha en blanco por cada selección del grupo
         for (Seleccion s : grupo.getSelecciones()) {
             if (s != null) {
                 tabla.add(new Estadistica(s));
             }
         }
 
-        // 2. Recorremos los partidos y sumamos a la ficha que corresponda
+        //Recorremos los partidos y sumamos a la ficha que corresponda
         if (partidos != null) {
     for (Partido p : partidos) {
        if (p == null || p.getFase() == null) continue;
@@ -57,7 +67,16 @@ public class Reporte {
         }
         return tabla;
     }
-    //TABLA DE POSICIONES POR GRUPO (REPORTE 1)
+    
+    /**
+     * Informe: Tabla de Posiciones por Grupo
+     * Muestra en pantalla la Tabla de Posiciones de un grupo determinado.
+     * Imprime de forma alineada los partidos jugados, ganados, empatados, perdidos,
+     * goles a favor, en contra, diferencia de gol y el puntaje final ordenado de mayor a menor.
+     * @param grupo El {@link Grupo} que se desea visualizar.
+     * @param partidos La lista completa de {@link Partido} para extraer los resultados.
+     */
+    
     public void mostrarTablaPosiciones(Grupo grupo,List<Partido> partidos) {
         if (grupo == null) {
             System.out.println("Grupo no válido.");
@@ -90,8 +109,14 @@ public class Reporte {
         }
 
     }
-
-    //PUNTOS Y FASES DE UNA SELECCIÓN (REPORTE 2)
+    
+    /**
+     * Informe: Tabla de Resultados por Selección.
+     * Muestra los puntos acumulados y las fases alcanzadas por la seleccion buscada
+     * @param seleccionBuscada La {@link Seleccion} de la cual se quiere generar el informe.
+     * @param partidos La lista global de {@link Partido} del torneo.
+     */
+    
     public void mostrarResultadosSeleccion(Seleccion seleccionBuscada,List<Partido> partidos) {
         System.out.println("===== RESULTADOS DE LA SELECCIÓN =====");
         
@@ -163,7 +188,13 @@ public class Reporte {
         }
     }
 
-    //RANKING GOLEADORES (REPORTE 3)
+    /**
+     * Informe: Ranking de Goleadores.
+     * Genera el ranking de goleadores de todo el torneo.
+     * Recorre cada evento de tipo gol y los agrupa por jugador, ordenándolos
+     * de mayor a menor cantidad de anotaciones.
+     * @param partidos Lista de {@link Partido} de donde se extraerán los eventos de gol.
+     */
     public void mostrarRankingGoleadores(List<Partido> partidos) {
         //RANKING DE GOLEADORES
         System.out.println("===== RANKING DE GOLEADORES =====");
@@ -245,7 +276,13 @@ public class Reporte {
         }
     }
 
-    //INFORME DISCIPLINARIO POR SELECCIÓN O JUGADOR (REPORTE 4)
+    /**
+     * Informe: Informe Disciplinario
+     * Muestra el informe completo de tarjetas acumuladas y los jugadores que tengan tarjetas amarillas, rojas o dobles amarillas registradas,
+     * ordenados por su nombre.
+     * @param partidos Lista de {@link Partido} de donde se analizan las amonestaciones y expulsiones.
+     */
+    
     public void mostrarInformeDisciplinario(List<Partido> partidos) {
         System.out.println("===== INFORME DISCIPLINARIO =====");
         System.out.printf("%-20s %6s %10s %6s%n", "Jugador", "Dorsal", "Amarillas", "Rojas");
@@ -333,7 +370,14 @@ public class Reporte {
         }
     }
 
-    //FICHA TÉCNICA (REPORTE 5)
+    /**
+     * Informe: Ficha Técnica de Partido.
+     * Genera y muestra la ficha tecnica de un partido en particular.
+     * Muestra datos generales del encuentro, el resultado final, 
+     * las alineaciones completas de ambas selecciones, los eventos ordenados por minuto y 
+     * el cuerpo arbitral asignado.
+     * @param p El {@link Partido} del cual se desea desplegar el detalle completo.
+     */
     public void mostrarFichaTecnica(Partido p) {
         System.out.println("===== FICHA TÉCNICA DEL PARTIDO =====");
         if (p == null) {
@@ -424,7 +468,13 @@ public class Reporte {
         }
     }
 
-    //ESTADISTICAS DE SEDES (REPORTE 6)(ARREGLAR ESTO)
+    /**
+     * Informe: Estadísticas de Sedes.
+     * Muestra las estadísticas generales de una Sede.
+     * Recorre uno por uno todos los estadios asociados a la sede e imprime 
+     * cuántos partidos tuvo cada uno, para sumar todos y mostrar el total de cada sede.
+     * @param sede La {@link Sede} de la cual se quieren consultar sus datos y partidos.
+     */
     public void mostrarEstadisticasSedes(Sede sede) {
         System.out.println("===== ESTADÍSTICAS DE LA SEDE =====");
         

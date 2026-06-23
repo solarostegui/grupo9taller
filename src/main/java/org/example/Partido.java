@@ -101,10 +101,10 @@ public class Partido {
             }
     }
     /**
-     * Agrega el equipo de arbitraje que dirije el parido.
-     * @param a 
+     * Agrega un equipo de arbitraje que dirije el parido. 
+     * @param a objeto que se va a agregar.
      */
-    //Agrega un arbitraje al partido y sincroniza la referencia bidireccional
+    
     public void agregarArbitraje(Arbitraje a){
         if(a != null){
             this.Arbitrajes.add(a);

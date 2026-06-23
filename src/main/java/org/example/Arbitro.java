@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Representa a un árbitro que participa en el torneo.
  * Esta clase hereda de Persona y tiene una relacion bidireccional con la clase País y con la clase Partido.
- * @author Antonella Monti, María del Mar Dalorso, María Sol Arostegui
+ * @author Antonella Monti, María del Mar Dalorso.
  * @version 1.0
  */
 public class Arbitro extends Persona {

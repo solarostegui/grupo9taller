@@ -11,7 +11,7 @@ import java.time.*;
  * Clase que gestiona la consola de entrada de datos para el sistema del Mundial.
  * Permite la creación de entidades como países, sedes, estadios, árbitros,
  * directores técnicos, fases, grupos, jugadores, selecciones y partidos.
- * * @author * @author María del Mar Dalorso, María Sol Arostegui,Antonella Monti
+ * @author María del Mar Dalorso, Antonella Monti.
  * @version 1.0
  */
 public class IngresoMundial{
@@ -109,7 +109,7 @@ public class IngresoMundial{
     }
     /**
      * Método inicializador que obliga al registro de los datos de la entidad Mundial.
-     * * @return El objeto Mundial instanciado con los valores correspondientes.
+     * @return El objeto Mundial instanciado con los valores correspondientes.
      */
     public Mundial ingresarMundial(){
         System.out.println("=================================================");
@@ -132,7 +132,7 @@ public class IngresoMundial{
     /**
      * Crea un nuevo País controlando de manera previa que su nombre de identificación
      * no se encuentre ya almacenado de forma duplicada en el sistema.
-     * * @param paises Lista general de países registrados.
+     * @param paises Lista general de países registrados.
      */
     public void crearPais(List<Pais> paises) {
         System.out.println("\n--- NUEVO PAÍS ---");
@@ -155,7 +155,7 @@ public class IngresoMundial{
     /**
      * Genera un objeto Sede asociado a un país y, subsecuentemente, permite el registro
      * en lote de los Estadios vinculados físicamente a dicha localización geográfica.
-     * * @param paises Lista con los países dados de alta.
+     * @param paises Lista con los países dados de alta.
      * @param sedes Lista acumulativa con las sedes mundiales.
      * @param estadios Lista acumulativa donde se indexan los estadios.
      * @param mundial Instancia global del campeonato actual.
@@ -219,7 +219,7 @@ public class IngresoMundial{
      /**
      * Construye y registra una entidad de tipo Árbitro, asociándolo al país de origen
      * correspondiente si este no se encuentra duplicado en los registros globales.
-     * * @param paises Repositorio de países activos.
+     * @param paises Repositorio de países activos.
      * @param arbitros Lista colectiva donde se anexan los profesionales del arbitraje.
      */
     public void crearArbitro(List<Pais> paises, List<Arbitro> arbitros) {
@@ -259,7 +259,7 @@ public class IngresoMundial{
     /**
      * Genera un objeto DirectorTecnico mediante entradas de consola. Evita la
      * inserción si la entidad ya existe en la lista provista.
-     * * @param dts Repositorio de Directores Técnicos habilitados.
+     * @param dts Repositorio de Directores Técnicos habilitados.
      */
     public void crearDT(List<DirectorTecnico> dts) {
         System.out.println("\n--- NUEVO DIRECTOR TÉCNICO ---");
@@ -278,7 +278,7 @@ public class IngresoMundial{
     /**
      * Crea un objeto CuerpoTecnico permitiendo la selección dinámica de un rol específico,
      * controlando la no redundancia de datos.
-     * * @param cts Lista general del Staff o cuerpo técnico del torneo.
+     * @param cts Lista general del Staff o cuerpo técnico del torneo.
      */
     public void crearCT(List<CuerpoTecnico> cts) {
         System.out.println("\n--- NUEVO CUERPO TÉCNICO ---");
@@ -296,7 +296,7 @@ public class IngresoMundial{
     /**
      * Instancia y cataloga una nueva Fase de competición dentro de las opciones finitas
      * establecidas en el enumerador correspondiente del programa.
-     * * @param fases Lista que agrupa las fases.
+     * @param fases Lista que agrupa las fases.
      */    
     public void crearFase(List<Fase> fases) {
         System.out.println("\n--- NUEVA FASE ---");
@@ -317,7 +317,7 @@ public class IngresoMundial{
     /**
      * Permite la adición de un Grupo competitivo vinculándolo directamente a una
      * de las fases preexistentes del sistema.
-     * * @param fases Lista de fases creadas.
+     * @param fases Lista de fases creadas.
      * @param grupos Lista en donde se almacenará el nuevo grupo.
      */
     public void crearGrupo(List<Fase> fases, List<Grupo> grupos) {
@@ -355,7 +355,7 @@ public class IngresoMundial{
     /**
      * Genera el registro de un Jugador de campo parametrizando su peso, altura, dorsal
      * y puesto táctico predefinido.
-     * * @param jugadores Lista maestra en donde se insertará el deportista.
+     * @param jugadores Lista maestra en donde se insertará el deportista.
      */
     public void crearJugador(List<Jugador> jugadores) {
         System.out.println("\n--- NUEVO JUGADOR ---");
@@ -379,7 +379,7 @@ public class IngresoMundial{
     /**
      * Ensambla una Selección de fútbol completa acoplándole un país de representación,
      * un grupo asignado, cuerpo técnico, directores técnicos y su plantilla de jugadores convocados.
-     * * @param grupos Lista conteniendo los grupos disponibles.
+     * @param grupos Lista conteniendo los grupos disponibles.
      * @param paises Lista de países para la vinculación .
      * @param dts Lista de entrenadores disponibles.
      * @param cts Lista de asistentes o auxiliares técnicos.
@@ -502,7 +502,7 @@ public class IngresoMundial{
     /**
      * Configura y agenda un nuevo Partido, determinando los planteles competidores (Local/Visitante),
      * fecha, horario, la terna y el equipo completo de arbitraje, asociándolo finalmente a su estadio y fase.
-     * * @param selecciones Lista global de selecciones.
+     * @param selecciones Lista global de selecciones.
      * @param estadios Lista global de estadios.
      * @param fases Lista general de fases.
      * @param arbitros Lista de árbitros inscriptos.
@@ -654,7 +654,7 @@ public class IngresoMundial{
     /**
      * Metodo intermedia que permite la búsqueda de un partido preexistente
      * para inicializar la carga manual de eventos (goles, tarjetas, etc.).
-     * * @param partidos Lista con los partidos guardados en el sistema.
+     * @param partidos Lista con los partidos guardados en el sistema.
      * @param jugadores Lista de jugadores aptos para vinculación en eventos.
      */
     public void registrarEventosPartido(List<Partido> partidos, List<Jugador> jugadores) {
@@ -678,7 +678,7 @@ public class IngresoMundial{
      * Registra de manera iterativa los eventos ocurridos dentro de los 90 minutos reglamentarios.
      * Valida mediante lógica del negocio que los jugadores asociados pertenezcan efectivamente
      * a las selecciones implicadas en el cotejo.
-     * * @param p El partido activo sobre el cual se asientan las incidencias.
+     * @param p El partido activo sobre el cual se asientan las incidencias.
      * @param jugadores Lista total de futbolistas habilitados para ser seleccionados.
      */
     public void registrarEventos(Partido p, List<Jugador> jugadores) {
@@ -711,7 +711,7 @@ public class IngresoMundial{
     
     /**
      * Despliega en consola el listado iterable de Países para la selección del usuario.
-     * * @param paises Lista de países.
+     * @param paises Lista de países.
      * @return El objeto Pais seleccionado, o null si decide volver al menú.
      */
     public Pais seleccionarPais(List<Pais> paises) {
@@ -732,7 +732,7 @@ public class IngresoMundial{
     }
     /**
      * Despliega en consola el listado iterable de Sedes para la selección del usuario.
-     * * @param sedes Lista de sedes.
+     * @param sedes Lista de sedes.
      * @return El objeto Sede seleccionado, o null si decide volver al menú.
      */
     public Sede seleccionarSede(List<Sede> sedes) {
@@ -752,7 +752,7 @@ public class IngresoMundial{
     }
     /**
      * Despliega en consola el listado iterable de Estadios para la selección del usuario.
-     * * @param estadios Lista de estadios.
+     * @param estadios Lista de estadios.
      * @return El objeto Estadio seleccionado, o null si decide volver al menú.
      */
     public Estadio seleccionarEstadio(List<Estadio> estadios) {
@@ -771,7 +771,7 @@ public class IngresoMundial{
     }
     /**
      * Despliega en consola el listado iterable de Grupos para la selección del usuario.
-     * * @param grupos Lista de grupos competitivos.
+     * @param grupos Lista de grupos competitivos.
      * @return El objeto Grupo seleccionado, o null si decide volver al menú.
      */
     public Grupo seleccionarGrupo(List<Grupo> grupos) {
@@ -793,7 +793,7 @@ public class IngresoMundial{
     }
      /**
      * Despliega en consola el listado iterable de Fases para la selección del usuario.
-     * * @param fases Lista de fases.
+     * @param fases Lista de fases.
      * @return El objeto Fase seleccionado, o null si decide volver al menú.
      */
     public Fase seleccionarFase(List<Fase> fases) {
@@ -813,7 +813,7 @@ public class IngresoMundial{
     }
     /**
      * Despliega en consola el listado iterable de Selecciones para la selección del usuario.
-     * * @param selecciones Lista de combinados nacionales.
+     * @param selecciones Lista de combinados nacionales.
      * @return El objeto Seleccion elegido, o null si decide retornar al menú.
      */
     public Seleccion seleccionarSeleccion(List<Seleccion> selecciones) {
@@ -834,7 +834,7 @@ public class IngresoMundial{
     }
      /**
      * Despliega en consola el listado iterable de Árbitros de la plantilla.
-     * * @param arbitros Lista de colegiados.
+     * @param arbitros Lista de colegiados.
      * @return El objeto Arbitro seleccionado, o null si opta por volver al menú principal.
      */
     public Arbitro seleccionarArbitro(List<Arbitro> arbitros) {
@@ -855,7 +855,7 @@ public class IngresoMundial{
     }
      /**
      * Despliega en consola el listado de Partidos agendados.
-     * * @param partidos Lista de partidos.
+     * @param partidos Lista de partidos.
      * @return El objeto Partido elegido, o null si se cancela la operación.
      */
     public Partido seleccionarPartido(List<Partido> partidos) {
@@ -875,7 +875,7 @@ public class IngresoMundial{
     }
      /**
      * Despliega en consola el listado completo de todos los Jugadores del torneo.
-     * * @param jugadores Lista general de futbolistas.
+     * @param jugadores Lista general de futbolistas.
      * @return El objeto Jugador seleccionado, o null si se interrumpe la selección.
      */
     public Jugador seleccionarJugador(List<Jugador> jugadores) {
@@ -897,7 +897,7 @@ public class IngresoMundial{
     }
      /**
      * Despliega en consola los Directores Técnicos registrados.
-     * * @param dts Lista de DTs.
+     * @param dts Lista de DTs.
      * @return El objeto DirectorTecnico seleccionado, o null si vuelve atrás.
      */
     public DirectorTecnico seleccionarDT(List<DirectorTecnico> dts) {
@@ -919,7 +919,7 @@ public class IngresoMundial{
     }
     /**
      * Despliega en consola los auxiliares técnicos o miembros del staff registrados.
-     * * @param cts Lista del Cuerpo Técnico global.
+     * @param cts Lista del Cuerpo Técnico global.
      * @return El objeto CuerpoTecnico seleccionado, o null si decide volver al menú.
      */
     public CuerpoTecnico seleccionarCT(List<CuerpoTecnico> cts) {

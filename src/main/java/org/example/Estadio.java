@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 /**
  * Representa el estadio de una sede. Esta clase posee un atributo nombre y capacidad, una relacion didireccional con sede y con partido
- * @author Maria del Mar Dalorso, Antonella Monti, Maria Sol Arostegui
+ * @author Maria del Mar Dalorso, Antonella Monti.
  * @version 1.0
  */
 public class Estadio {

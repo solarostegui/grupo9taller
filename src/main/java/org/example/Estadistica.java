@@ -1,7 +1,7 @@
 package org.example;
 /**
  * Clase que gestiona la información y las estadísticas de una selección.
- * @author Antonella Monti, María Sol Arostegui, María del Mar Dalorso.
+ * @author Antonella Monti, María del Mar Dalorso.
  * @version 1.0
  */
 public class Estadistica {

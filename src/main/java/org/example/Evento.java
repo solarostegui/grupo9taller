@@ -6,7 +6,7 @@ package org.example;
 
 /**
  * Representa el evento de un jugador. Esta clase posee un atributo evento,minuto y una relacion bidireccional con jugador
- * @author Maria del Mar Dalorso, Antonella Monti, Maria Sol Arostegui
+ * @author Maria del Mar Dalorso, Antonella Monti.
  * @version 1.0
  */
 public class Evento {

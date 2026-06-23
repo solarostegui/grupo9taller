@@ -8,7 +8,7 @@ import java.util.Objects;
 
 /**
  * Representa el cuerpo técnico de una selección. Esta clase hereda de persona. Incluye un atributo sobre el rol dentro de la selección.    
- * @author Maria del Mar Dalorso, Antonella Monti, Maria Sol Arostegui
+ * @author Maria del Mar Dalorso, Antonella Monti.
  * @version 1.0
  */
 public class CuerpoTecnico extends Persona{

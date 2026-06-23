@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  * Representa el director técnico de una selección. Esta clase hereda de persona. Incluye un atributo sobre la fecha de nombramiento del director técnico. 
- * @author María del Mar Dalorso, Antonella Monti, María Sol Arostegui
+ * @author María del Mar Dalorso, Antonella Monti.
  * @version 1.0
  */
 

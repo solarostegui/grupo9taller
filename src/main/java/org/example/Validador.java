@@ -1,11 +1,18 @@
 package org.example;
 import java.util.*;
 /**
- Clase para controlar las validaciones solicitadas en el trabajo
+ * Clase para controlar las validaciones solicitadas en el trabajo.
+ * @author Antonella Monti, María del Mar Dalorso, María Sol Arostegui
+ * @version 1.0
  */
 public class Validador {
-    //Valida si el equipo de arbitraje está completo y es válido
-  
+    /**
+     * Revisa que la lista de árbitros asignada a un partido esté completa con todos 
+     * los roles obligatorios.
+     * También verifica que la lista no esté vacía ni tenga datos nulos.
+     * @param arbitrajes La lista de objetos {@link Arbitraje} que se desea controlar.
+     * @return {@code true} si el equipo está completo y es válido, o {@code false} si falta algún rol o la lista está vacía.
+     */
     public static boolean validarArbitraje(List <Arbitraje> arbitrajes){
         //La lista tiene que tener algo para que sea válida. Empty es lo mismo que arbitraje.size() == 0 (lista vacia)
         if (arbitrajes == null || arbitrajes.isEmpty()){ //Si usamos una excepcion tipo NullPointerException corremos el riesgo de que se craashee el código
@@ -18,34 +25,47 @@ public class Validador {
         boolean tieneVarPrincipal = false;
         boolean tieneVarAsistente = false;
 
-        //Recorre lista
+        
         for (Arbitraje arb : arbitrajes){
             //Esto es para que un elemento nulo no nos complique
             if (arb == null || arb.getRol()==null){
                 return false;
             }
-            //Validamos usando nombres del enum TipoCategoriaArbitro
-            if (arb.getRol() == TipoCategoriaArbitro.Principal){
-                tienePrincipal = true;
-            }else if(arb.getRol()== TipoCategoriaArbitro.Asistente1){
-                tieneAsistente1 = true;
-            }else if (arb.getRol() == TipoCategoriaArbitro.Asistente2){
-                tieneAsistente2 = true;
-            }else if (arb.getRol() == TipoCategoriaArbitro.CuartoArbitro){
-                tieneCuartoArbitro = true;
-            }else if (arb.getRol() == TipoCategoriaArbitro.VarPrincipal){
-                tieneVarPrincipal = true;
-            }else if (arb.getRol() == TipoCategoriaArbitro.VarAsistente){
-                tieneVarAsistente = true;
+            switch (arb.getRol()) {
+                case Principal:
+                    tienePrincipal = true;
+                    break;
+                case Asistente1:
+                    tieneAsistente1 = true;
+                    break;
+                case Asistente2:
+                    tieneAsistente2 = true;
+                    break;
+                case CuartoArbitro:
+                    tieneCuartoArbitro = true;
+                    break;
+                case VarPrincipal:
+                    tieneVarPrincipal = true;
+                    break;
+                case VarAsistente:
+                    tieneVarAsistente = true;
+                    break;
+                default:
+                    break;
             }
         }
         //Si se cumplen las condiciones es verdadero
         return tienePrincipal && tieneAsistente1 && tieneAsistente2 && tieneCuartoArbitro && tieneVarPrincipal && tieneVarAsistente;
     }
 
-    /*Valida si un jugador pertenece a cualquiera de las dos selecciones 
-    que están jugando (es algo más exterior al helper de participacion)
-    necesitamos partido, jugadores de participacion (usamos get y set de participacion)*/
+    /**
+     * Verifica si un jugador realmente pertenece a alguna de las dos selecciones que están disputando el encuentro.
+     * Se llama antes de registrar eventos (como goles o tarjetas) en un partido.
+     * @param p El {@link Partido} donde ocurre la jugada a registrar.
+     * @param j El {@link Jugador} que se busca validar.
+     * @return {@code true} si el jugador está jugando para alguna de las dos selecciones, o {@code false} si es nulo o pertenece a un equipo ajeno.
+     */
+    
     public static boolean validarEvento(Partido p, Jugador j){
         if (p == null || j == null){
             return false;
