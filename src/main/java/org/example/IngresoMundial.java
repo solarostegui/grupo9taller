@@ -8,14 +8,22 @@ import java.util.*;
 import java.time.*;
 
 /**
- *
- * @author mardalorso
+ * Clase que gestiona la consola de entrada de datos para el sistema del Mundial.
+ * Permite la creación de entidades como países, sedes, estadios, árbitros,
+ * directores técnicos, fases, grupos, jugadores, selecciones y partidos.
+ * * @author * @author María del Mar Dalorso, María Sol Arostegui,Antonella Monti
+ * @version 1.0
  */
 public class IngresoMundial{
     
     private static Scanner sc = new Scanner(System.in);
     
-    // Este método se encarga de que el input sea SIEMPRE entero
+    /**
+     * Solicita al usuario un número entero por consola, asegurando mediante un bucle
+     * y captura de excepciones que el dato ingresado sea estrictamente válido.
+     * * @param mensaje El texto que se le muestra al usuario para solicitar el dato.
+     * @return El número entero ingresado por el usuario.
+     */
     public static int pedirEntero(String mensaje){
         while(true){
             try{
@@ -29,7 +37,12 @@ public class IngresoMundial{
             }
         }
     }
-    // Pide un float y valida que lo sea
+     /**
+     * Solicita un número flotante validando que no ocurran fallos de conversión.
+     * Reemplaza las comas por puntos de ser necesario.
+     * * @param mensaje Texto explicativo que se imprime por consola.
+     * @return El valor numérico de tipo float obtenido.
+     */
     public static float pedirFloat(String mensaje) {
         while (true) {
             System.out.print(mensaje);
@@ -41,7 +54,11 @@ public class IngresoMundial{
             }
         }
     }
-    //Pide un String no vacío
+    /**
+     * Solicita y retorna una cadena de texto asegurándose de que no se encuentre vacía.
+     * * @param mensaje Mensaje guía para el ingreso de datos del usuario.
+     * @return La cadena de caracteres limpia y validada.
+     */
     public static String pedirString(String mensaje) {
         while (true) {
             System.out.print(mensaje);
@@ -53,7 +70,12 @@ public class IngresoMundial{
             System.out.println("Error: el valor no puede estar vacío.");
         }
     }
-    //pide un booleano (true/false, s/n, si/no)
+     /**
+     * Solicita una confirmación booleana al usuario por consola a través del ingreso de
+     * cadenas afirmativas o negativas (s/n, si/no, true/false).
+     * * @param mensaje Texto indicativo del requerimiento.
+     * @return Verdadero (true) o falso (false) según la opción interpretada.
+     */
     public static boolean pedirBooleano(String mensaje) {
         while (true) {
             System.out.print(mensaje + " (s/n): ");
@@ -67,7 +89,13 @@ public class IngresoMundial{
             System.out.println("Error: responda 's' o 'n' ");
         }
     }
-    // Pide un entero dentro de un rango [min, max]
+    /**
+     * Solicita un número entero que debe estar obligatoriamente acotado dentro de un rango numérico.
+     * * @param mensaje El texto instructivo para la consola.
+     * @param min El valor entero mínimo aceptable.
+     * @param max El valor entero máximo aceptable.
+     * @return El entero validado dentro de los límites establecidos.
+     */
     public static int pedirEnteroRango(String mensaje, int min, int max) {
         while (true) {
             int num = pedirEntero(mensaje);
@@ -79,7 +107,10 @@ public class IngresoMundial{
             System.out.println("Error: el valor debe estar entre " + min + " y " + max + ".");
         }
     }
-    //Ingreso de la clase mundial
+    /**
+     * Método inicializador que obliga al registro de los datos de la entidad Mundial.
+     * * @return El objeto Mundial instanciado con los valores correspondientes.
+     */
     public Mundial ingresarMundial(){
         System.out.println("=================================================");
         System.out.println("  BIENVENIDO AL SISTEMA DE GESTIÓN DEL MUNDIAL   ");
@@ -98,17 +129,37 @@ public class IngresoMundial{
         return mundial;
         
     }
-    // CREAR PAIS
+    /**
+     * Crea un nuevo País controlando de manera previa que su nombre de identificación
+     * no se encuentre ya almacenado de forma duplicada en el sistema.
+     * * @param paises Lista general de países registrados.
+     */
     public void crearPais(List<Pais> paises) {
         System.out.println("\n--- NUEVO PAÍS ---");
         String nombre = pedirString("Nombre del país: ");
+        for(Pais p:paises){
+           if(p!=null && p.getNombre()!=null){
+               if(p.getNombre().equalsIgnoreCase(nombre)){
+                   System.out.println("Ese país ya fue ingresado.");
+                   return;
+                }
+            }
+        }
         String bandera = pedirString("Descripción de la bandera: ");
         Pais p = new Pais(nombre, bandera);
+        
         paises.add(p);
         System.out.println("País '" + nombre + "' creado con éxito.");
     }
     
-    // CREAR SEDE + ESTADIOS
+    /**
+     * Genera un objeto Sede asociado a un país y, subsecuentemente, permite el registro
+     * en lote de los Estadios vinculados físicamente a dicha localización geográfica.
+     * * @param paises Lista con los países dados de alta.
+     * @param sedes Lista acumulativa con las sedes mundiales.
+     * @param estadios Lista acumulativa donde se indexan los estadios.
+     * @param mundial Instancia global del campeonato actual.
+     */
     public void crearSede(List<Pais> paises, List<Sede> sedes, List<Estadio> estadios,Mundial mundial) {
         if (paises.isEmpty()) {
             System.out.println("Primero debe crear al menos un país.");
@@ -124,6 +175,13 @@ public class IngresoMundial{
 
         System.out.println("\n--- NUEVA SEDE ---");
         String ciudad =pedirString("Ciudad: ");
+        for(Sede s:sedes){
+          if(s!=null && s.getCiudad()!=null){
+              if(s.getCiudad().equalsIgnoreCase(ciudad)){
+                   System.out.println("La sede ya fue ingresada");
+                   return;
+                }
+        }   }
         float altura =pedirFloat("Altura sobre el nivel del mar: ");
         String clima =pedirString("Clima: ");
         String zona =pedirString("Zona horaria: ");
@@ -158,7 +216,12 @@ public class IngresoMundial{
         System.out.println("Sede '" + ciudad + "' creada con " + cant + " estadio(s).");
     }
 
-    // CREAR ARBITRO
+     /**
+     * Construye y registra una entidad de tipo Árbitro, asociándolo al país de origen
+     * correspondiente si este no se encuentra duplicado en los registros globales.
+     * * @param paises Repositorio de países activos.
+     * @param arbitros Lista colectiva donde se anexan los profesionales del arbitraje.
+     */
     public void crearArbitro(List<Pais> paises, List<Arbitro> arbitros) {
         if (paises.isEmpty()) {
             System.out.println("Primero debe crear al menos un país.");
@@ -179,6 +242,10 @@ public class IngresoMundial{
         int exp =pedirEntero("Años de experiencia: ");
         
         Arbitro a = new Arbitro(nombre, fecNac, exp, pais);
+        if(arbitros.contains(a)){
+            System.out.println("EL arbitro ya se encuentra en la lista");
+            return;
+        }
         
         if(pais.agregarArbitro(a)){
             System.out.println("Se guardo correctamente el arbitro en " + pais.getNombre());
@@ -189,46 +256,70 @@ public class IngresoMundial{
         }
     }
     
-    // CREAR DIRECTOR TECNICO
+    /**
+     * Genera un objeto DirectorTecnico mediante entradas de consola. Evita la
+     * inserción si la entidad ya existe en la lista provista.
+     * * @param dts Repositorio de Directores Técnicos habilitados.
+     */
     public void crearDT(List<DirectorTecnico> dts) {
         System.out.println("\n--- NUEVO DIRECTOR TÉCNICO ---");
         String nombre = pedirString("Nombre y Apellido: ");
         int fecNac = pedirEntero("Año de nacimiento: ");
         int fecNomb = pedirEntero("Año de nombramiento: ");
         DirectorTecnico dt = new DirectorTecnico(nombre, fecNac, fecNomb);
-        if (dts.add(dt)){
-            System.out.println("DT " + dt.getNombre() + " creado.");
-        } else {
-            System.out.println("Error: no se pudo agregar el director tecnico");
+        if(dts.contains(dt)){
+            System.out.println("El director tecnico ya se encuentra en la lista.");
+            return;
         }
-        
+        dts.add(dt);
+        System.out.println("DT " + dt.getNombre() + " creado.");
     }
 
-    // CREAR CUERPO TECNICO
+    /**
+     * Crea un objeto CuerpoTecnico permitiendo la selección dinámica de un rol específico,
+     * controlando la no redundancia de datos.
+     * * @param cts Lista general del Staff o cuerpo técnico del torneo.
+     */
     public void crearCT(List<CuerpoTecnico> cts) {
         System.out.println("\n--- NUEVO CUERPO TÉCNICO ---");
         String nombre = pedirString("Nombre: ");
         int fecNac =pedirEntero("Año de nacimiento: ");
         TipoRol rol = IngresoEnum.elegirTipoRol();
         CuerpoTecnico ct = new CuerpoTecnico(nombre, fecNac, rol);
-        if(cts.add(ct)){
-            System.out.println("Cuerpo técnico '" + ct.getNombre() + "' creado.");
-        } else {
-            System.out.println("Error: no se pudo agregar el cuerpo tecnico");
-        }   
+        if(cts.contains(ct)){
+            System.out.println("El cuerpo tecnico ya se encuentra en la lista.");
+            return;
+        }
+        cts.add(ct);
     }
     
-    // CREAR FASE
+    /**
+     * Instancia y cataloga una nueva Fase de competición dentro de las opciones finitas
+     * establecidas en el enumerador correspondiente del programa.
+     * * @param fases Lista que agrupa las fases.
+     */    
     public void crearFase(List<Fase> fases) {
         System.out.println("\n--- NUEVA FASE ---");
         TipoNombreFase nombre =IngresoEnum.elegirTipoNombreFase();
-        Fase f = new Fase(nombre);
-        fases.add(f);
+        Fase fase = new Fase(nombre);
+        for(Fase f:fases){
+            if(f!=null && f.getNombreFase()!=null){
+               if(f.getNombreFase()==nombre){
+                   System.out.println("La fase ya esta la lista");
+                   return;
+               }   
+            }
+        }
+        fases.add(fase);
         System.out.println("Fase '" + nombre + "' creada.");
     }
 
-    
-    // CREAR GRUPO
+    /**
+     * Permite la adición de un Grupo competitivo vinculándolo directamente a una
+     * de las fases preexistentes del sistema.
+     * * @param fases Lista de fases creadas.
+     * @param grupos Lista en donde se almacenará el nuevo grupo.
+     */
     public void crearGrupo(List<Fase> fases, List<Grupo> grupos) {
         if (fases.isEmpty()) {
             System.out.println("Primero debe crear al menos una fase.");
@@ -243,17 +334,29 @@ public class IngresoMundial{
         
         System.out.println("\n--- NUEVO GRUPO ---");
         String id = pedirString("Identificación (ej: A): ");
+        for(Grupo g:grupos){
+            if(g!=null && g.getIdentificacion()!=null){
+                if(g.getIdentificacion().equalsIgnoreCase(id)){
+                    System.out.println("El id ya fue registrado en un grupo");
+                    return;
+                }
+            }
+        }
         String desc = pedirString("Descripción (ej: Grupo A): ");
         
         
-        Grupo g = new Grupo(id, desc, fase);
-        fase.agregarGrupos(g);
-        grupos.add(g);
+        Grupo grupo = new Grupo(id, desc, fase);
+        
+        fase.agregarGrupos(grupo);
+        grupos.add(grupo);
         System.out.println("Grupo '" + id + "' creado en fase " + fase.getNombreFase() + ".");
     }
     
-    
-    // CREAR JUGADOR
+    /**
+     * Genera el registro de un Jugador de campo parametrizando su peso, altura, dorsal
+     * y puesto táctico predefinido.
+     * * @param jugadores Lista maestra en donde se insertará el deportista.
+     */
     public void crearJugador(List<Jugador> jugadores) {
         System.out.println("\n--- NUEVO JUGADOR ---");
         String nombre = pedirString("Nombre: ");
@@ -262,14 +365,27 @@ public class IngresoMundial{
         TipoPosicion pos = IngresoEnum.elegirTipoPosicion();
         float peso = pedirFloat("Peso (kg, ej: 75.5): ");
         float altura = pedirFloat("Altura (m, ej: 1.80): ");
-
+       
         Jugador j = new Jugador(nombre, fecNac, dorsal, pos, peso, altura);
+        if(jugadores.contains(j)){
+            System.out.println("Este jugador ya fue ingresado");
+            return;
+        }
         jugadores.add(j);
         System.out.println("Jugador '" + nombre + "' creado.");
     }
 
     
-    // CREAR SELECCION COMPLETA
+    /**
+     * Ensambla una Selección de fútbol completa acoplándole un país de representación,
+     * un grupo asignado, cuerpo técnico, directores técnicos y su plantilla de jugadores convocados.
+     * * @param grupos Lista conteniendo los grupos disponibles.
+     * @param paises Lista de países para la vinculación .
+     * @param dts Lista de entrenadores disponibles.
+     * @param cts Lista de asistentes o auxiliares técnicos.
+     * @param jugadores Listado global de los deportistas.
+     * @param selecciones Lista de almacenamiento global de los equipos nacionales configurados.
+     */
     public void crearSeleccion(List<Grupo> grupos,List<Pais> paises,List<DirectorTecnico> dts,List<CuerpoTecnico> cts,
     List<Jugador> jugadores, List<Seleccion> selecciones) {
         if (paises.isEmpty() || grupos.isEmpty()) {
@@ -293,6 +409,13 @@ public class IngresoMundial{
 
         System.out.println("\n--- NUEVA SELECCIÓN ---");
         String fed = pedirString("Nombre de la federación (ej: AFA): ");
+        // --- VALIDACIÓN 1: Evitar que se duplique la Selección en la lista general ---
+        for (Seleccion sel : selecciones) {
+            if (sel.getNombreFederacion().equalsIgnoreCase(fed)) { 
+                System.out.println("Error: Ya existe una selección registrada con la federación: " + fed);
+                return;
+            }
+        }
         String camPpal = pedirString("Camiseta principal: ");
         String camSec = pedirString("Camiseta secundaria: ");
         int ranking =pedirEntero("Ranking FIFA: ");
@@ -301,7 +424,7 @@ public class IngresoMundial{
 
         DirectorTecnico dt = null;
         if (!dts.isEmpty()) {
-            System.out.println("Seleccione el Director Técnico (0 para saltar):");
+            System.out.println("Seleccione el Director Técnico :");
             dt = seleccionarDT(dts);
         }
 
@@ -310,7 +433,15 @@ public class IngresoMundial{
         if(pais.setSeleccion(s)){
             System.out.println("La seleccion se asocio correctamente al pais ");
             
-            if (dt != null) s.agregarDirectoresTecnicos(dt);
+            // --- VALIDACIÓN 2: Evitar duplicar el DT si el método .agregarDirectoresTecnicos no lo hace solo ---
+            if (dt != null) {
+                // Asumiendo que s.getDirectoresTecnicos() devuelve la lista interna de la selección
+                if (s.getDirectoresTecnicos() != null && s.getDirectoresTecnicos().contains(dt)) {
+                    System.out.println("El Director Técnico ya está asignado a esta selección.");
+                } else {
+                    s.agregarDirectoresTecnicos(dt);
+                }
+            }
 
             if (!cts.isEmpty()) {
                 System.out.print("¿Agregar cuerpo técnico? ");
@@ -361,13 +492,23 @@ public class IngresoMundial{
 
         if(grupo.agregarSeleccion(s)){
             System.out.println("Seleccion " + fed + "agregada al grupo " + grupo.getIdentificacion());
+            selecciones.add(s);
         } else {
             System.out.println("La seleccion ya pertenece a un grupo");
         }
-        selecciones.add(s);
+        
     }
     
-     // CREAR PARTIDO CON EVENTOS
+    /**
+     * Configura y agenda un nuevo Partido, determinando los planteles competidores (Local/Visitante),
+     * fecha, horario, la terna y el equipo completo de arbitraje, asociándolo finalmente a su estadio y fase.
+     * * @param selecciones Lista global de selecciones.
+     * @param estadios Lista global de estadios.
+     * @param fases Lista general de fases.
+     * @param arbitros Lista de árbitros inscriptos.
+     * @param partidos Repositorio global de partidos agendados en el torneo.
+     * @param jugadores Lista conteniendo todos los jugadores de la base de datos.
+     */
     public void crearPartido(List<Seleccion> selecciones,List<Estadio> estadios,List<Fase> fases,List<Arbitro> arbitros,
     List<Partido> partidos, List<Jugador> jugadores) {
         if (selecciones.size() < 2 || estadios.isEmpty() ||fases.isEmpty() || arbitros.size() < 6) {
@@ -439,13 +580,28 @@ public class IngresoMundial{
         s2.agregarParticipacion(par2);
 
         System.out.println("\n--- Arbitraje del partido ---");
+        // --- NUEVA LISTA TEMPORAL: Para rastrear que no se repita el mismo árbitro físicamente en este partido ---
+        List<Arbitro> arbitrosAsignados = new ArrayList<>();
         for (TipoCategoriaArbitro rol : TipoCategoriaArbitro.values()) {
-            System.out.println("Seleccione el " + rol + ":");
-            Arbitro a = seleccionarArbitro(arbitros);
-            if (a == null){
-                System.out.println("Debe volver a menu y seleccionar todos los arbitros primero");
-                return;
-            }
+            Arbitro a;
+            boolean arbitroRepetido;
+            do {
+                arbitroRepetido = false;
+                System.out.println("Seleccione el " + rol + ":");
+                a = seleccionarArbitro(arbitros);
+                if (a == null){
+                    System.out.println("Debe volver a menu y seleccionar todos los arbitros primero");
+                    return;
+                }
+                
+                // --- VALIDACIÓN 1: Comprobar si el árbitro ya fue asignado en otra categoría del partido ---
+                if (arbitrosAsignados.contains(a)) {
+                    System.out.println("El árbitro " + a.getNombre() + " ya tiene un rol asignado en este partido. Seleccione otro.");
+                    arbitroRepetido = true;
+                }
+            } while (arbitroRepetido);
+            arbitrosAsignados.add(a); // Se marca como ocupado para las siguientes iteraciones
+            
             Arbitraje arb = new Arbitraje(rol, a, p);
             p.agregarArbitraje(arb);//el partido sabe quienes lo arbitran
             a.agregarArbitraje(arb);//el arbitro sabe en que partidos arbitro
@@ -467,7 +623,12 @@ public class IngresoMundial{
             System.out.println("Advertencia: El partido ya pertenecía a esta fase.");
         }
         
-        partidos.add(p);
+        // --- VALIDACIÓN 2: Evitar guardar un duplicado exacto del objeto partido en la lista general ---
+        if (!partidos.contains(p)) {
+            partidos.add(p);
+        } else {
+            System.out.println("El partido ya se encontraba en el registro global.");
+        }
         System.out.println("Equipo de arbitraje válido: SÍ");
 
         if (pedirBooleano("¿Desea registrar eventos ahora?")) {
@@ -484,8 +645,12 @@ public class IngresoMundial{
         System.out.println("Partido creado con éxito.");
     }
     
-     
-    // REGISTRAR EVENTOS A PARTIDO EXISTENTE
+    /**
+     * Metodo intermedia que permite la búsqueda de un partido preexistente
+     * para inicializar la carga manual de eventos (goles, tarjetas, etc.).
+     * * @param partidos Lista con los partidos guardados en el sistema.
+     * @param jugadores Lista de jugadores aptos para vinculación en eventos.
+     */
     public void registrarEventosPartido(List<Partido> partidos, List<Jugador> jugadores) {
         if (partidos.isEmpty()) {
             System.out.println("No hay partidos creados.");
@@ -504,15 +669,12 @@ public class IngresoMundial{
     }
     
     /**
-    * Registra los eventos ocurridos durante un partido.
-    * Valida que el jugador involucrado pertenezca a alguna
-    * de las selecciones participantes en el partido.
-    * @param p partido en el que se registran los eventos
-    * @param jugadores lista de jugadores disponibles para seleccionar
- */
-
-    //registra eventos en un partido ya creado
-    //este es un metodo para crear los eventos llamado desde registar evento de un partido y crear partido
+     * Registra de manera iterativa los eventos ocurridos dentro de los 90 minutos reglamentarios.
+     * Valida mediante lógica del negocio que los jugadores asociados pertenezcan efectivamente
+     * a las selecciones implicadas en el cotejo.
+     * * @param p El partido activo sobre el cual se asientan las incidencias.
+     * @param jugadores Lista total de futbolistas habilitados para ser seleccionados.
+     */
     public void registrarEventos(Partido p, List<Jugador> jugadores) {
         System.out.println("\n--- Registro de eventos para el partido del " + p.getFecha() + " ---");
         
@@ -541,11 +703,11 @@ public class IngresoMundial{
     }
     
     
-    /*FLUJO: Main→ menú → crearPartido() → seleccionarEstadio() → devuelve Estadio → sigue crearPartido()
-    // ─── SELECTORES POR TIPO ──────────────────────────────────────────────────
-    /*estos metodos se usan para que el usuario elija lo que ya se cargo en la lista
-    y no tener que volver a cargar todos los datos nuevamente o puede
-    volver al menu y crear un objeto si no esta en lista todavia*/
+    /**
+     * Despliega en consola el listado iterable de Países para la selección del usuario.
+     * * @param paises Lista de países.
+     * @return El objeto Pais seleccionado, o null si decide volver al menú.
+     */
     public Pais seleccionarPais(List<Pais> paises) {
        
         for (int i = 0; i < paises.size(); i++){
@@ -562,7 +724,11 @@ public class IngresoMundial{
         }
         return paises.get(opcion);
     }
-
+    /**
+     * Despliega en consola el listado iterable de Sedes para la selección del usuario.
+     * * @param sedes Lista de sedes.
+     * @return El objeto Sede seleccionado, o null si decide volver al menú.
+     */
     public Sede seleccionarSede(List<Sede> sedes) {
         
         for (int i = 0; i < sedes.size(); i++){
@@ -578,6 +744,11 @@ public class IngresoMundial{
         }
         return sedes.get(opcion);
     }
+    /**
+     * Despliega en consola el listado iterable de Estadios para la selección del usuario.
+     * * @param estadios Lista de estadios.
+     * @return El objeto Estadio seleccionado, o null si decide volver al menú.
+     */
     public Estadio seleccionarEstadio(List<Estadio> estadios) {
         for (int i = 0; i < estadios.size(); i++){
           System.out.println(" " + i + " - " + estadios.get(i));
@@ -592,7 +763,11 @@ public class IngresoMundial{
         }
        return estadios.get(opcion);
     }
-
+    /**
+     * Despliega en consola el listado iterable de Grupos para la selección del usuario.
+     * * @param grupos Lista de grupos competitivos.
+     * @return El objeto Grupo seleccionado, o null si decide volver al menú.
+     */
     public Grupo seleccionarGrupo(List<Grupo> grupos) {
     
         for (int i = 0; i < grupos.size(); i++){
@@ -610,7 +785,11 @@ public class IngresoMundial{
         }
         return grupos.get(opcion);
     }
-
+     /**
+     * Despliega en consola el listado iterable de Fases para la selección del usuario.
+     * * @param fases Lista de fases.
+     * @return El objeto Fase seleccionado, o null si decide volver al menú.
+     */
     public Fase seleccionarFase(List<Fase> fases) {
     
         for (int i = 0; i < fases.size(); i++){
@@ -626,7 +805,11 @@ public class IngresoMundial{
         }
         return fases.get(opcion);
     }
-
+    /**
+     * Despliega en consola el listado iterable de Selecciones para la selección del usuario.
+     * * @param selecciones Lista de combinados nacionales.
+     * @return El objeto Seleccion elegido, o null si decide retornar al menú.
+     */
     public Seleccion seleccionarSeleccion(List<Seleccion> selecciones) {
        
         for (int i = 0; i < selecciones.size(); i++){
@@ -643,7 +826,11 @@ public class IngresoMundial{
         }
        return selecciones.get(opcion);
     }
-
+     /**
+     * Despliega en consola el listado iterable de Árbitros de la plantilla.
+     * * @param arbitros Lista de colegiados.
+     * @return El objeto Arbitro seleccionado, o null si opta por volver al menú principal.
+     */
     public Arbitro seleccionarArbitro(List<Arbitro> arbitros) {
         
         for (int i = 0; i < arbitros.size(); i++){
@@ -660,7 +847,11 @@ public class IngresoMundial{
         }
         return arbitros.get(opcion);
     }
-
+     /**
+     * Despliega en consola el listado de Partidos agendados.
+     * * @param partidos Lista de partidos.
+     * @return El objeto Partido elegido, o null si se cancela la operación.
+     */
     public Partido seleccionarPartido(List<Partido> partidos) {
     
         for (int i = 0; i < partidos.size(); i++){
@@ -676,7 +867,11 @@ public class IngresoMundial{
         }
         return partidos.get(opcion);
     }
-
+     /**
+     * Despliega en consola el listado completo de todos los Jugadores del torneo.
+     * * @param jugadores Lista general de futbolistas.
+     * @return El objeto Jugador seleccionado, o null si se interrumpe la selección.
+     */
     public Jugador seleccionarJugador(List<Jugador> jugadores) {
     
         for (int i = 0; i < jugadores.size(); i++){
@@ -694,7 +889,11 @@ public class IngresoMundial{
         }
         return jugadores.get(opcion);
     }
-
+     /**
+     * Despliega en consola los Directores Técnicos registrados.
+     * * @param dts Lista de DTs.
+     * @return El objeto DirectorTecnico seleccionado, o null si vuelve atrás.
+     */
     public DirectorTecnico seleccionarDT(List<DirectorTecnico> dts) {
     
         for (int i = 0; i < dts.size(); i++){
@@ -712,7 +911,11 @@ public class IngresoMundial{
         }
         return dts.get(opcion);
     }
-
+    /**
+     * Despliega en consola los auxiliares técnicos o miembros del staff registrados.
+     * * @param cts Lista del Cuerpo Técnico global.
+     * @return El objeto CuerpoTecnico seleccionado, o null si decide volver al menú.
+     */
     public CuerpoTecnico seleccionarCT(List<CuerpoTecnico> cts) {
     
         for (int i = 0; i < cts.size(); i++){
