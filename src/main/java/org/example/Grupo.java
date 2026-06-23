@@ -57,14 +57,13 @@ public class Grupo {
         this.fase = fase;
     }
 
-    //metodo para agregar cada sleeccion al grupo A, B, C, etc.
     public boolean agregarSeleccion(Seleccion s){
-       if (s.getGrupo() == null){
-          this.selecciones.add(s);
-          s.setGrupo(this);
-          return true;
-       } 
-       return false;
+        if (s != null && !this.selecciones.contains(s)){
+            this.selecciones.add(s);
+            s.setGrupo(this);
+            return true;
+        } 
+        return false;
     }
     // Devuelve los puntos de una selección, calculados directo de los partidos
     // (sin instanciar Estadistica - eso queda para las clases gestoras)

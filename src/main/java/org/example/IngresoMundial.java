@@ -304,10 +304,10 @@ public class IngresoMundial{
         Fase fase = new Fase(nombre);
         for(Fase f:fases){
             if(f!=null && f.getNombreFase()!=null){
-               if(f.getNombreFase()==nombre){
+               if(f.getNombreFase().equals(nombre)){
                    System.out.println("La fase ya esta la lista");
                    return;
-               }   
+                }   
             }
         }
         fases.add(fase);
@@ -571,8 +571,14 @@ public class IngresoMundial{
                 System.out.println("Debe volver a menu y registar las selecciones que desee primero");
                 return;
             }
-            if (s2 == s1) {
-                System.out.println("Debe ser distinta al Equipo A.");
+            // --- VALIDACIÓN DE SELECCIONES DIFERENTES ---
+            // Compara las referencias en memoria, el nombre de la federación y el país para blindar el sistema
+            if (s2 == s1 || 
+                s2.getNombreFederacion().equalsIgnoreCase(s1.getNombreFederacion()) || 
+                s2.getPais().getNombre().equalsIgnoreCase(s1.getPais().getNombre())) {
+                
+                System.out.println("Error: El Equipo B debe ser una selección distinta al Equipo A (" + s1.getNombreFederacion() + ").");
+                s2 = s1; // Forzamos a mantener el bucle activo para que vuelva a pedir la selección
             }
         } while (s2 == s1);
         Participacion par2 = new Participacion(false, p, s2);
