@@ -88,17 +88,28 @@ public class Partido {
     }
     /**
      * Crea y agrega un nuevo evento en el partido.
+     * Si el jugador es nulo se asume sustitucion y se agrega sin validar.
+     * Si el jugador no es nulo se verifica que pertenezca a alguna
+     * de las selecciones participantes antes de agregar.
      * @param evento tipo de evento ocurrido.
      * @param minuto minuto que ocurrió el evento.
      * @param jugador jugador involucrado en el evento
+     * @return true si el evento fue agregado, false si el jugador no pertenece al partido.
      */
     
-    public void agregarEvento(TipoEvento evento,int minuto, Jugador jugador){
-            Evento e=new Evento(evento,minuto,jugador);
+    public boolean agregarEvento(TipoEvento evento,int minuto, Jugador jugador){
+        if(jugador == null){
+            Evento e = new Evento(evento,minuto,null);
             this.eventos.add(e);
-            if(jugador!=null){
-                jugador.agregarEvento(e); //Mantiene sincronizada la lista del jugador
-            }
+            return true;
+        }
+        if(Validador.validarEvento(this, jugador)){
+            Evento e = new Evento(evento, minuto, jugador);
+            this.eventos.add(e);
+            jugador.agregarEvento(e); // Le avisa al jugador que tiene un nuevo evento en su cuenta
+            return true;
+        }
+        return false;
     }
     /**
      * Agrega un equipo de arbitraje que dirije el parido. 

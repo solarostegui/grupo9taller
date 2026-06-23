@@ -21,7 +21,7 @@ public class IngresoMundial{
     /**
      * Solicita al usuario un número entero por consola, asegurando mediante un bucle
      * y captura de excepciones que el dato ingresado sea estrictamente válido.
-     * * @param mensaje El texto que se le muestra al usuario para solicitar el dato.
+     * @param mensaje El texto que se le muestra al usuario para solicitar el dato.
      * @return El número entero ingresado por el usuario.
      */
     public static int pedirEntero(String mensaje){
@@ -40,7 +40,7 @@ public class IngresoMundial{
      /**
      * Solicita un número flotante validando que no ocurran fallos de conversión.
      * Reemplaza las comas por puntos de ser necesario.
-     * * @param mensaje Texto explicativo que se imprime por consola.
+     * @param mensaje Texto explicativo que se imprime por consola.
      * @return El valor numérico de tipo float obtenido.
      */
     public static float pedirFloat(String mensaje) {
@@ -56,7 +56,7 @@ public class IngresoMundial{
     }
     /**
      * Solicita y retorna una cadena de texto asegurándose de que no se encuentre vacía.
-     * * @param mensaje Mensaje guía para el ingreso de datos del usuario.
+     * @param mensaje Mensaje guía para el ingreso de datos del usuario.
      * @return La cadena de caracteres limpia y validada.
      */
     public static String pedirString(String mensaje) {
@@ -73,7 +73,7 @@ public class IngresoMundial{
      /**
      * Solicita una confirmación booleana al usuario por consola a través del ingreso de
      * cadenas afirmativas o negativas (s/n, si/no, true/false).
-     * * @param mensaje Texto indicativo del requerimiento.
+     * @param mensaje Texto indicativo del requerimiento.
      * @return Verdadero (true) o falso (false) según la opción interpretada.
      */
     public static boolean pedirBooleano(String mensaje) {
@@ -91,7 +91,7 @@ public class IngresoMundial{
     }
     /**
      * Solicita un número entero que debe estar obligatoriamente acotado dentro de un rango numérico.
-     * * @param mensaje El texto instructivo para la consola.
+     * @param mensaje El texto instructivo para la consola.
      * @param min El valor entero mínimo aceptable.
      * @param max El valor entero máximo aceptable.
      * @return El entero validado dentro de los límites establecidos.
@@ -692,15 +692,11 @@ public class IngresoMundial{
             if (tipo != TipoEvento.Sustitucion) {
                 System.out.println("Jugador involucrado: ");
                 j = seleccionarJugador(jugadores);
-                if (j != null && !Validador.validarEvento(p, j)) {
-                    System.out.println("El jugador no pertenece a ninguna de las dos selecciones.");
-                    if(!pedirBooleano("¿Agregar otro evento?")){
-                    break;
-                    }
-                    continue;
-                }
             }
-            p.agregarEvento(tipo, min, j);
+            
+            if(!p.agregarEvento(tipo, min, j)){
+                 System.out.println("El jugador no pertenece a ninguna de las dos selecciones. Evento no registrado.");
+            }
             if(!pedirBooleano("¿Agregar otro evento?")){
                 break;
             }  

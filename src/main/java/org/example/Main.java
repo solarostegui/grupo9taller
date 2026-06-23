@@ -2,7 +2,9 @@ package org.example;
 import java.util.*;
 
 /**
- *
+ * Clase ejecutable del programa.
+ * Se encarga de guardar todas las listas del mundial 
+ * y arrancar el sistema con el menú.
  * @author mardalorso
  */
 
@@ -19,12 +21,20 @@ public class Main {
     List<Seleccion> selecciones = new ArrayList<>();
     List<Partido> partidos = new ArrayList<>();
     Mundial mundial;
-
+    
+    /**
+     * Punto de entrada obligatorio para que Java sepa dónde inicia la aplicación.
+     * @param args Argumentos del sistema (no se usan en este proyecto).
+     */
+    
     public static void main(String[] args) {
       Main app = new Main();
       app.ejecutar(); 
     }  
-    
+    /**
+     * Coordina el inicio de la aplicación, crea la configuración del mundial 
+     * y despliega el menú interactivo para el usuario.
+     */
     public void ejecutar(){
         //Programa prueba
         PruebaSistemaMundial prueba=new PruebaSistemaMundial();
