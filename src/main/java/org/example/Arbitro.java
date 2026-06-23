@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 /**
  * Representa a un árbitro que participa en el torneo.
- * Esta clase hereda de Persona y tine una relacion bidireccional con la clase País y con la clase Partido.
+ * Esta clase hereda de Persona y tiene una relacion bidireccional con la clase País y con la clase Partido.
  * @author Antonella Monti, María del Mar Dalorso, María Sol Arostegui
  * @version 1.0
  */
@@ -13,7 +13,7 @@ public class Arbitro extends Persona {
     private int aniosExperiencia;
     /**Relación bidireccional que establece de que País es el árbitro. */
     private Pais pais;
-    /** Colección de las asignaciones arbitrales vinculadas a la persona */
+    /** Colección de las asignaciones arbitrales vinculadas a la persona. */
     private List<Arbitraje> arbitrajes;
     /**
      * Constructor con parametros para crear un arbitro.
@@ -29,7 +29,7 @@ public class Arbitro extends Persona {
         this.pais = pais;
         this.arbitrajes=new ArrayList<Arbitraje>();
     }
-    /** Cosntructor por defecto que inicializa  la estructura de datos para la coleccion de asignaciones.
+    /** Constructor por defecto que inicializa  la estructura de datos para la coleccion de asignaciones.
     */
     public Arbitro (){
       this.arbitrajes=new ArrayList<Arbitraje>();
@@ -60,7 +60,6 @@ public class Arbitro extends Persona {
      * Agrega un nuevo arbitraje a la lista de arbitrajes del arbitro.
      * @param a agrega el arbitraje.
      */
-    //agregar lista
     public void agregarArbitraje(Arbitraje a){
         this.arbitrajes.add(a);
     }

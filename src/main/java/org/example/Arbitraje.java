@@ -15,8 +15,9 @@ public class Arbitraje {
     
     /** Relación de asociación donde a un Partido se le asocia un equipo Arbitral. */
     private Partido partido;
+    
 
-   /** Constructor para inicializar la calse de asociación con todos sus componentes. 
+   /** Constructor para inicializar la clase de asociación con todos sus componentes. 
     * @param rol Funcion que cumplirá el juez en el partido.
     * @param arbitro El objeto Arbitro que tendrá un rol específico.
     * @param partido El objeto Partido al que se le asigna el equipo arbitral.
@@ -26,7 +27,12 @@ public class Arbitraje {
         this.arbitro = arbitro;
         this.partido = partido;
     }
-
+    /** 
+     * Constructor por defecto que crea una instancia de arbitraje sin inicializar sus atributos.
+     */
+    public Arbitraje() {
+    }
+    
     public TipoCategoriaArbitro getRol() {
         return rol;
     }

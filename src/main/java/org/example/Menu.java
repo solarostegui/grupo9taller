@@ -116,12 +116,12 @@ public class Menu{
                 case 12:
                     System.out.println("Seleccione el grupo para mostrar la tabla: ");
                     Grupo g=Ingreso.seleccionarGrupo(grupos);
-                    reporte.mostrarTablaPosiciones(g);
+                    reporte.mostrarTablaPosiciones(g,partidos);
                     break;
                 case 13:
                    System.out.println("Seleccione la seleccion para mostrar los resultados: ");
                    Seleccion s=Ingreso.seleccionarSeleccion(selecciones);
-                   reporte.mostrarResultadosSeleccion(s);
+                   reporte.mostrarResultadosSeleccion(s,partidos);
                     break;
                 case 14:
                     reporte.mostrarRankingGoleadores(partidos);

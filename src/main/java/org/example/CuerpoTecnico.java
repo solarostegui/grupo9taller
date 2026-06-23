@@ -15,12 +15,10 @@ public class CuerpoTecnico extends Persona{
     /**
      * Rol específico que cumple una persona del cuerpo técnico.
      */
-    //variable miembro de objeto
     private TipoRol rol;
     /** 
      * Constructor por defecto que crea una instancia de cuerpo técnico sin inicializar sus atributos.
      */
-    //constructor por defecto
     public CuerpoTecnico(){
     }
     
@@ -62,10 +60,10 @@ public class CuerpoTecnico extends Persona{
     public boolean equals(Object o) {
         if (o == null) {
             return false;
-    }
+        }
         if (this.getClass() != o.getClass()) {
             return false;
-    }
+        }
         CuerpoTecnico otroCT = (CuerpoTecnico) o;
         
         boolean nombresIguales = this.getNombre().equalsIgnoreCase(otroCT.getNombre());

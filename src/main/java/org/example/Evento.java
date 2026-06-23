@@ -5,27 +5,35 @@
 package org.example;
 
 /**
- *
- * @author mardalorso
+ * Representa el evento de un jugador. Esta clase posee un atributo evento,minuto y una relacion bidireccional con jugador
+ * @author Maria del Mar Dalorso, Antonella Monti, Maria Sol Arostegui
+ * @version 1.0
  */
 public class Evento {
-    //variables miembro de objeto
+    /** El tipo de evento asignado al jugador. */
     private TipoEvento evento;
+    /**Minuto del evento. */
     private int minuto;
-    //bidireccional con jugador
+    /**Relación bidireccional que establece a que jugador le corresponde el evento. */
     private Jugador jugador;
 
-
-    
-    //constructor por defecto
-    public Evento(){}
-    //constructor parametrizado
-    public Evento(TipoEvento evento, int minuto, Jugador jugador) {            //ARREGLAR
+    /** 
+     * Constructor por defecto que crea una instancia de evento sin inicializar sus atributos.
+     */
+    public Evento(){
+    }
+    /** 
+     * Constructor con parametros para crear un evento.
+     * @param evento tipo del evento.
+     * @param minuto minuto del evento.
+     * @param jugador jugador involucrado en el evento.
+     */
+    public Evento(TipoEvento evento, int minuto, Jugador jugador) {
         this.evento = evento;
         this.minuto = minuto;
         this.jugador = jugador;
     }
-    //getter y setter
+    
     public TipoEvento getEvento() {
         return evento;
     }
@@ -47,7 +55,10 @@ public class Evento {
         this.jugador = jugador;
     }
 
-
+    /**
+     * Imprime los datos del evento.
+     * @return String presenta los datos del evento.
+     */
     @Override
     public String toString() {
         return "------Evento-----" + ""

@@ -367,69 +367,6 @@ public class IngresoMundial{
         selecciones.add(s);
     }
     
-    // Método auxiliar que recalcula TODA la tabla del grupo desde cero,
-   // leyendo el estado actual de los eventos. Así es seguro llamarlo
-  // las veces que sea necesario, incluso si se agregan eventos después.
-   public void actualizarEstadisticasPorPartido(Partido p, List<Partido> partidos) {
-       if (p == null || p.getSeleccion1() == null || p.getSeleccion2() == null) return;
-       Seleccion s1 = p.getSeleccion1().getSeleccion();
-       Seleccion s2 = p.getSeleccion2().getSeleccion();
-       if (s1 == null || s2 == null) return;
-
-       Grupo grupoDelPartido = s1.getGrupo();
-       if (grupoDelPartido == null || grupoDelPartido.getTablaEstadisticas() == null) return;
-
-       // 1. Reseteamos TODAS las fichas del grupo (no solo las de este partido)
-       for (Estadistica est : grupoDelPartido.getTablaEstadisticas()) {
-           if (est != null) {
-              est.restablecer();
-            }
-        } 
-
-       // 2. Recorremos TODOS los partidos del Mundial.
-       if (partidos != null) {
-        for (Partido partidoDelGrupo : partidos) {
-            if (partidoDelGrupo == null || partidoDelGrupo.getFase() == null) continue;
-            if (partidoDelGrupo.getFase().getNombreFase() != TipoNombreFase.Grupos) continue;
-            if (partidoDelGrupo.getSeleccion1() == null || partidoDelGrupo.getSeleccion2() == null) continue;
-
-            Seleccion sa = partidoDelGrupo.getSeleccion1().getSeleccion();
-            Seleccion sb = partidoDelGrupo.getSeleccion2().getSeleccion();
-            if (sa == null || sb == null) continue;
-
-            // Solo nos interesan los partidos cuyas dos selecciones son de ESTE grupo
-            if (sa.getGrupo() != grupoDelPartido || sb.getGrupo() != grupoDelPartido) continue;
-
-            Estadistica estA = null;
-            Estadistica estB = null;
-            for (Estadistica est : grupoDelPartido.getTablaEstadisticas()) {
-                if (est != null) {
-                    if (est.getSeleccion() == sa) estA = est;
-                    if (est.getSeleccion() == sb) estB = est;
-                }
-            }
-            if (estA == null || estB == null) continue;
-
-            int golesA = 0;
-            int golesB = 0;
-            if (partidoDelGrupo.getEventos() != null) {
-                for (Evento e : partidoDelGrupo.getEventos()) {
-                    if (e != null && e.getEvento() == TipoEvento.Gol && e.getJugador() != null) {
-                        if (sa.getJugador() != null && sa.getJugador().contains(e.getJugador())) {
-                            golesA++;
-                        } else if (sb.getJugador() != null && sb.getJugador().contains(e.getJugador())) {
-                            golesB++;
-                        }
-                    }
-                }
-            }
-            estA.computarPartido(golesA, golesB);
-            estB.computarPartido(golesB, golesA);
-        }
-    }
-
-      System.out.println("\nTabla del grupo " + grupoDelPartido.getIdentificacion() + " recalculada y actualizada.");
-    }
      // CREAR PARTIDO CON EVENTOS
     public void crearPartido(List<Seleccion> selecciones,List<Estadio> estadios,List<Fase> fases,List<Arbitro> arbitros,
     List<Partido> partidos, List<Jugador> jugadores) {
@@ -536,11 +473,8 @@ public class IngresoMundial{
         if (pedirBooleano("¿Desea registrar eventos ahora?")) {
             registrarEventos(p, jugadores);
             //VALIDA SI LA FASE ES GRUPO PARA SUMAR LOS PUNTOS CCORRESPONDIENTES
-            if(p.getFase().getNombreFase() == TipoNombreFase.Grupos){
-               
-              actualizarEstadisticasPorPartido(p, partidos); // <- ahora pasa "partidos" también
+            if(p.getFase().getNombreFase() == TipoNombreFase.Grupos){ 
               System.out.println("Estadisticas del grupo actualizadas");
-
             } else {
                 System.out.println("Partido de eliminación directa registrado");
             }
@@ -563,7 +497,6 @@ public class IngresoMundial{
         registrarEventos(p,jugadores);
         
         if (p.getFase() != null && p.getFase().getNombreFase() == TipoNombreFase.Grupos) {
-            actualizarEstadisticasPorPartido(p, partidos);
             System.out.println("Estadisticas del grupo actualizadas");
         } else {
             System.out.println("Partido de eliminación directa registrado");

@@ -1,21 +1,67 @@
 package org.example;
-//todos los métodos van a ser estáticos y recibir los datos que necesiten
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Comparator;
 import java.util.Collections;
 
 public class Reporte {
+    
+    // Helper interno: calcula la tabla de estadísticas de un grupo,
+    public List<Estadistica> calcularTablaEstadisticas(Grupo grupo, List<Partido> partidos) {
+        List<Estadistica> tabla = new ArrayList<>();
+        if (grupo == null || grupo.getSelecciones() == null) return tabla;
+
+        // 1. Una ficha en blanco por cada selección del grupo
+        for (Seleccion s : grupo.getSelecciones()) {
+            if (s != null) {
+                tabla.add(new Estadistica(s));
+            }
+        }
+
+        // 2. Recorremos los partidos y sumamos a la ficha que corresponda
+        if (partidos != null) {
+           for (Partido p : partidos) {
+               if (p == null || p.getFase() == null) continue;
+               if (p.getFase().getNombreFase() != TipoNombreFase.Grupos) continue;
+               if (p.getSeleccion1() == null || p.getSeleccion2() == null) continue;
+
+               Seleccion s1 = p.getSeleccion1().getSeleccion();
+               Seleccion s2 = p.getSeleccion2().getSeleccion();
+               
+               if (s1 == null || s2 == null) continue;
+               if (!grupo.getSelecciones().contains(s1) || !grupo.getSelecciones().contains(s2)) continue;
+
+               Estadistica estS1 = null;
+               Estadistica estS2 = null;
+               for (Estadistica est : tabla) {
+                    if (est != null) {
+                       if (est.getSeleccion() == s1) estS1 = est;
+                       if (est.getSeleccion() == s2) estS2 = est;
+                    }
+                }
+                if (estS1 == null || estS2 == null) continue;
+
+                int golesS1 = p.getSeleccion1().getCantidadGoles();
+                int golesS2 = p.getSeleccion2().getCantidadGoles();
+                estS1.computarPartido(golesS1, golesS2);
+                estS2.computarPartido(golesS2, golesS1);
+            }
+        }
+        return tabla;
+    }
     //TABLA DE POSICIONES POR GRUPO (REPORTE 1)
-    public void mostrarTablaPosiciones(Grupo grupo) {
-        //Impresion de los encabezados
-        grupo.actualizarTablaPosiciones();
+    public void mostrarTablaPosiciones(Grupo grupo,List<Partido> partidos) {
+        if (grupo == null) {
+            System.out.println("Grupo no válido.");
+            return;
+        }
         System.out.println("===== TABLA DE POSICIONES - Grupo " + grupo.getIdentificacion() + " =====");
         System.out.printf("%-20s %3s %3s %3s %3s %3s %3s %4s %4s%n", "Seleccion", "PJ", "PG", "PE", "PP", "GF", "GC", "DG", "PTS"); //printf para imprimir 10 argumentos
         System.out.println("-".repeat(55));
 
         //Creamos una lista local para ordenar de forma segura
-        List<Estadistica> listaEstadisticas = new ArrayList<>(grupo.getTablaEstadisticas());
+        List<Estadistica> listaEstadisticas = calcularTablaEstadisticas(grupo, partidos);
 
        //La ordenamos usando la clase comparadora
        listaEstadisticas.sort(new OrdenarEstadisticasPorPuntos());
@@ -39,7 +85,7 @@ public class Reporte {
     }
 
     //PUNTOS Y FASES DE UNA SELECCIÓN (REPORTE 2)
-    public void mostrarResultadosSeleccion(Seleccion seleccionBuscada) {
+    public void mostrarResultadosSeleccion(Seleccion seleccionBuscada,List<Partido> partidos) {
         System.out.println("===== RESULTADOS DE LA SELECCIÓN =====");
         
         // Control de null en el parámetro
@@ -58,11 +104,12 @@ public class Reporte {
         }
         // Mostrar puntajes de la fase de grupos
         System.out.println("\n--- Estadísticas en Grupo " + grupo.getIdentificacion() + " ---");
+        List<Estadistica> tabla = calcularTablaEstadisticas(grupo, partidos);
         boolean encontradaEnGrupo = false;
         
         // chequeo de null para controlar
-        if (grupo.getTablaEstadisticas() != null) {
-            for (Estadistica est : grupo.getTablaEstadisticas()) {
+        
+            for (Estadistica est : tabla) {
                 if (est != null && est.getSeleccion() != null && est.getSeleccion().equals(seleccionBuscada)) {
                     System.out.println("Puntos: " + est.getPuntos());
                     System.out.println("Partidos Jugados: " + est.getPartidosJugados());
@@ -73,7 +120,7 @@ public class Reporte {
                     break;
                 }
             }
-        }
+        
         if (!encontradaEnGrupo) {
             System.out.println("La selección no pertenece a este grupo o no tiene estadísticas calculadas.");
         }
@@ -371,11 +418,11 @@ public class Reporte {
     }
 
     //ESTADISTICAS DE SEDES (REPORTE 6)(ARREGLAR ESTO)
-    public void mostrarEstadisticasSedes(Sede sedes) {
+    public void mostrarEstadisticasSedes(Sede sede) {
         System.out.println("===== ESTADÍSTICAS DE LA SEDE =====");
         
         //Control para que no falle si no existe la sede
-        if(sedes == null){
+        if(sede == null){
             System.out.println("Sede no valida.");
             return;
         }
@@ -383,11 +430,15 @@ public class Reporte {
         int cantPartidosTotales = 0;
         
         //Recorremos los estadios de esa sede
-        for (Estadio estadio : sedes.getEstadios()) {
-            int partidos = estadio.getPartidos().size();
-            cantPartidosTotales += partidos;
-            //Sedes puede tener mas de un estadio y muestra la cantidad de partidos de los estadios de la sede luego muestra el total de partidos de la sede
-            System.out.println("Estadio: " + estadio.getNombre() + " | Partidos: " + partidos);
+       
+        if (sede.getEstadios() != null) {
+            for (Estadio estadio : sede.getEstadios()) {
+                if (estadio != null) {
+                    int partidos = (estadio.getPartidos() != null) ? estadio.getPartidos().size() : 0;
+                    cantPartidosTotales += partidos;
+                    System.out.println("Estadio: " + estadio.getNombre() + " | Partidos: " + partidos);
+                }
+            }
         }
         
         System.out.println("Total partidos de la sede: " + cantPartidosTotales);

@@ -9,6 +9,7 @@ import java.util.Objects;
  */
 
 public class DirectorTecnico extends Persona{
+    /**fecha de nombramiento del director tecnico. */
     private int fechaNombramiento;
 
     /** 
@@ -50,23 +51,23 @@ public class DirectorTecnico extends Persona{
         this.fecNacimiento = fecNacimiento;
     }
     /**
-     * Compara un director técnico con otro objeto para determianar si son iguales. 
+     * Compara un director técnico con otro objeto para determinar si son iguales. 
      * Se concideran iguales si sus nombres son iguales.
      * @param o objeto a comparar.
      * @return true si los nombres son iguales; false en caso contrario.
      */
     @Override
     public boolean equals(Object o) {
-    if (o == null) {
-        return false;
+       if (o == null) {
+          return false;
+        }
+        if (this.getClass() != o.getClass()) {
+           return false;
+        }
+        DirectorTecnico otroDT = (DirectorTecnico) o;
+        boolean nombresIguales = this.getNombre().equalsIgnoreCase(otroDT.getNombre());
+        return nombresIguales;
     }
-    if (this.getClass() != o.getClass()) {
-        return false;
-    }
-    DirectorTecnico otroDT = (DirectorTecnico) o;
-    boolean nombresIguales = this.getNombre().equalsIgnoreCase(otroDT.getNombre());
-    return nombresIguales;
-}
     @Override
     public int hashCode() {
         return Objects.hash(this.getNombre() != null ? this.getNombre().toLowerCase() : 0);
