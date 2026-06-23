@@ -9,9 +9,11 @@ public class Reporte {
     
     // Helper interno: calcula la tabla de estadísticas de un grupo,
     public List<Estadistica> calcularTablaEstadisticas(Grupo grupo, List<Partido> partidos) {
+        
         List<Estadistica> tabla = new ArrayList<>();
+        
         if (grupo == null || grupo.getSelecciones() == null) return tabla;
-
+       
         // 1. Una ficha en blanco por cada selección del grupo
         for (Seleccion s : grupo.getSelecciones()) {
             if (s != null) {
@@ -21,10 +23,12 @@ public class Reporte {
 
         // 2. Recorremos los partidos y sumamos a la ficha que corresponda
         if (partidos != null) {
-           for (Partido p : partidos) {
-               if (p == null || p.getFase() == null) continue;
-               if (p.getFase().getNombreFase() != TipoNombreFase.Grupos) continue;
-               if (p.getSeleccion1() == null || p.getSeleccion2() == null) continue;
+    for (Partido p : partidos) {
+       if (p == null || p.getFase() == null) continue;
+       
+       if (!p.getFase().getNombreFase().equals(TipoNombreFase.Grupos)) continue;
+       
+       if (p.getSeleccion1() == null || p.getSeleccion2() == null) continue;
 
                Seleccion s1 = p.getSeleccion1().getSeleccion();
                Seleccion s2 = p.getSeleccion2().getSeleccion();
@@ -40,13 +44,16 @@ public class Reporte {
                        if (est.getSeleccion() == s2) estS2 = est;
                     }
                 }
-                if (estS1 == null || estS2 == null) continue;
-
-                int golesS1 = p.getSeleccion1().getCantidadGoles();
-                int golesS2 = p.getSeleccion2().getCantidadGoles();
+                if (estS1 != null && estS2 != null) {
+                // Contamos los goles reales que tiene registrados este partido
+                int golesS1 = p.getSeleccion1().getCantidadGoles(); // O la lógica/método que tengas en Partido para contar sus goles
+                int golesS2 = p.getSeleccion2().getCantidadGoles(); 
+                
+                // Llamamos a tu método real de Estadistica.java para que sume los puntos
                 estS1.computarPartido(golesS1, golesS2);
                 estS2.computarPartido(golesS2, golesS1);
             }
+        }
         }
         return tabla;
     }

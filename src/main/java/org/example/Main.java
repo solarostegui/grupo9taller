@@ -26,6 +26,9 @@ public class Main {
     }  
     
     public void ejecutar(){
+        //Programa prueba
+        PruebaSistemaMundial prueba=new PruebaSistemaMundial();
+        prueba.ejecutarPruebas(mundial,paises, sedes, estadios, arbitros, dts, cts, jugadores, fases, grupos, selecciones, partidos);
         
         /*creamos una instancia de Ingresomundial 
         para poder usar los metodos de esa clase*/

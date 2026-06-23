@@ -52,7 +52,6 @@ public class Jugador extends Persona{
     /** 
      * Cosntructor por defecto que inicializa  la estructura de datos para la coleccion de eventos.
      */
-    
     public Jugador (){
         this.evento = new ArrayList<Evento>();
     }

@@ -85,12 +85,12 @@ public class Grupo {
      * @return {@code true} si la selección se agregó correctamente, {@code false} si ya pertenecía a un grupo.
      */
     public boolean agregarSeleccion(Seleccion s){
-       if (s.getGrupo() == null){
-          this.selecciones.add(s);
-          s.setGrupo(this);
-          return true;
-       } 
-       return false;
+        if (s != null && !this.selecciones.contains(s)){
+            this.selecciones.add(s);
+            s.setGrupo(this);
+            return true;
+        } 
+        return false;
     }
     /**
      * Calcula y devuelve los puntos de una selección dentro de este grupo.

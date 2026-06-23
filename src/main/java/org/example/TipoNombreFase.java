@@ -14,5 +14,5 @@ public enum TipoNombreFase {
     Octavos,
     Cuartos,
     Semifinal,
-    Final
+    Final;
 }

@@ -132,43 +132,33 @@ public class Menu{
             switch (opcion){
                 case 1:
                    Ingreso.crearPais(paises);
-                   System.out.println("País ingresado.");
                    break;
                 case 2:
                     Ingreso.crearSede(paises, sedes, estadios,mundial);
-                    System.out.println("Sede ingresada.");
                     break;
                 case 3:
                     Ingreso.crearArbitro(paises, arbitros);
-                    System.out.println("Arbitro ingresado.");
                     break;
                 case 4:
                     Ingreso.crearDT(dts);
-                    System.out.println("Director Tecnico ingresado.");
                     break;
                 case 5:
                     Ingreso.crearCT(cts);
-                    System.out.println("Cuerpo tecnico ingresado.");
                     break;
                 case 6:
                     Ingreso.crearFase(fases);
-                    System.out.println("Fase creada.");
                     break;
                 case 7:
                     Ingreso.crearGrupo(fases, grupos);
-                    System.out.println("Grupo creado.");
                     break;
                 case 8:
                     Ingreso.crearJugador(jugadores);
-                    System.out.println("Jugador ingresado.");
                     break;
                 case 9:
                     Ingreso.crearSeleccion(grupos, paises, dts, cts, jugadores, selecciones);
-                    System.out.println("Seleccion ingresado.");
                     break;
                 case 10:
                     Ingreso.crearPartido(selecciones, estadios, fases, arbitros, partidos, jugadores);
-                    System.out.println("Partido creado.");
                     break;
                 case 11:
                     System.out.println("Seleccione el partido para mostrar la ficha: ");
