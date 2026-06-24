@@ -602,6 +602,7 @@ public class IngresoMundial{
             System.out.println("El equipo de arbitraje no es valido o está incompleto");
             return;
         }
+        System.out.println("Equipo de arbitraje válido: SÍ");
 
         if(estadio.agregarPartido(p)){//el estadio sabe que partidos se jugaron ahi
             System.out.println("Partido asociado al estadio " + estadio.getNombre() + " con éxito.");
@@ -620,18 +621,11 @@ public class IngresoMundial{
         } else {
             System.out.println("El partido ya se encontraba en el registro global.");
         }
-        System.out.println("Equipo de arbitraje válido: SÍ");
 
         if (pedirBooleano("¿Desea registrar eventos ahora?")) {
             registrarEventos(p, jugadores);
-            //VALIDA SI LA FASE ES GRUPO PARA SUMAR LOS PUNTOS CORRESPONDIENTES
-            if(p.getFase().getNombreFase() == TipoNombreFase.Grupos){ 
-              System.out.println("Estadisticas del grupo");
             } else {
-                System.out.println("Partido de eliminación directa registrado");
-            }
-        } else {
-            System.out.println("\nEl partido se guardó como 'Programado'. Las estadísticas se actualizarán cuando registres sus eventos.");
+                System.out.println("\nEl partido se guardó como 'Programado'.");
         }
         System.out.println("Partido creado con éxito.");
     }
