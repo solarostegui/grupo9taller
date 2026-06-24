@@ -55,6 +55,12 @@ public class DirectorTecnico extends Persona{
         boolean nombresIguales = this.getNombre().equalsIgnoreCase(otroDT.getNombre());
         return nombresIguales;
     }
+    /**
+     * Genera el código hash numérico (ID de dispersión) para el objeto Director tecnico.
+     * Se sincroniza con el método equals convirtiendo el nombre a minúsculas,
+     * garantizando que dos objetos con el mismo nombre compartan idéntico hash.
+     * * @return Un entero que representa el valor hash calculado para este Cuerpo tecnico.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(this.getNombre() != null ? this.getNombre().toLowerCase() : 0);
@@ -64,7 +70,6 @@ public class DirectorTecnico extends Persona{
      * Imprime los datos del Director Técnico.
      * @return String presenta los datos personales del Director Técnico.
      */
-
     @Override
     public String toString() {
         return "-----DirectorTecnico-----" +

@@ -217,22 +217,25 @@ public class Seleccion {
    }
 
     /**
-     * Añade un jugador a la selección.
-     * Verifica que el jugador no se repita en la lista de este equipo.
-     * @param j El {@link Jugador} que se intenta agregar.
-     * @return {@code true} si el jugador fue sumado con éxito, o {@code false} si ya estaba anotado o es nulo.
+     * Intenta registrar un jugador en la lista de convocados de esta selección.
+     * Antes de agregarlo, verifica que el futbolista no sea nulo, que no esté
+     * fichado por ninguna otra selección nacional y que no esté ya repetido en esta plantilla.
+     * * @param j El objeto Jugador que se desea incorporar.
+     * @param selecciones La lista global de todas las selecciones del torneo para el control de exclusividad.
+     * @return true si el jugador cumplió todas las condiciones y fue agregado con éxito; false en caso contrario.
      */
-    public boolean agregarJugador(Jugador j){
-        if(j==null){
+    public boolean agregarJugador(Jugador j, List<Seleccion> selecciones){
+        if (j == null){
             return false;
         }
-        if(!this.jugador.contains(j)){
+        if (!Validador.validarJugadorUnico(j, selecciones)){
+            return false;
+        }
+        if (!this.jugador.contains(j)){
             this.jugador.add(j);
             return true;
-        } else{
-            return false;
-
-        }
+        }   
+        return false;
     }
     @Override
     public String toString() {

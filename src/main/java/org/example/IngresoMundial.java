@@ -430,18 +430,17 @@ public class IngresoMundial{
 
         Seleccion s = new Seleccion(fed, camPpal, camSec, cabeza, ranking, pais, grupo);
         //chequeamos que se agregue la seleccion al pais
-        if(pais.setSeleccion(s)){
-            System.out.println("La seleccion se asocio correctamente al pais ");
-            
-            // --- VALIDACIÓN 2: Evitar duplicar el DT si el método .agregarDirectoresTecnicos no lo hace solo ---
-            if (dt != null) {
-                // Asumiendo que s.getDirectoresTecnicos() devuelve la lista interna de la selección
-                if (s.getDirectoresTecnicos() != null && s.getDirectoresTecnicos().contains(dt)) {
-                    System.out.println("El Director Técnico ya está asignado a esta selección.");
-                } else {
-                    s.agregarDirectoresTecnicos(dt);
-                }
+        pais.setSeleccion(s);
+        System.out.println("La seleccion se asocio correctamente al pais ");
+        
+        // --- ASIGNACIÓN DE DT ---
+        // Delegamos el control de duplicados directamente a tu método nativo
+        if (dt != null) {
+            boolean asignado = s.agregarDirectoresTecnicos(dt);
+            if (!asignado) {
+                System.out.println("El Director Técnico ya está asignado a esta selección.");
             }
+        }
 
             if (!cts.isEmpty()) {
                 System.out.print("¿Agregar cuerpo técnico? ");
@@ -450,12 +449,10 @@ public class IngresoMundial{
                         System.out.print("¿Agregar a " + ct.getNombre() + " (" + ct.getRol() + ")? ");
                         if (pedirBooleano("")) {
                             s.agregarCuerposTecnicos(ct);
+                        }
                     }
                 }
             }
-        }
-        }
-
         System.out.println("\nAgregando jugadores a la selección " + fed);
         boolean seguir;
         do {
@@ -470,22 +467,10 @@ public class IngresoMundial{
             }
             
             //Controlamos que no exista en otra seleccion
-            boolean yaTieneSeleccion = false;
-            for (Seleccion selExistente : selecciones){
-                if(selExistente.getJugador() != null && selExistente.getJugador().contains(j)){
-                    yaTieneSeleccion = true;
-                    break;
-                }
-            }
-            if(yaTieneSeleccion){
-                System.out.println("El jugador " + j.getNombre() + " ya pertenece a una seleccion");
-            } else {
-                //Verificamos con el metodo agregarjugador si ya esta en la seleccion
-                if(s.agregarJugador(j)){
-                System.out.println("Jugador " + j.getNombre() + " agregado con éxito");
-                } else {   //pusimos 2 veces null acomodar
-                    System.out.println("Error: El jugador " + (j != null ? j.getNombre() : "") + " no es válido o ya pertenece a esta selección.");
-                }
+            if(s.agregarJugador(j, selecciones)){
+               System.out.println("Jugador " + j.getNombre() + " agregado con éxito");
+            }else {
+                System.out.println("Error: " + j.getNombre() + " ya pertenece a una selección o no es válido.");
             }
             seguir = pedirBooleano("¿Agregar otro jugador?");
         } while (seguir);

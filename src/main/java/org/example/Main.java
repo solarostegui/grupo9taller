@@ -26,7 +26,6 @@ public class Main {
      * Punto de entrada obligatorio para que Java sepa dónde inicia la aplicación.
      * @param args Argumentos del sistema (no se usan en este proyecto).
      */
-    
     public static void main(String[] args) {
       Main app = new Main();
       app.ejecutar(); 
@@ -37,8 +36,9 @@ public class Main {
      */
     public void ejecutar(){
         //Programa prueba
-        PruebaSistemaMundial prueba=new PruebaSistemaMundial();
-        prueba.ejecutarPruebas(mundial,paises, sedes, estadios, arbitros, dts, cts, jugadores, fases, grupos, selecciones, partidos);
+        Mundial mundialPrueba = new Mundial(2026, "Mascota de prueba", 20260611, 20260719);
+        PruebaSistemaMundial prueba = new PruebaSistemaMundial();
+        prueba.ejecutarPruebas(mundialPrueba,paises, sedes, estadios, arbitros, dts, cts, jugadores, fases, grupos, selecciones, partidos);
         
         /*creamos una instancia de Ingresomundial 
         para poder usar los metodos de esa clase*/

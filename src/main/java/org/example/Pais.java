@@ -140,7 +140,10 @@ public class Pais {
         return false;
     }
         
-
+    /**
+     * Devuelve una representación en texto de la información general dela pais.
+     * @return Una cadena de caracteres formateada con los datos del partido.
+     */
     @Override
     public String toString() {
         return "------Pais------- " + 

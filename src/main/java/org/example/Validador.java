@@ -94,6 +94,23 @@ public class Validador {
         }
         return false;
     }
-    
+    /**
+     * Valida que un jugador no se encuentre registrado en ninguna otra selección nacional.
+     * Este control garantiza que un futbolista pertenezca de forma exclusiva a una única delegación.
+     * * @param j El objeto Jugador que se desea verificar.
+     * @param selecciones La lista global con todas las selecciones registradas en el sistema.
+     * @return true si el jugador está libre y no tiene selección asignada; false si ya pertenece a una o si los datos son nulos.
+     */
+    public static boolean validarJugadorUnico(Jugador j, List<Seleccion> selecciones){
+        if (j == null || selecciones == null){
+           return false;
+        }
+        for (Seleccion s : selecciones){
+            if (s != null && s.getJugador() != null && s.getJugador().contains(j)){
+                return false;
+            }
+        }
+        return true;
+    }
     
 }

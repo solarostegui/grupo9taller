@@ -97,16 +97,11 @@ public class Partido {
      * @return true si el evento fue agregado, false si el jugador no pertenece al partido.
      */
     
-    public boolean agregarEvento(TipoEvento evento,int minuto, Jugador jugador){
-        if(jugador == null){
-            Evento e = new Evento(evento,minuto,null);
-            this.eventos.add(e);
-            return true;
-        }
-        if(Validador.validarEvento(this, jugador)){
+    public boolean agregarEvento(TipoEvento evento, int minuto, Jugador jugador){
+        if (Validador.validarEvento(this, jugador)){
             Evento e = new Evento(evento, minuto, jugador);
             this.eventos.add(e);
-            jugador.agregarEvento(e); // Le avisa al jugador que tiene un nuevo evento en su cuenta
+            jugador.agregarEvento(e);
             return true;
         }
         return false;
@@ -116,11 +111,13 @@ public class Partido {
      * @param a objeto que se va a agregar.
      */
     
-    public void agregarArbitraje(Arbitraje a){
-        if(a != null){
-            this.Arbitrajes.add(a);
-            a.setPartido(this);
+    public boolean agregarArbitraje(Arbitraje a){
+        if (a == null){
+            return false;
         }
+        this.Arbitrajes.add(a);
+        a.setPartido(this);
+        return Validador.validarArbitraje(this.Arbitrajes);
     }
     //getter y setter
     public LocalDate getFecha() {
@@ -192,7 +189,10 @@ public class Partido {
     public void setArbitraje(List<Arbitraje> Arbitrajes) {
         this.Arbitrajes = Arbitrajes;
     }
-  
+    /**
+     * Devuelve una representación en texto de la información general del partido.
+     * @return Una cadena de caracteres formateada con los datos del partido.
+     */
     @Override
     public String toString() {
         return """

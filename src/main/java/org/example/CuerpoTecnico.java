@@ -55,7 +55,6 @@ public class CuerpoTecnico extends Persona{
      * @param o objeto a comparar.
      * @return true si los nombres son iguales; false en caso contrario.
      */
-    
     @Override
     public boolean equals(Object o) {
         if (o == null) {
@@ -69,7 +68,13 @@ public class CuerpoTecnico extends Persona{
         boolean nombresIguales = this.getNombre().equalsIgnoreCase(otroCT.getNombre());
         
         return nombresIguales;
-}
+    }
+    /**
+     * Genera el código hash numérico (ID de dispersión) para el objeto Cuerpo tecnico.
+     * Se sincroniza con el método equals convirtiendo el nombre a minúsculas,
+     * garantizando que dos objetos con el mismo nombre compartan idéntico hash.
+     * * @return Un entero que representa el valor hash calculado para este cuerpo tecnico.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(this.getNombre() != null ? this.getNombre().toLowerCase() : 0);
