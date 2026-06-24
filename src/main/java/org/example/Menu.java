@@ -126,8 +126,9 @@ public class Menu{
             System.out.println("14. Ranking de Goleadores");
             System.out.println("15. Informe Disciplinario");
             System.out.println("16. Estadísticas por Sede ");
+            System.out.println("17. Registrar eventos de un partido");
             System.out.println("0. Salir");
-            opcion = IngresoMundial.pedirEnteroRango("Seleccione una opción: ",0,16);
+            opcion = IngresoMundial.pedirEnteroRango("Seleccione una opción: ",0,17);
             
             switch (opcion){
                 case 1:
@@ -193,6 +194,9 @@ public class Menu{
                         Estadio estadio = Ingreso.seleccionarEstadio(estadios);
                         reporte.mostrarEstadisticasEstadio(estadio);
                     }
+                    break;
+                case 17:
+                    Ingreso.registrarEventosPartido(partidos, jugadores);
                     break;
                 case 0:
                     System.out.println("Saliendo del programa...");

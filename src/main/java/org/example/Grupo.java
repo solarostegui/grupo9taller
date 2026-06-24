@@ -135,4 +135,9 @@ public class Grupo {
         }
         return puntos;
     }
+    
+    @Override
+    public String toString(){
+        return "Grupo: " + this.identificacion + " - " + this.descripcion;
+    }
 }

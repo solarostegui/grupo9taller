@@ -444,7 +444,7 @@ public class IngresoMundial{
             dt = seleccionarDT(dts);
         }
 
-        Seleccion s = new Seleccion(fed, camPpal, camSec, cabeza, ranking, pais, grupo);
+        Seleccion s = new Seleccion(fed, camPpal, camSec, cabeza, ranking, pais, null);
         //chequeamos que se agregue la seleccion al pais
         if(!pais.setSeleccion(s)){
            System.out.println("Error: el país " + pais.getNombre() + " ya tiene una selección asignada. No se puede crear otra.");
@@ -494,7 +494,7 @@ public class IngresoMundial{
         } while (seguir);
 
         if(grupo.agregarSeleccion(s)){
-            System.out.println("Seleccion " + fed + "agregada al grupo " + grupo.getIdentificacion());
+            System.out.println("Seleccion " + fed + " agregada al grupo " + grupo.getIdentificacion());
             selecciones.add(s);
         } else {
             System.out.println("La seleccion ya pertenece a un grupo");
