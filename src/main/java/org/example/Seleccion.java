@@ -220,7 +220,7 @@ public class Seleccion {
      * Intenta registrar un jugador en la lista de convocados de esta selección.
      * Antes de agregarlo, verifica que el futbolista no sea nulo, que no esté
      * fichado por ninguna otra selección nacional y que no esté ya repetido en esta plantilla.
-     * * @param j El objeto Jugador que se desea incorporar.
+     * @param j El objeto Jugador que se desea incorporar.
      * @param selecciones La lista global de todas las selecciones del torneo para el control de exclusividad.
      * @return true si el jugador cumplió todas las condiciones y fue agregado con éxito; false en caso contrario.
      */

@@ -97,7 +97,7 @@ public class Validador {
     /**
      * Valida que un jugador no se encuentre registrado en ninguna otra selección nacional.
      * Este control garantiza que un futbolista pertenezca de forma exclusiva a una única delegación.
-     * * @param j El objeto Jugador que se desea verificar.
+     * @param j El objeto Jugador que se desea verificar.
      * @param selecciones La lista global con todas las selecciones registradas en el sistema.
      * @return true si el jugador está libre y no tiene selección asignada; false si ya pertenece a una o si los datos son nulos.
      */

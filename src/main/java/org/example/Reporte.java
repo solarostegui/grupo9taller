@@ -501,6 +501,11 @@ public class Reporte {
         System.out.println("Total partidos de la sede: " + cantPartidosTotales);
     }
     
+    /**
+     * Informe: Estadísticas de Sedes.
+     * Muestra la cantidad de partidos jugados en un estadio especifico.
+     * @param estadio El {@link Estadio} del cual se quieren consultar sus datos.
+     */
     public void mostrarEstadisticasEstadio(Estadio estadio){
         if (estadio == null){
             System.out.println("Estadio no valido");

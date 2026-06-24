@@ -624,9 +624,9 @@ public class IngresoMundial{
 
         if (pedirBooleano("¿Desea registrar eventos ahora?")) {
             registrarEventos(p, jugadores);
-            //VALIDA SI LA FASE ES GRUPO PARA SUMAR LOS PUNTOS CCORRESPONDIENTES
+            //VALIDA SI LA FASE ES GRUPO PARA SUMAR LOS PUNTOS CORRESPONDIENTES
             if(p.getFase().getNombreFase() == TipoNombreFase.Grupos){ 
-              System.out.println("Estadisticas del grupo actualizadas");
+              System.out.println("Estadisticas del grupo");
             } else {
                 System.out.println("Partido de eliminación directa registrado");
             }
