@@ -73,8 +73,6 @@ public class Pais {
     public List<Arbitro> getArbitros() {
         return arbitros;
     }
-
-    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

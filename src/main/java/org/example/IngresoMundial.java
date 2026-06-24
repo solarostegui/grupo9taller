@@ -116,18 +116,34 @@ public class IngresoMundial{
         System.out.println("  BIENVENIDO AL SISTEMA DE GESTIÓN DEL MUNDIAL   ");
         System.out.println("=================================================");
         System.out.println("\nAntes de comenzar, es obligatorio registrar el Mundial.");
+    
+        int anio = pedirEntero("Ingrese el año (ej: 2026): ");
+        String mascota = pedirString("Ingrese la mascota: ");
+    
         
-        int anio = pedirEntero("Ingrese el año: ");
-
-        String mascota =pedirString("Ingrese la mascota: ");
+        int fechaDesde = 0;
+        int fechaHasta = 0;
+    
+        do {
+            System.out.println("\n[Importante: Ingrese las fechas como números corridos sin barras ni guiones]");
+            fechaDesde = pedirEntero("Fecha de inicio del Mundial (AAAAMMDD): ");
+            fechaHasta = pedirEntero("Fecha de finalizacion del Mundial (AAAAMMDD): ");
         
-        int fechaDesde = pedirEntero(" Año de inicio del Mundial: ");
-        int fechaHasta = pedirEntero(" Año de finalizacion del Mundial: ");
+            // Validación numérica: corroboramos que tengan 8 dígitos (ej: 20260615 es >= 10000000)
+            if (fechaDesde < 10000000 || fechaHasta < 10000000) {
+                System.out.println("Error: Formato incorrecto. Debe ingresar 8 números seguidos (Año, Mes y Día).");
+            } 
+            // Validación lógica: que el mundial no termine antes de empezar numéricamente
+            else if (fechaHasta < fechaDesde) {
+                System.out.println("Error: La fecha de finalización no puede ser menor a la fecha de inicio.");
+            }
+          
+        } while (fechaDesde < 10000000 || fechaHasta < 10000000 || fechaHasta < fechaDesde);
+    
         
-        Mundial mundial= new Mundial(anio, mascota, fechaDesde, fechaHasta);
+        Mundial mundial = new Mundial(anio, mascota, fechaDesde, fechaHasta);
         System.out.println("Mundial " + anio + " creado con éxito.");
         return mundial;
-        
     }
     /**
      * Crea un nuevo País controlando de manera previa que su nombre de identificación
@@ -430,9 +446,11 @@ public class IngresoMundial{
 
         Seleccion s = new Seleccion(fed, camPpal, camSec, cabeza, ranking, pais, grupo);
         //chequeamos que se agregue la seleccion al pais
-        pais.setSeleccion(s);
+        if(!pais.setSeleccion(s)){
+           System.out.println("Error: el país " + pais.getNombre() + " ya tiene una selección asignada. No se puede crear otra.");
+           return;
+        }
         System.out.println("La seleccion se asocio correctamente al pais ");
-        
         // --- ASIGNACIÓN DE DT ---
         // Delegamos el control de duplicados directamente a tu método nativo
         if (dt != null) {
@@ -523,8 +541,8 @@ public class IngresoMundial{
         }
         System.out.println("\n--- NUEVO PARTIDO ---");
 
-        int dia =pedirEntero("Día del partido (1-31): ");
-        int mes = pedirEntero("Mes (1-12): ");
+        int dia =pedirEnteroRango("Día del partido (1-31): ",1,31);
+        int mes = pedirEnteroRango("Mes (1-12): ",1,12);
         int anio = pedirEntero("Año (ej: 2026): ");
         LocalDate fecha = LocalDate.of(anio, mes, dia);
 
@@ -667,22 +685,18 @@ public class IngresoMundial{
             System.out.println("\nNuevo evento:");
             TipoEvento tipo = IngresoEnum.elegirTipoEvento();
             int min = pedirEntero("Minuto: ");
-            Jugador j = null;
-            if (tipo != TipoEvento.Sustitucion) {
-                System.out.println("Jugador involucrado: ");
-                j = seleccionarJugador(jugadores);
-            }
+            System.out.println("Jugador involucrado: ");
+            Jugador j = seleccionarJugador(jugadores);
             
             if(!p.agregarEvento(tipo, min, j)){
-                 System.out.println("El jugador no pertenece a ninguna de las dos selecciones. Evento no registrado.");
+               System.out.println("El jugador no pertenece a ninguna de las dos selecciones. Evento no registrado.");
             }
             if(!pedirBooleano("¿Agregar otro evento?")){
-                break;
+               break;
             }  
         }
         System.out.println("Eventos registrados correctamente.\n");
     }
-    
     
     /**
      * Despliega en consola el listado iterable de Países para la selección del usuario.
@@ -856,7 +870,7 @@ public class IngresoMundial{
     public Jugador seleccionarJugador(List<Jugador> jugadores) {
     
         for (int i = 0; i < jugadores.size(); i++){
-           System.out.println(" " + i + " - " + jugadores.get(i));
+           System.out.println(" " + i + " - " + jugadores.get(i).toString());
         }
     
         System.out.println(" " + jugadores.size() + " - [Volver al menú para crear nuevo jugador]");
@@ -879,7 +893,7 @@ public class IngresoMundial{
     
         for (int i = 0; i < dts.size(); i++){
         
-            System.out.println(" " + i + " - " + dts.get(i));
+            System.out.println(" " + i + " - " + dts.get(i).toString());
         }
     
         System.out.println(" " + dts.size() + " - [Volver al menú para crear nuevo DT]");
@@ -900,7 +914,7 @@ public class IngresoMundial{
     public CuerpoTecnico seleccionarCT(List<CuerpoTecnico> cts) {
     
         for (int i = 0; i < cts.size(); i++){
-            System.out.println(" " + i + " - " + cts.get(i));
+            System.out.println(" " + i + " - " + cts.get(i).toString());
         }
     
         System.out.println(" " + cts.size() + " - [Volver al menú para crear nuevo cuerpo técnico]");

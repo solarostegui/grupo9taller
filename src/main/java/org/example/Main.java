@@ -36,9 +36,21 @@ public class Main {
      */
     public void ejecutar(){
         //Programa prueba
-        Mundial mundialPrueba = new Mundial(2026, "Mascota de prueba", 20260611, 20260719);
-        PruebaSistemaMundial prueba = new PruebaSistemaMundial();
-        prueba.ejecutarPruebas(mundialPrueba,paises, sedes, estadios, arbitros, dts, cts, jugadores, fases, grupos, selecciones, partidos);
+        //Mundial mundialPrueba = new Mundial(2026, "Mascota de prueba", 20260611, 20260719);
+        //PruebaSistemaMundial prueba = new PruebaSistemaMundial();
+        //prueba.ejecutarPruebas(mundialPrueba,paises, sedes, estadios, arbitros, dts, cts, jugadores, fases, grupos, selecciones, partidos);
+        Arbitro arb1 = new Arbitro("Néstor Pitana", 1975, 15, null);
+        Arbitro arb2 = new Arbitro("Hernán Maidana", 1977, 12, null);
+        Arbitro arb3 = new Arbitro("Juan Belatti", 1979, 11, null);
+        Arbitro arb4 = new Arbitro("Mauro Vigliano", 1975, 10, null);
+        Arbitro arb5 = new Arbitro("Clement Turpin", 1982, 14, null);
+        Arbitro arb6 = new Arbitro("Nicolas Danos", 1980, 9, null);
+        arbitros.add(arb1);
+        arbitros.add(arb2);
+        arbitros.add(arb3);
+        arbitros.add(arb4);
+        arbitros.add(arb5);
+        arbitros.add(arb6);
         
         /*creamos una instancia de Ingresomundial 
         para poder usar los metodos de esa clase*/

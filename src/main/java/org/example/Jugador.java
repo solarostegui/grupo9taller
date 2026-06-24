@@ -135,10 +135,8 @@ public class Jugador extends Persona{
   
        Jugador j = (Jugador) o;
        boolean nombresIgual = this.getNombre().equalsIgnoreCase(j.getNombre());
-       boolean pesoIgual=this.getPeso()==j.getPeso();
-       boolean alturaIgual=this.getAltura()==j.getAltura();
        
-       return nombresIgual && pesoIgual && alturaIgual;
+       return nombresIgual;
     }
     //para no tener problemas con contains ni hasmap
     @Override
