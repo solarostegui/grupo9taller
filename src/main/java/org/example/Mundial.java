@@ -44,14 +44,14 @@ public class Mundial {
         this.mascota = mascota;
         this.fechadesde = fechadesde;
         this.fechahasta = fechahasta;
-        this.sedes = new ArrayList<Sede>();
+        this.sedes = new ArrayList<>();
     }
     
     /**
      * Constructor por defecto que inicializa la lista de sedes vacía.
      */
     public Mundial (){
-        this.sedes = new ArrayList<Sede>();
+        this.sedes = new ArrayList<>();
     }
     
     public int getAnio() {

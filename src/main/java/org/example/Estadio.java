@@ -20,7 +20,7 @@ public class Estadio {
     /** Constructor por defecto que inicia  la estructura de datos para la coleccion de partidos.aliz
     */
     public Estadio(){
-        this.partidos=new ArrayList<Partido>();
+        this.partidos=new ArrayList<>();
     }
     /** 
      * Constructor con parametros para crear un estadio.
@@ -32,7 +32,7 @@ public class Estadio {
         this.nombre = nombre;
         this.capacidad = capacidad;
         this.sede = sede;
-        this.partidos=new ArrayList<Partido>();
+        this.partidos=new ArrayList<>();
     }
     
     

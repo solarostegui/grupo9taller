@@ -21,14 +21,14 @@ public class Fase {
      */
     public Fase(TipoNombreFase nombreFase) {
         this.nombreFase = nombreFase;
-        this.partidos=new ArrayList<Partido>();
-        this.grupos=new ArrayList<Grupo>();
+        this.partidos=new ArrayList<>();
+        this.grupos=new ArrayList<>();
     }
     /** Constructor por defecto que inicializa  las estructuras de datos para la colección de partidos y de grupos.
     */
     public Fase(){
-        this.partidos=new ArrayList<Partido>();
-        this.grupos=new ArrayList<Grupo>();
+        this.partidos=new ArrayList<>();
+        this.grupos=new ArrayList<>();
     }
 
     
@@ -46,8 +46,12 @@ public class Fase {
         this.partidos = partidos;
     }
 
-    public List<Grupo> getGrupos() {return grupos;}
-    public void setGrupos(List<Grupo> grupos) {this.grupos = grupos;}
+    public List<Grupo> getGrupos() {
+        return grupos;
+    }
+    public void setGrupos(List<Grupo> grupos) {
+        this.grupos = grupos;
+    }
     /** 
      * Agrega un nuevo partido a la lista de partidos de la fase.
      * @param p objeto que se agrega a la lista.

@@ -59,7 +59,7 @@ public class DirectorTecnico extends Persona{
      * Genera el código hash numérico (ID de dispersión) para el objeto Director tecnico.
      * Se sincroniza con el método equals convirtiendo el nombre a minúsculas,
      * garantizando que dos objetos con el mismo nombre compartan idéntico hash.
-     * * @return Un entero que representa el valor hash calculado para este Cuerpo tecnico.
+     * @return Un entero que representa el valor hash calculado para este Cuerpo tecnico. 
      */
     @Override
     public int hashCode() {
@@ -72,8 +72,9 @@ public class DirectorTecnico extends Persona{
      */
     @Override
     public String toString() {
-        return "-----DirectorTecnico-----" +
-                "\nNombre: "+ super.nombre +
+        return """
+               -----DirectorTecnico-----
+               Nombre: """+ super.nombre +
                 "\nFecha de nacimiento: "+ super.fecNacimiento+
                 "\nFecha de nombramiento: " + this.fechaNombramiento;
     }

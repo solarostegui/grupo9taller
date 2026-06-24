@@ -45,8 +45,8 @@ public class Pais {
     public Pais (String nombre, String bandera){ //Sin seleccion para poder inicializar desde país, dos clases no pueden depender entre sí
         this.nombre = nombre;
         this.bandera = bandera;
-        this.sedes = new ArrayList<Sede>();
-        this.arbitros = new ArrayList<Arbitro>();
+        this.sedes = new ArrayList<>();
+        this.arbitros = new ArrayList<>();
     }
     /**
      * Constructor por defecto que inicializa las colecciones de sedes y arbitros 
@@ -54,8 +54,8 @@ public class Pais {
      */
     
     public Pais (){
-        this.sedes = new ArrayList<Sede>();
-        this.arbitros = new ArrayList<Arbitro>();
+        this.sedes = new ArrayList<>();
+        this.arbitros = new ArrayList<>();
     }
     
     public String getNombre() {
@@ -146,8 +146,9 @@ public class Pais {
      */
     @Override
     public String toString() {
-        return "------Pais------- " + 
-                "\nNombre: " + this.nombre + 
+        return """
+               ------Pais------- 
+               Nombre: """ + this.nombre + 
                 "\nBandera: " + this.bandera;
     }
     

@@ -28,12 +28,12 @@ public class Arbitro extends Persona {
         super(nombre, fecNacimiento);
         this.aniosExperiencia = aniosExperiencia;
         this.pais = pais;
-        this.arbitrajes=new ArrayList<Arbitraje>();
+        this.arbitrajes=new ArrayList<>();
     }
     /** Constructor por defecto que inicializa  la estructura de datos para la coleccion de asignaciones.
     */
     public Arbitro (){
-      this.arbitrajes=new ArrayList<Arbitraje>();
+      this.arbitrajes=new ArrayList<>();
     }
 
     // getter y setter
@@ -68,9 +68,10 @@ public class Arbitro extends Persona {
      * Compara este árbitro con otro objeto para determinar su igualdad.
      * Dos árbitros se consideran idénticos si poseen el mismo nombre, 
      * sin hacer distinción entre mayúsculas y minúsculas (Case-Insensitive).
-     * * @param o Objeto de referencia con el cual se va a comparar.
+     * @param o Objeto de referencia con el cual se va a comparar.
      * @return true si el objeto es un Árbitro y tiene el mismo nombre; false en caso contrario.
      */
+    @Override
     public boolean equals(Object o){
         if(o==null) return false;
         if (this.getClass() != o.getClass()) {
@@ -86,7 +87,7 @@ public class Arbitro extends Persona {
      * Genera el código hash numérico (ID de dispersión) para el objeto Árbitro.
      * Se sincroniza con el método equals convirtiendo el nombre a minúsculas,
      * garantizando que dos objetos con el mismo nombre compartan idéntico hash.
-     * * @return Un entero que representa el valor hash calculado para este árbitro.
+     * @return Un entero que representa el valor hash calculado para este árbitro.
      */
     @Override
     public int hashCode() {
@@ -98,8 +99,9 @@ public class Arbitro extends Persona {
      */
     @Override
     public String toString() {
-        return "-----Arbitro----" +
-                "\nNombre: "+super.nombre+
+        return """
+               -----Arbitro----
+               Nombre: """+super.nombre+
                 "\n Fecha de naciemiento: "+super.fecNacimiento+
                 "\nAños de experiencia: "+this.aniosExperiencia+
                 "\nPais: "+(this.pais!=null ? this.pais.getNombre(): "Sin pais");

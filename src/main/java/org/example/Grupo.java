@@ -36,7 +36,7 @@ public class Grupo {
     public Grupo(String identificacion, String descripcion,Fase fase) {
         this.identificacion = identificacion;
         this.descripcion = descripcion;
-        this.selecciones = new ArrayList<Seleccion>();
+        this.selecciones = new ArrayList<>();
         this.fase = fase;
         
     }
@@ -47,7 +47,7 @@ public class Grupo {
     public Grupo(){
         this.identificacion = "";
         this.descripcion = "";
-        this.selecciones = new ArrayList<Seleccion>();
+        this.selecciones = new ArrayList<>();
         
         
     }

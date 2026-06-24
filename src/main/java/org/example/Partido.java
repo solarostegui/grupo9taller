@@ -107,8 +107,11 @@ public class Partido {
         return false;
     }
     /**
-     * Agrega un equipo de arbitraje que dirije el parido. 
+     * Agrega un equipo de arbitraje que dirige el parido. 
+     * Controla automáticamente si con esta incorporación el equipo arbitral ya cumple con los requisitos del torneo.
      * @param a objeto que se va a agregar.
+     * @return {@code true} si el equipo de arbitraje asignado al partido ya está completo y es válido,
+     * o {@code false} si el dato es nulo o aún faltan roles por cubrir
      */
     
     public boolean agregarArbitraje(Arbitraje a){

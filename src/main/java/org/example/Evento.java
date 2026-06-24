@@ -61,8 +61,9 @@ public class Evento {
      */
     @Override
     public String toString() {
-        return "------Evento-----" + ""
-                + "\nEvento: " + this.evento
+        return """
+               ------Evento-----
+               Evento: """ + this.evento
                 + "\nMinuto: " + this.minuto ;
     }
     

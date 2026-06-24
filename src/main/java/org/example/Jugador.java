@@ -47,13 +47,13 @@ public class Jugador extends Persona{
         this.posicion = posicion;
         this.peso = peso;
         this.altura = altura;
-        this.evento = new ArrayList<Evento>();
+        this.evento = new ArrayList<>();
     }
     /** 
      * Cosntructor por defecto que inicializa  la estructura de datos para la coleccion de eventos.
      */
     public Jugador (){
-        this.evento = new ArrayList<Evento>();
+        this.evento = new ArrayList<>();
     }
 
     
@@ -109,8 +109,9 @@ public class Jugador extends Persona{
 
     @Override
     public String toString() {
-        return "-------Jugador-------"
-                +"\nNombre: "+ super.nombre+
+        return """
+               -------Jugador-------
+               Nombre: """+ super.nombre+
                 "\nFecha nacimiento: "+super.fecNacimiento+
                 "\nDorsal: "+this.dorsal+
                 "\nPosicion: " + this.posicion + "\nPeso: " + this.peso + 
