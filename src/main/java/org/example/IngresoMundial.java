@@ -217,6 +217,10 @@ public class IngresoMundial{
         }
 
         int cant = pedirEntero("¿Cuántos estadios tiene esta sede? ");
+        while(cant==0){
+            System.out.println("La sede debe tener al menor un estadio");
+            cant = pedirEntero("¿Cuántos estadios tiene esta sede? ");
+        }
         for (int i = 0; i < cant; i++) {
             System.out.println("\nEstadio " + (i + 1) + " de " + cant);
             String nomEst =pedirString("Nombre del estadio: ");
