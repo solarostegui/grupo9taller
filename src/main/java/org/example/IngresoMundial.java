@@ -429,7 +429,7 @@ public class IngresoMundial{
 
         System.out.println("\n--- NUEVA SELECCIÓN ---");
         String fed = pedirString("Nombre de la federación (ej: AFA): ");
-        // --- VALIDACIÓN 1: Evitar que se duplique la Selección en la lista general ---
+        //Evitar que se duplique la Selección en la lista general ---
         for (Seleccion sel : selecciones) {
             if (sel.getNombreFederacion().equalsIgnoreCase(fed)) { 
                 System.out.println("Error: Ya existe una selección registrada con la federación: " + fed);
